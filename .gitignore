@@ -1,8 +1,8 @@
 Data_Memory/.bsp/
 Data_Memory/.metals/
 Data_Memory/.vscode/
-Data_Memory/.project/
-Data_Memory/.target/
+Data_Memory/project/
+Data_Memory/target/
 Data_Memory/Memory.anno.json
 Data_Memory/Memory.fir
 Data_Memory/Memory.v
