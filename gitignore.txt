@@ -1,0 +1,8 @@
+Data_Memory/.bsp
+Data_Memory/.metals
+Data_Memory/.vscode
+Data_Memory/.project
+Data_Memory/.target
+Memory.anno.json
+Memory.fir
+Memory.v
