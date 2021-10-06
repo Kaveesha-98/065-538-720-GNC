@@ -2,7 +2,7 @@ Data_Memory/.bsp/
 Data_Memory/.metals/
 Data_Memory/.vscode/
 Data_Memory/project/
-Data_Memory/target/
+
 Data_Memory/test_run_dir/
 Data_Memory/Memory.anno.json
 Data_Memory/Memory.fir
