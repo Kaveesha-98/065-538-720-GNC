@@ -5,12 +5,12 @@ import org.scalatest._
 class Tester(dut: Memory ) extends PeekPokeTester(dut) {
   // Write data 5 to address 6
   poke(dut.io.wrEna,true.B)
-  poke(dut.io.wrData,5.U)
+  poke(dut.io.wrData,-5.S)
   poke(dut.io.wrAddr,6.U)
   step(1)
   // Write data 40 to address 10
   poke(dut.io.wrEna,true.B)
-  poke(dut.io.wrData,40.U)
+  poke(dut.io.wrData,-40.S)
   poke(dut.io.wrAddr,10.U)
   step(1)
   // Read address 6
@@ -27,7 +27,7 @@ class Tester(dut: Memory ) extends PeekPokeTester(dut) {
   println("")
   // Write data 50 to address 6 and read address 6
   poke(dut.io.wrEna,true.B)
-  poke(dut.io.wrData,50.U)
+  poke(dut.io.wrData,50.S)
   poke(dut.io.wrAddr,6.U)
   poke(dut.io.rdAddr,6.U)
   step(1)
