@@ -60,7 +60,7 @@ class Store_Unit extends Module{
 			}
 		}
 		is(not_ready){
-			when(io.ADDRESS_IN === 1.U){
+			when(io.ADDRESS_IN === 1.U && storing === absent){
 				store_data_buffer_address := io.store_address
 				storing := present				
 			}

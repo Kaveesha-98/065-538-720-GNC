@@ -21,7 +21,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	poke(dut.io.store_data, "x12345678".U)
 	poke(dut.io.STORE_SIZE, 3.U)
 	step(1)
-	poke(dut.io.DATA_IN, 0.U)
+	//poke(dut.io.DATA_IN, 0.U)
 	
 	println("After data has been given to store unit, status of store unit:")
 	if(peek(dut.io.STORE_READY).toString == "1"){
@@ -37,7 +37,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	poke(dut.io.ADDRESS_IN, 1.U)
 	poke(dut.io.store_address, "x9ABCDEF0".U)
 	step(1)
-	poke(dut.io.ADDRESS_IN, 0.U)
+	//poke(dut.io.ADDRESS_IN, 0.U)
 	
 	println("After data address has been given to store unit, status of store unit:")
 	if(peek(dut.io.STORE_READY).toString == "1"){
