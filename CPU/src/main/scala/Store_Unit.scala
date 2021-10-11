@@ -4,7 +4,7 @@ import chisel3.util._
 class Store_Unit extends Module{
 	val io = IO(new Bundle{
 		//Ports connecting to main memory
-		val mem_write_data = Output(UInt(8.W))
+		val mem_write_data = Output(SInt(8.W))
 		val mem_write_address = Output(UInt(32.W))
 		val mem_write = Output(UInt(1.W))
 		//connections with ctrl signal dispatch unit
@@ -13,7 +13,7 @@ class Store_Unit extends Module{
 		val STORE_SIZE = Input(UInt(2.W))//00-byte, 11-halfword, 01-word
 		val ADDRESS_IN = Input(UInt(1.W))//Signals the store unit that address has been given
 		//connections with datapaths
-		val store_data = Input(UInt(32.W))
+		val store_data = Input(SInt(32.W))
 		val store_address = Input(UInt(32.W))
 	})
 	
@@ -27,13 +27,13 @@ class Store_Unit extends Module{
 	val ready :: not_ready :: Nil = Enum(2)
 	val stateReg = RegInit(ready)
 	
-	
+	io.mem_write_data := 0.S
 	io.STORE_READY := 0.U
 	
 	//Storing the data
 	when(storing === present){
 		io.mem_write_address := store_data_buffer_address
-		io.mem_write_data := store_data_buffer(7, 0)
+		io.mem_write_data := store_data_buffer(7, 0).asSInt
 		io.mem_write := 1.U
 		store_data_buffer := store_data_buffer >> 8
 		store_data_buffer_address := store_data_buffer_address + 1.U
@@ -45,7 +45,7 @@ class Store_Unit extends Module{
 		}
 		
 	}otherwise{
-		io.mem_write_data := 0.U
+		io.mem_write_data := 0.S
 		io.mem_write_address := 0.U
 		io.mem_write := 0.U
 	}
@@ -54,7 +54,7 @@ class Store_Unit extends Module{
 		is(ready){
 			when(io.DATA_IN === 1.U){
 				stateReg := not_ready
-				store_data_buffer := io.store_data
+				store_data_buffer := io.store_data.asUInt
 				store_data_size_buffer := io.STORE_SIZE
 				io.STORE_READY := 1.U
 			}
