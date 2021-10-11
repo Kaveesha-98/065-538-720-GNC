@@ -6,7 +6,7 @@ class Memory() extends Module{
     val io = IO(new Bundle{
         val rdAddr = Input(UInt(32.W))
         val rdData = Output(SInt(8.W))
-        val wrEna = Input(UInt(1.W))
+        val mem_write = Input(UInt(1.W))
         val mem_write_data = Input(SInt(8.W))
         val mem_write_address = Input(UInt(32.W))
     })
@@ -14,11 +14,11 @@ class Memory() extends Module{
     val mem = SyncReadMem(1024, SInt(8.W))
 
     val wrDataReg = RegNext(io.mem_write_data)
-    val doForwardReg = RegNext(io.mem_write_address === io.rdAddr && io.wrEna)
+    val doForwardReg = RegNext(io.mem_write_address === io.rdAddr && io.mem_write_)
 
     val memData = mem.read(io.rdAddr)
 
-    when(io.wrEna) {
+    when(io.mem_write) {
         mem.write(io.mem_write_address , io.mem_write_data)
     }
     
