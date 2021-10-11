@@ -28,7 +28,7 @@ class Store_Unit extends Module{
 	val stateReg = RegInit(ready)
 	
 	
-	io.STORE_READY := 1.U
+	io.STORE_READY := 0.U
 	
 	//Storing the data
 	when(storing === present){
