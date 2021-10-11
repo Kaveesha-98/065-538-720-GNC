@@ -7,3 +7,12 @@ Data_Memory/test_run_dir/
 Data_Memory/Memory.anno.json
 Data_Memory/Memory.fir
 Data_Memory/Memory.v
+CPU/.bsp/
+CPU/.metals/
+CPU/.vscode/
+CPU/project/
+CPU/target/
+CPU/test_run_dir/
+CPU/*.json
+CPU/*.fir
+CPU/*.v
