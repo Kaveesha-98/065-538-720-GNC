@@ -6,7 +6,7 @@ class Memory() extends Module{
     val io = IO(new Bundle{
         val rdAddr = Input(UInt(32.W))
         val rdData = Output(SInt(8.W))
-        val wrEna = Input(Bool())
+        val wrEna = Input(UInt(1.W))
         val mem_write_data = Input(SInt(8.W))
         val mem_write_address = Input(UInt(32.W))
     })
