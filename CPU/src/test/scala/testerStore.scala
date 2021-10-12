@@ -18,7 +18,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	//Loading data to store unit
 	print("Loading data to store unit")
 	poke(dut.io.DATA_IN, 1.U)
-	poke(dut.io.store_data, "x12345678".U)
+	poke(dut.io.store_data, 0x12345678.S)
 	poke(dut.io.STORE_SIZE, 0.U)
 	step(1)
 	//poke(dut.io.DATA_IN, 0.U)
