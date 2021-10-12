@@ -13,11 +13,10 @@ class tester_store_memory_connect(dut: store_memory_connect) extends PeekPokeTes
 	val bytes = 4
 	
 	println("Attempig load before storing data")
-	for (w <- 1 to 4){
-		poke(dut.io.rdAddr, loadAddress.U)
+	for (offset <- -5 to 5){
+		poke(dut.io.rdAddr, (loadAddress + offset).U)
 		step(1)
-		println("Data Address: " + loadAddress.toString + ", Data: " + peek(dut.io.rdData).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
-		loadAddress = loadAddress + 1
+		println("Data Address: " + (loadAddress + offset).toString.reverse.padTo(2, '0').reverse + ", Data: " + peek(dut.io.rdData).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	}
 	
 	println("Giving data to store")
@@ -33,11 +32,18 @@ class tester_store_memory_connect(dut: store_memory_connect) extends PeekPokeTes
 	
 	loadAddress = startAddress
 	
-	for (w <- 1 to bytes){
-		poke(dut.io.rdAddr, loadAddress.U)
+	println("reading while being stored")
+	for (offset <- 0 to (bytes - 1)){
+		poke(dut.io.rdAddr, (loadAddress + offset).U)
 		step(1)
-		println("Data Address: " + loadAddress.toString + ", Data: " + peek(dut.io.rdData).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
-		loadAddress = loadAddress + 1
+		println("Data Address: " + (loadAddress + offset).toString.reverse.padTo(2, '0').reverse + ", Data: " + peek(dut.io.rdData).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
+	}
+	
+	println("Attempig load after storing data")
+	for (offset <- -5 to 5){
+		poke(dut.io.rdAddr, (loadAddress + offset).U)
+		step(1)
+		println("Data Address: " + (loadAddress + offset).toString.reverse.padTo(2, '0').reverse + ", Data: " + peek(dut.io.rdData).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	}
 }
 
