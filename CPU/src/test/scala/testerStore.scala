@@ -11,7 +11,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	}else{
 		println("Store unit not ready")
 	}
-	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString)
+	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	println("write memory data address: " + peek(dut.io.mem_write_address).toInt.toBinaryString)
 	println("write memory op: " + peek(dut.io.mem_write).toInt.toBinaryString)
 	
@@ -29,7 +29,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	}else{
 		println("Store unit not ready")
 	}
-	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString)
+	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	println("write memory data address: " + peek(dut.io.mem_write_address).toInt.toBinaryString)
 	println("write memory op: " + peek(dut.io.mem_write).toInt.toBinaryString)
 	
@@ -45,7 +45,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	}else{
 		println("Store unit not ready")
 	}
-	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString)
+	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	println("write memory data address: " + peek(dut.io.mem_write_address).toInt.toBinaryString)
 	println("write memory op: " + peek(dut.io.mem_write).toInt.toBinaryString)
 	
@@ -57,7 +57,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	}else{
 		println("Store unit not ready")
 	}
-	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString)
+	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	println("write memory data address: " + peek(dut.io.mem_write_address).toInt.toBinaryString)
 	println("write memory op: " + peek(dut.io.mem_write).toInt.toBinaryString)
 	
@@ -69,7 +69,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	}else{
 		println("Store unit not ready")
 	}
-	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString)
+	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	println("write memory data address: " + peek(dut.io.mem_write_address).toInt.toBinaryString)
 	println("write memory op: " + peek(dut.io.mem_write).toInt.toBinaryString)
 	
@@ -81,7 +81,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	}else{
 		println("Store unit not ready")
 	}
-	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString)
+	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	println("write memory data address: " + peek(dut.io.mem_write_address).toInt.toBinaryString)
 	println("write memory op: " + peek(dut.io.mem_write).toInt.toBinaryString)
 	
@@ -93,7 +93,7 @@ class testerStore(dut: Store_Unit) extends PeekPokeTester(dut){
 	}else{
 		println("Store unit not ready")
 	}
-	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString)
+	println("write memory data: " + peek(dut.io.mem_write_data).toInt.toBinaryString.reverse.padTo(8, '0').reverse)
 	println("write memory data address: " + peek(dut.io.mem_write_address).toInt.toBinaryString)
 	println("write memory op: " + peek(dut.io.mem_write).toInt.toBinaryString)
 }
