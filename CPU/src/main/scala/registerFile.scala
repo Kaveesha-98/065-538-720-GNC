@@ -14,9 +14,10 @@ class registerFile() extends Module{
         val rs2Data = Output(SInt(32.W))
         val rdData = Input(SInt(32.W))
     })
-    
+    //Initialting the datapath
     val registerFile = Reg(Vec(32, SInt(32.W)))
     
+    //Reading the registers
     when(io.RS1 === 0.U){
     	io.rs1Data := 0.S
     }otherwise{
@@ -29,6 +30,7 @@ class registerFile() extends Module{
     	io.rs2Data := registerFile(io.RS2)
     }
     
+    //Writng to register file
     when(io.WRITE_EN === 1.U & io.RD =/= 0.U){
     	registerFile(io.RD) := io.rdData
     }
