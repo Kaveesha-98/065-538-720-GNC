@@ -14,15 +14,24 @@ class registerFile() extends Module{
         val rs2Data = Output(SInt(32.W))
         val rdData = Input(SInt(32.W))
     })
-
-    val registerFile = Reg(Vec(32, SInt(32.W)))
-    io.rs1Data := registerFile(io.RS1)
-    io.rs2Data := registerFile(io.RS2)
     
-    when(io.WRITE_EN === 1.U){
-    	registerFile(io.RD) := io.rdData
+    val registerFile = Reg(Vec(32, SInt(32.W)))
+    
+    when(io.RS1 === 0.U){
+    	io.rs1Data := 0.S
+    }otherwise{
+    	io.rs1Data := registerFile(io.RS1)
     }
     
+    when(io.RS2 === 0.U){
+    	io.rs2Data := 0.S
+    }otherwise{
+    	io.rs2Data := registerFile(io.RS2)
+    }
+    
+    when(io.WRITE_EN === 1.U & io.RD =/= 0.U){
+    	registerFile(io.RD) := io.rdData
+    }
 }
 
 object registerFile extends App{
