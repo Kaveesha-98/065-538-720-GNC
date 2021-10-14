@@ -2,7 +2,7 @@ import chisel3._
 import chisel3.util._
 import chisel3.Driver
 
-class registerFile() extends Module{
+class register_file() extends Module{
     val io = IO(new Bundle{
     	//Control unit connections
         val RS1 = Input(UInt(5.W))
@@ -36,6 +36,6 @@ class registerFile() extends Module{
     }
 }
 
-object registerFile extends App{
-    (new chisel3.stage.ChiselStage).emitVerilog(new registerFile())
+object register_file extends App{
+    (new chisel3.stage.ChiselStage).emitVerilog(new register_file())
 }
