@@ -1,1 +1,1 @@
-["ALU","Load_Unit","Memory","Store_Unit","registerFile","store_memory_connect"]
+["ALU","Load_Unit","Memory","Store_Unit","data_memory_interface","registerFile","store_memory_connect"]
