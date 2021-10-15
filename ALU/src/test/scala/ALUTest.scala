@@ -11,9 +11,9 @@ class Tester(dut: ALU) extends PeekPokeTester(dut) {
     println("")
 
     step(1)
-    poke(dut.io.ALU_OP,0.U)
-    poke(dut.io.ALUinput1,5.S)
-    poke(dut.io.ALUinput2,-5.S)
+    poke(dut.io.ALU_OP,2.U)
+    poke(dut.io.ALUinput1,10.S)
+    poke(dut.io.ALUinput2,2.S)
     println("clk cycle: " + 1.toString())
     println("Output: " + peek(dut.io.ALUoutput).toString)
     println("Zero flag: " + peek(dut.io.EQUAL).toString)
