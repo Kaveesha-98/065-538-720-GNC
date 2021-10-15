@@ -31,6 +31,16 @@ class ALU extends Module {
     io.EQUAL := 1.U
     io.LESS_THAN := 0.U
 
+    switch(io.ALU_OP){
+        is(constants.add){
+            io.ALUoutput := io.ALUinput1 + io.ALUinput2
+            when(io.ALUinput1 + io.ALUinput2 === 0.S) {io.EQUAL := 1.U}
+            .otherwise {io.EQUAL := 0.U}
+            when(io.ALUinput1 + io.ALUinput2 < 0.S) {io.LESS_THAN := 1.U}
+            .otherwise {io.LESS_THAN := 0.U}
+        }
+    }
+
 }
 
 object ALU extends App{
