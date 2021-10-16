@@ -6,7 +6,7 @@ class control_store extends Module{
 	val io = IO(new Bundle{
 		//Connections to instruction fetch unit
 		val INSTRUCTION = Input(UInt(32.W))
-		val READY = Output(UInt(1.W))
+		val RECIEVED = Output(UInt(1.W))
 		val INSTRUCTION_LOADED = Input(UInt(1.W))
 		//Register file to control unit connections
         val RS1 = Output(UInt(5.W))
@@ -14,7 +14,7 @@ class control_store extends Module{
         val RD = Output(UInt(5.W))
         val WRITE_EN = Output(UInt(1.W))
         //ALU to control unit connections
-        val ALU_OP = Output(UInt(3.W)) //ALUOperations{add, sub, sll, sra, srl, xor, or, and}
+        val ALU_OP = Output(UInt(4.W)) //ALUOperations{add, sub, sll, sra, srl, xor, or, and}
 		//For data Flow conrol
 		val PROCEDURE_BRANCHING = Output(UInt(1.W))//=1 choose return address
 		val CHOOSE_IMMEDIATE = Output(UInt(1.W))
@@ -34,6 +34,9 @@ class control_store extends Module{
 		//Branch opertions
 		val BRANCH_SELECT = Output(UInt(2.W))
 		val BRANCH_CONDITION = Output(UInt(1.W))
+		val BRANCH_ADDRESS_SOURCE_ALU = Output(UInt(1.W))
+		//PC update
+		val UPDATE_PC = Output(UInt(1.W))
 	})
 	
 	//opcodes
@@ -46,20 +49,26 @@ class control_store extends Module{
 	//0010011 - Immediate arithmetic
 	//0110011 - Register arithmetic
 	
-	val waiting :: stage1 :: stage2 :: Nil = Enum(3)
+	val waiting :: stage1 :: stage2 :: stage3 :: stage4 :: stalling :: Nil = Enum(6)
 	val stateReg = RegInit(waiting)
+	val stallState = RegInit(stalling)
 	val instruction = RegInit(0.U(32.W))
 	
-	io.READY := 0.U
+	io.RECIEVED := 0.U
 	io.RS1 := 0.U
 	io.RS2 := 0.U
 	io.IMMEDIATE := 0.S
+	io.CHOOSE_IMMEDIATE := 0.U
+	io.BRANCH_IMMEDIATE := 0.U
+	io.BRANCH_SELECT := 1.U
+	io.BRANCH_CONDITION := 0.U
+	io.STORE_SIZE := 1.U
+	io.DATA_IN := 0.U
 	
 	switch(stateReg){
 		is(waiting){
-			io.READY := 1.U
 			when(io.INSTRUCTION_LOADED === 1.U){
-				io.READY := 0.U
+				io.RECIEVED := 1.U
 				stateReg := stage1
 				instruction := io.INSTRUCTION
 			}
@@ -68,6 +77,9 @@ class control_store extends Module{
 			//Pipeline stage1-------------------------------------------------
 			//Read registers
 			//Immediate generation
+			//enabling/disabling immediate
+			//branching immediate generation
+			//give data and data size to store unit
 			
 			//--Read registers
 			when(io.INSTRUCTION === "b011_0111".U){
@@ -78,33 +90,134 @@ class control_store extends Module{
     		io.RS2 := instruction(24, 20)
 			
 			//--Immediate generation
-			val imm12bit = Mux(instruction(7, 0) === "b010_0011".U, Cat(instruction(31, 25), instruction(11, 7)), instruction(31, 20))
-			io.IMMEDIATE := Mux(instruction === "b011_0111".U, (instruction&"hfffff000".U).asSInt, imm12bit.asSInt)
+			val imm12bit = Mux(instruction(6, 0) === "b010_0011".U, Cat(instruction(31, 25), instruction(11, 7)), instruction(31, 20))
+			io.IMMEDIATE := Mux(instruction(6,0) === "b011_0111".U, (instruction&"hfffff000".U).asSInt, imm12bit.asSInt)
 			
 			//--enabling/disabling immediate
+			io.CHOOSE_IMMEDIATE := Mux((instruction(6, 0) === "b0110011".U | instruction(6, 0) === "b1100011".U), 0.U, 1.U)
+			
+			//--branching immediate generation
+			val imm12bitBranch = Cat(Cat(Cat(instruction(31), instruction(7)), Cat(instruction(11, 8), instruction(30, 25))),"b0".U)
+			val imm20bitBranch = Cat(Cat(Cat(instruction(31), instruction(19, 12)), Cat(instruction(20), instruction(30, 21))), "b0".U)
+			when(instruction(6, 0) === "b1100011".U){
+				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffffe000".U | imm12bitBranch, "h00001fff".U & imm12bitBranch)
+			}otherwise{
+				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffe00000".U | imm20bitBranch, "h001fffff".U & imm20bitBranch)
+			}
+			
+			//--give data and data size to store unit
+			when(instruction(6, 0) === "b0100011".U){
+				io.DATA_IN := 1.U
+				io.STORE_SIZE := Mux(instruction(13) === 1.U, "b00".U, ~instruction(13, 12))
+				when(io.STORE_READY === 0.U){
+					//store unit unavailable
+					stallState := stateReg
+					stateReg := stalling
+				}
+			}
+			
+			//for stage 3
+			when(instruction(6, 0) === "b1100011".U){
+				io.BRANCH_SELECT := instruction(14, 13)
+				io.BRANCH_CONDITION := ~instruction(12)
+			}
 			
 			stateReg := stage2
 		}
 		is(stage2){
+			//setting ALU signals
+			//saving return address
+			//saving return address, for jump and link
+			//updating pc
+			
+			//--setting ALU signals
+			when((instruction(6, 0)&"b1011111".U) === "b0010011".U){
+				//For register and immediate arithmtic
+				io.ALU_OP := Cat(instruction(30), instruction(14, 12))
+				//otherwise always add
+			}
+			
+			//--saving return address, for jump and link
+			when((instruction(6, 0)&"b1110111".U) === "b1100111".U){
+				io.RD := instruction(11, 7)
+				io.WRITE_EN := 1.U
+				io.PROCEDURE_BRANCHING := 1.U
+				io.BRANCH_ADDRESS_SOURCE_ALU := Mux(instruction(6, 0) === "b1100111".U, 1.U, 0.U)
+			}
+			
+			//updating pc
+			io.UPDATE_PC := 1.U
+			
+			//ending branching operations
+			when(instruction(6, 0) === "b1101111".U | instruction(6, 0) === "b1100111".U | instruction(6, 0) === "b1100011".U){
+				stateReg := waiting
+			}
+						
+			stateReg := stage3
+		}
+		is(stage3){
+			//Give address to store
+			//Give address to load
+			//writeback on arithmetic
+			
+			//--Give address to store
+			io.STORE_ADDRESS_IN := Mux(instruction(6, 0) === "b0100011".U, 1.U, 0.U)
+			
+			//--Give address to load
+			io.LOAD_ADDRESS_IN := Mux(instruction(6, 0) === "b0000011".U, 1.U, 0.U)
+			io.LOAD_SIZE := Mux(instruction(13, 12) === "b10".U, "b11".U, ~instruction(13, 12))
+			io.EXTENSION := ~instruction(14)
+			
+			//--writeback on arithmetic
+			io.RD := instruction(11, 7)
+			
+			when(instruction(6, 0) === "b0110011".U | instruction(6, 0) === "b0010011".U){
+				io.WRITE_EN := 1.U
+				stateReg := waiting
+				io.CHOOSE_MEMORY_LOAD := 0.U
+			}
+			
+			stateReg := stage4
+		}
+		is(stage4){
+			io.RD := instruction(11, 7)
+			when(io.LOAD_READY === 0.U){
+				stallState := stateReg
+				stateReg := stalling
+				io.WRITE_EN := 0.U
+			}otherwise{
+				io.WRITE_EN := 1.U
+				io.CHOOSE_MEMORY_LOAD := 1.U
+			}
 			stateReg := waiting
+		}
+		is(stalling){
+			switch(stallState){
+				is(stage1){
+					when(io.STORE_READY === 1.U){
+						stateReg := stallState
+					}
+				}
+				is(stage4){
+					when(io.LOAD_READY === 1.U){
+						stateReg := stallState
+					}
+				}
+			}
 		}
 	}
 	io.RD := 0.U
     io.WRITE_EN := 0.U
     io.ALU_OP := 0.U
-	io.CHOOSE_IMMEDIATE := 0.U
 	io.CHOOSE_MEMORY_LOAD := 0.U
 	io.ALU_RD := 0.U
-	io.DATA_IN := 0.U
-	io.STORE_SIZE := 0.U
 	io.STORE_ADDRESS_IN := 0.U
 	io.LOAD_SIZE := 0.U
 	io.LOAD_ADDRESS_IN := 0.U
 	io.EXTENSION := 0.U
 	io.PROCEDURE_BRANCHING := 0.U
-	io.BRANCH_IMMEDIATE := 0.U
-	io.BRANCH_SELECT := 0.U
-	io.BRANCH_CONDITION := 0.U
+	io.BRANCH_ADDRESS_SOURCE_ALU := 0.U
+	io.UPDATE_PC := 0.U
 }
 
 object control_store extends App{

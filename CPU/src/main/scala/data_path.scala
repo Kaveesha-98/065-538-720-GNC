@@ -10,7 +10,7 @@ class data_path extends Module{
         val RD = Input(UInt(5.W))
         val WRITE_EN = Input(UInt(1.W))
         //ALU to control unit connections
-        val ALU_OP = Input(UInt(3.W)) //ALUOperations{add, sub, sll, sra, srl, xor, or, and}
+        val ALU_OP = Input(UInt(4.W)) //ALUOperations{add, sub, sll, sra, srl, xor, or, and}
         val EQUAL = Output(UInt(1.W)) //When two registers are equal
         val LESS_THAN = Output(UInt(1.W)) // When input1 is less than input 2
         val SIGNED_LESS_THAN = Output(UInt(1.W))
@@ -38,6 +38,8 @@ class data_path extends Module{
 	val ALU_in1 = Reg(SInt(32.W))
 	val ALU_in2 = Reg(SInt(32.W))
 	val ALU_out = Reg(SInt(32.W))
+	
+	ALU_out := cpuALU.io.ALUoutput
 	
 	//Writing to registerFile
 	val rdData = Mux(io.CHOOSE_MEMORY_LOAD === 1.U, io.load_data, ALU_out)
@@ -73,7 +75,7 @@ class data_path extends Module{
 	cpuALU.io.ALUinput1 := ALU_in1
 	cpuALU.io.ALUinput2 := ALU_in2
 	
-	io.instruction_next_address := ALU_out.asUInt
+	io.instruction_next_address := cpuALU.io.ALUoutput.asUInt
 }
 
 object data_path extends App{

@@ -7,7 +7,7 @@ import chisel3.Driver
 class ALU() extends Module{
     val io = IO(new Bundle{
     	//Control unit connections
-        val ALU_OP = Input(UInt(3.W)) //ALUOperations{add, sub, sll, sra, srl, xor, or, and}
+        val ALU_OP = Input(UInt(4.W)) //ALUOperations{add, sub, sll, sra, srl, xor, or, and}
         val EQUAL = Output(UInt(1.W)) //When two registers are equal
         val LESS_THAN = Output(UInt(1.W)) // When input1 is less than input 2 
         val SIGNED_LESS_THAN = Output(UInt(1.W))
