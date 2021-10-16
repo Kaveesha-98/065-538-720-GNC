@@ -13,6 +13,7 @@ class data_path extends Module{
         val ALU_OP = Input(UInt(3.W)) //ALUOperations{add, sub, sll, sra, srl, xor, or, and}
         val EQUAL = Output(UInt(1.W)) //When two registers are equal
         val LESS_THAN = Output(UInt(1.W)) // When input1 is less than input 2
+        val SIGNED_LESS_THAN = Output(UInt(1.W))
         //data memory connections
         val store_data = Output(SInt(32.W))
 		val store_address = Output(UInt(32.W))
@@ -24,6 +25,10 @@ class data_path extends Module{
 		val IMMEDIATE = Input(SInt(32.W))
 		//For pipeline
 		val ALU_RD = Input(UInt(5.W))
+		//connecting with branch unit
+		val instruction_return_address = Input(UInt(32.W))//return address for a procedure call
+		val instruction_next_address = Output(UInt(32.W))//next instruction address in branching
+		val PROCEDURE_BRANCHING = Input(UInt(1.W))//=1 choose return address
 	})
 	
 	val cpuALU = Module(new ALU())
@@ -36,7 +41,7 @@ class data_path extends Module{
 	
 	//Writing to registerFile
 	val rdData = Mux(io.CHOOSE_MEMORY_LOAD === 1.U, io.load_data, ALU_out)
-	registerFile.io.rdData := rdData
+	registerFile.io.rdData := Mux(io.PROCEDURE_BRANCHING === 1.U, io.instruction_return_address.asSInt, rdData)
 	
 	//Finding input for ALU
 	//Input1
@@ -58,6 +63,7 @@ class data_path extends Module{
 	//Connecting ALU to control signals
 	io.EQUAL := cpuALU.io.EQUAL
 	io.LESS_THAN := cpuALU.io.LESS_THAN
+	io.SIGNED_LESS_THAN := cpuALU.io.SIGNED_LESS_THAN
 	cpuALU.io.ALU_OP := io.ALU_OP
 	
 	io.store_data := rs2_ALU_rd_0U
@@ -66,6 +72,8 @@ class data_path extends Module{
 	
 	cpuALU.io.ALUinput1 := ALU_in1
 	cpuALU.io.ALUinput2 := ALU_in2
+	
+	io.instruction_next_address := ALU_out.asUInt
 }
 
 object data_path extends App{
