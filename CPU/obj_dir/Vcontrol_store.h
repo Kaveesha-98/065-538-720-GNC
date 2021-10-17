@@ -57,6 +57,7 @@ VL_MODULE(Vcontrol_store) {
     // Internals; generally not touched by application code
     CData/*2:0*/ control_store__DOT__stateReg;
     CData/*2:0*/ control_store__DOT__stallState;
+    CData/*0:0*/ control_store__DOT__RECIEVED;
     CData/*0:0*/ control_store__DOT___T;
     CData/*0:0*/ control_store__DOT___T_2;
     CData/*2:0*/ control_store__DOT___GEN_5;

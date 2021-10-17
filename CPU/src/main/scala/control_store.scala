@@ -53,8 +53,9 @@ class control_store extends Module{
 	val stateReg = RegInit(waiting)
 	val stallState = RegInit(stalling)
 	val instruction = RegInit(0.U(32.W))
+	val RECIEVED = RegInit(0.U(1.W))
 	
-	io.RECIEVED := 0.U
+	io.RECIEVED := RECIEVED
 	io.RS1 := 0.U
 	io.RS2 := 0.U
 	io.IMMEDIATE := 0.S
@@ -76,11 +77,12 @@ class control_store extends Module{
 	io.PROCEDURE_BRANCHING := 0.U
 	io.BRANCH_ADDRESS_SOURCE_ALU := 0.U
 	io.UPDATE_PC := 0.U
+	RECIEVED := 0.U
 	
 	switch(stateReg){
 		is(waiting){
 			when(io.INSTRUCTION_LOADED === 1.U){
-				io.RECIEVED := 1.U
+				RECIEVED := 1.U
 				stateReg := stage1
 				instruction := io.INSTRUCTION
 			}
@@ -191,7 +193,7 @@ class control_store extends Module{
 				io.CHOOSE_MEMORY_LOAD := 0.U
 			}
 			
-			stateReg := stage4
+			stateReg := Mux(instruction(6, 0) === "b0000011".U, stage4, waiting)
 		}
 		is(stage4){
 			io.RD := instruction(11, 7)
