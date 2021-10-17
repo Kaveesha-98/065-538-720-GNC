@@ -4,21 +4,26 @@ import chisel3.util._
 class Load_Unit extends Module{
 	val io = IO(new Bundle{
 		
-    	val load_mem_address_in = Input(UInt(32.W))				// Corresponding memory address to Load Data - Input
-    	val load_data = Input(SInt(32.W))					// Loaded Data into Load Unit		
-    
-	val LOAD_TO_REG = Input(UInt(1.W))					// Control signal to load data from Load Unit to a Register
-	val LOAD_DATA_SIZE = Input(UInt(2.W))					// Control signal containing the size of the data to be loaded
-	val ADDRESS_EN = Input(UInt(1.W))					// Control signal to enable mem read address to Load Unit
-    
-    	val mem_read = Output(UInt(1.W))					// Control signal to load data
-	val LOAD_UNIT_READY = Output(UInt(1.W))					// Status of Load Unit
+		val load_mem_address_in = Input(UInt(32.W))				// Corresponding memory address to Load Data - Input
+		val load_data = Input(SInt(32.W))						// Loaded Data into Load Unit		
+		
+		val LOAD_TO_REG = Input(UInt(1.W))						// Control signal to load data from Load Unit to a Register
+		val LOAD_DATA_SIZE = Input(UInt(2.W))					// Control signal containing the size of the data to be loaded
+		val ADDRESS_EN = Input(UInt(1.W))						// Control signal to enable mem read address to Load Unit
+		
+		val mem_read = Output(UInt(1.W))						// Control signal to load data
+		val LOAD_UNIT_READY = Output(UInt(1.W))					// Status of Load Unit
 
-	val load_mem_address_out = Output(UInt(32.W))				// Corresponding memory address to Load Data - Output
-	val load_data_out = Output(SInt(32.W))					// Output from load unit ; the Loaded data into Load unit
+		val load_mem_address_out = Output(UInt(32.W))			// Corresponding memory address to Load Data - Output
+		val load_data_out = Output(SInt(32.W))					// Output from load unit ; the Loaded data into Load unit
 
 	})
-	
+
+	val load_mem_address_out = WireInit(0.U(32.W))
+	val mem_read = WireInit(0.U(1.W))
+	val load_data_out = WireInit(0.S(32.W))
+	val LOAD_UNIT_READY = WireInit(0.U(1.W))
+
 	val load_data_buffer = RegInit(0.S(32.W))
 	val load_data_size_buffer = RegInit(0.U(2.W))
 	val load_data_address_buffer = RegInit(0.U(32.W))
@@ -73,7 +78,7 @@ class Load_Unit extends Module{
 			load_data_size_buffer := load_data_size_buffer + 1.U
 		}
     	}.otherwise{
-		io.load_data := 0.S
+		io.load_data_out := 0.S
 	}
 
 	switch(stateReg){
@@ -99,7 +104,12 @@ class Load_Unit extends Module{
 			io.LOAD_UNIT_READY := 0.U
 		}	
 	}
+	io.load_mem_address_out := load_mem_address_out
+	io.mem_read := mem_read
+	io.load_data_out := load_data_out
+	io.LOAD_UNIT_READY := LOAD_UNIT_READY
 }
+
 
 object Load_Unit extends App{
 	(new chisel3.stage.ChiselStage).emitVerilog(new Load_Unit)
