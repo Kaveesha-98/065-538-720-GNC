@@ -64,6 +64,18 @@ class control_store extends Module{
 	io.BRANCH_CONDITION := 0.U
 	io.STORE_SIZE := 1.U
 	io.DATA_IN := 0.U
+	io.RD := 0.U
+    io.WRITE_EN := 0.U
+    io.ALU_OP := 0.U
+	io.CHOOSE_MEMORY_LOAD := 0.U
+	io.ALU_RD := 0.U
+	io.STORE_ADDRESS_IN := 0.U
+	io.LOAD_SIZE := 0.U
+	io.LOAD_ADDRESS_IN := 0.U
+	io.EXTENSION := 0.U
+	io.PROCEDURE_BRANCHING := 0.U
+	io.BRANCH_ADDRESS_SOURCE_ALU := 0.U
+	io.UPDATE_PC := 0.U
 	
 	switch(stateReg){
 		is(waiting){
@@ -117,10 +129,7 @@ class control_store extends Module{
 			}
 			
 			//for stage 3
-			when(instruction(6, 0) === "b1100011".U){
-				io.BRANCH_SELECT := instruction(14, 13)
-				io.BRANCH_CONDITION := ~instruction(12)
-			}
+			
 			
 			stateReg := stage2
 		}
@@ -143,6 +152,11 @@ class control_store extends Module{
 				io.WRITE_EN := 1.U
 				io.PROCEDURE_BRANCHING := 1.U
 				io.BRANCH_ADDRESS_SOURCE_ALU := Mux(instruction(6, 0) === "b1100111".U, 1.U, 0.U)
+			}
+			
+			when(instruction(6, 0) === "b1100011".U){
+				io.BRANCH_SELECT := instruction(14, 13)
+				io.BRANCH_CONDITION := ~instruction(12)
 			}
 			
 			//updating pc
@@ -206,18 +220,6 @@ class control_store extends Module{
 			}
 		}
 	}
-	io.RD := 0.U
-    io.WRITE_EN := 0.U
-    io.ALU_OP := 0.U
-	io.CHOOSE_MEMORY_LOAD := 0.U
-	io.ALU_RD := 0.U
-	io.STORE_ADDRESS_IN := 0.U
-	io.LOAD_SIZE := 0.U
-	io.LOAD_ADDRESS_IN := 0.U
-	io.EXTENSION := 0.U
-	io.PROCEDURE_BRANCHING := 0.U
-	io.BRANCH_ADDRESS_SOURCE_ALU := 0.U
-	io.UPDATE_PC := 0.U
 }
 
 object control_store extends App{
