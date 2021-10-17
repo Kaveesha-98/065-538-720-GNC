@@ -5,16 +5,16 @@ class Load_Unit extends Module{
 	val io = IO(new Bundle{
 		
     	val load_mem_address_in = Input(UInt(32.W))				// Corresponding memory address to Load Data - Input
-    	val load_data = Input(SInt(32.W))						// Loaded Data into Load Unit		
+    	val load_data = Input(SInt(32.W))					// Loaded Data into Load Unit		
     
-	val LOAD_TO_REG = Input(UInt(1.W))						// Control signal to load data from Load Unit to a Register
+	val LOAD_TO_REG = Input(UInt(1.W))					// Control signal to load data from Load Unit to a Register
 	val LOAD_DATA_SIZE = Input(UInt(2.W))					// Control signal containing the size of the data to be loaded
-	val ADDRESS_EN = Input(UInt(1.W))						// Control signal to enable mem read address to Load Unit
+	val ADDRESS_EN = Input(UInt(1.W))					// Control signal to enable mem read address to Load Unit
     
-    	val mem_read = Output(UInt(1.W))						// Control signal to load data
+    	val mem_read = Output(UInt(1.W))					// Control signal to load data
 	val LOAD_UNIT_READY = Output(UInt(1.W))					// Status of Load Unit
 
-	val load_mem_address_out = Output(UInt(32.W))			// Corresponding memory address to Load Data - Output
+	val load_mem_address_out = Output(UInt(32.W))				// Corresponding memory address to Load Data - Output
 	val load_data_out = Output(SInt(32.W))					// Output from load unit ; the Loaded data into Load unit
 
 	})
@@ -27,10 +27,10 @@ class Load_Unit extends Module{
 	val load_begin = RegInit(0.U(1.W))
 	val cntReg = RegInit(0.U(2.W))
 
-    val present_r :: absent_r :: Nil = Enum(2)
+    	val present_r :: absent_r :: Nil = Enum(2)
 	val reading = RegInit(absent_r)
 
-    val present_l :: absent_l :: Nil = Enum(2)
+    	val present_l :: absent_l :: Nil = Enum(2)
 	val loading = RegInit(absent_l)
 	
 	val ready :: not_ready :: Nil = Enum(2)
