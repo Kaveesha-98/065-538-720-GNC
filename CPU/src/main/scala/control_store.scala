@@ -95,6 +95,8 @@ class control_store extends Module{
 			//branching immediate generation
 			//give data and data size to store unit
 			
+			stateReg := stage2
+			
 			//--Read registers
 			when(io.INSTRUCTION === "b011_0111".U){
 				io.RS1 := 0.U//for load upperimmediate immediate + "0"
@@ -132,8 +134,6 @@ class control_store extends Module{
 			
 			//for stage 3
 			
-			
-			stateReg := stage2
 		}
 		is(stage2){
 			//setting ALU signals
