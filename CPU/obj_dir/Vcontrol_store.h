@@ -62,9 +62,9 @@ VL_MODULE(Vcontrol_store) {
     CData/*0:0*/ control_store__DOT___T_2;
     CData/*2:0*/ control_store__DOT___GEN_5;
     CData/*0:0*/ control_store__DOT___T_43;
-    CData/*0:0*/ control_store__DOT___GEN_32;
-    CData/*2:0*/ control_store__DOT___GEN_39;
-    CData/*2:0*/ control_store__DOT___GEN_41;
+    CData/*0:0*/ control_store__DOT___GEN_33;
+    CData/*2:0*/ control_store__DOT___GEN_40;
+    CData/*2:0*/ control_store__DOT___GEN_42;
     SData/*11:0*/ control_store__DOT___T_15;
     SData/*12:0*/ control_store__DOT___T_23;
     IData/*31:0*/ control_store__DOT__instruction;

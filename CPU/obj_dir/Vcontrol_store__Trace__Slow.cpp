@@ -162,8 +162,10 @@ void Vcontrol_store::traceFullThis__1(Vcontrol_store__Syms* __restrict vlSymsp, 
                                    >> 0x14U))));
         vcdp->fullBus(c+97,((0x3ffU & (vlTOPp->control_store__DOT__instruction 
                                        >> 0x15U))),10);
-        vcdp->fullBit(c+105,((1U & (vlTOPp->control_store__DOT__instruction 
-                                    >> 0x1eU))));
+        vcdp->fullBit(c+105,(((1U == (3U & (vlTOPp->control_store__DOT__instruction 
+                                            >> 0xcU))) 
+                              & (vlTOPp->control_store__DOT__instruction 
+                                 >> 0x1eU))));
         vcdp->fullBus(c+113,((7U & (vlTOPp->control_store__DOT__instruction 
                                     >> 0xcU))),3);
         vcdp->fullBit(c+121,(vlTOPp->clock));

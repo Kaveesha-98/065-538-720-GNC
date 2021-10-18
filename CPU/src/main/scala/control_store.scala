@@ -142,10 +142,14 @@ class control_store extends Module{
 			//updating pc
 			
 			//--setting ALU signals
-			when((instruction(6, 0)&"b1011111".U) === "b0010011".U){
-				//For register and immediate arithmtic
-				io.ALU_OP := Cat(instruction(30), instruction(14, 12))
-				//otherwise always add
+			switch(instruction(6, 0)){
+			//only arithmetic require special setup others all use add
+				is("b0010011".U){
+					io.ALU_OP := Cat(Mux(instruction(13, 12) === "b01".U, instruction(30), "b0".U), instruction(14, 12))
+				}
+				is("b0110011".U){
+					io.ALU_OP := Cat(instruction(30), instruction(14, 12))
+				}
 			}
 			
 			//--saving return address, for jump and link

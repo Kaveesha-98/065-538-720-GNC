@@ -40,28 +40,53 @@ void tick(int tickcount, Vcontrol_store *tb, VerilatedVcdC* tfp){
 
 int main(int argc, char **argv){
 
-	std::string instruction_string = "add";
+	std::string instruction_string = "addi";
 	std::string machine_instruction;
-	int register_source_1 = 6;
-	int register_source_2 = 7;
-	int register_destination = 5;
+	int register_source_1 = 31;
+	int register_source_2 = 4;
+	int register_destination = 10;
+	int immediate = -7;
 
 	//opcode types
 	std::string register_type = "0110011";
+	std::string immediate_type = "0010011";
 
 	//opcodes
-	std::map<std::string, std::string> opcode = {{"add", "0110011"}
-								};
+	std::map<std::string, std::string> opcode = {
+	{"add", "0010011"}, {"sub", "0110011"}, {"sll", "0110011"},
+	{"slt", "0110011"}, {"sltu", "0110011"}, {"xor", "0110011"},
+	{"srl", "0110011"}, {"sra", "0110011"}, {"or", "0110011"},
+	{"and", "0110011"},
+	{"addi", "0010011"}, {"slli", "0010011"},
+	{"slti", "0010011"}, {"sltui", "0010011"}, {"xori", "0010011"},
+	{"srli", "0010011"}, {"srai", "0010011"}, {"ori", "0010011"},
+	{"andi", "0010011"}
+	};
 								
-	std::map<std::string, std::string> funct3 = {{"add", "000"}
-								};
+	std::map<std::string, std::string> funct3 = {
+	{"add", "000"}, {"sub", "000"}, {"sll", "001"}, {"slt", "010"},
+	{"sltu", "011"}, {"xor", "100"}, {"srl", "101"}, {"sra", "101"},
+	{"or", "110"}, {"and", "111"},
+	{"addi", "000"}, {"slli", "001"}, {"slti", "010"},
+	{"sltui", "011"}, {"xori", "100"}, {"srli", "101"}, {"srai", "101"},
+	{"ori", "110"}, {"andi", "111"}
+	};
 								
-	std::map<std::string, std::string> funct7 = {{"add", "0000000"}
-								};
+	std::map<std::string, std::string> funct7 = {
+	{"add", "0000000"}, {"sub", "0100000"}, {"sll", "0000000"},
+	{"slt", "0000000"}, {"sltu", "0000000"}, {"xor", "0000000"},
+	{"srl", "0000000"}, {"sra", "0100000"}, {"or", "0000000"},
+	{"and", "0000000"},
+	{"slli", "0000000"}, {"srli", "0000000"}, {"srai", "0100000"},
+	};
 						
 	if(opcode[instruction_string] == register_type){
 		machine_instruction =  funct7[instruction_string] + std::bitset< 5 >( register_source_2 ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + std::bitset< 5 >( register_destination ).to_string() + opcode[instruction_string];
-	}
+	} else if(opcode[instruction_string] == immediate_type && (instruction_string == "srli" || instruction_string == "slli" || instruction_string == "srai")){
+		machine_instruction =  funct7[instruction_string] + std::bitset< 5 >( immediate ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + std::bitset< 5 >( register_destination ).to_string() + opcode[instruction_string];
+	} else if(opcode[instruction_string] == immediate_type){
+		machine_instruction = std::bitset< 12 >( immediate ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + std::bitset< 5 >( register_destination ).to_string() + opcode[instruction_string];
+	} 
 
 	unsigned tickcount = 0;
 	

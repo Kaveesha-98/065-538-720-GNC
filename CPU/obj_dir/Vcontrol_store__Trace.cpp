@@ -61,8 +61,10 @@ void Vcontrol_store::traceChgThis__2(Vcontrol_store__Syms* __restrict vlSymsp, V
                                   >> 0x14U))));
         vcdp->chgBus(c+97,((0x3ffU & (vlTOPp->control_store__DOT__instruction 
                                       >> 0x15U))),10);
-        vcdp->chgBit(c+105,((1U & (vlTOPp->control_store__DOT__instruction 
-                                   >> 0x1eU))));
+        vcdp->chgBit(c+105,(((1U == (3U & (vlTOPp->control_store__DOT__instruction 
+                                           >> 0xcU))) 
+                             & (vlTOPp->control_store__DOT__instruction 
+                                >> 0x1eU))));
         vcdp->chgBus(c+113,((7U & (vlTOPp->control_store__DOT__instruction 
                                    >> 0xcU))),3);
     }
