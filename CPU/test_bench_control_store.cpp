@@ -3,6 +3,22 @@
 #include "Vcontrol_store.h"
 #include "verilated.h"
 #include "verilated_vcd_c.h"
+#include <string>
+#include <iostream>
+#include <map>
+#include <bitset>
+
+int instructionToInt(std::string machine_instruction){
+	int int_instruction = 0;
+	int multiplier = 1;
+	for(int i = 31; i >= 0; i--){
+		if(machine_instruction[i] == '1'){
+			int_instruction += multiplier;
+		}
+		multiplier = multiplier*2;
+	}
+	return int_instruction;
+}
 
 void tick(int tickcount, Vcontrol_store *tb, VerilatedVcdC* tfp){
 	tb->eval();
@@ -24,7 +40,32 @@ void tick(int tickcount, Vcontrol_store *tb, VerilatedVcdC* tfp){
 
 int main(int argc, char **argv){
 
+	std::string instruction_string = "add";
+	std::string machine_instruction;
+	int register_source_1 = 6;
+	int register_source_2 = 7;
+	int register_destination = 5;
+
+	//opcode types
+	std::string register_type = "0110011";
+
+	//opcodes
+	std::map<std::string, std::string> opcode = {{"add", "0110011"}
+								};
+								
+	std::map<std::string, std::string> funct3 = {{"add", "000"}
+								};
+								
+	std::map<std::string, std::string> funct7 = {{"add", "0000000"}
+								};
+						
+	if(opcode[instruction_string] == register_type){
+		machine_instruction =  funct7[instruction_string] + std::bitset< 5 >( register_source_2 ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + std::bitset< 5 >( register_destination ).to_string() + opcode[instruction_string];
+	}
+
 	unsigned tickcount = 0;
+	
+	std::cout << "machine instruction: " << machine_instruction << '\n';
 
 	// Call commandArgs first!
 	Verilated::commandArgs(argc, argv);
@@ -41,7 +82,7 @@ int main(int argc, char **argv){
 	tick(++tickcount, tb, tfp);
 	tb-> reset = 0;
 	
-	tb-> io_INSTRUCTION = 0x007302B3;
+	tb-> io_INSTRUCTION = instructionToInt(machine_instruction);
 	tb-> io_INSTRUCTION_LOADED = 1;
 	tick(++tickcount, tb, tfp);
 	tb-> io_INSTRUCTION_LOADED = 0;
