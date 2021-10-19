@@ -58,10 +58,11 @@ VL_MODULE(Vcontrol_store) {
     CData/*2:0*/ control_store__DOT__stateReg;
     CData/*2:0*/ control_store__DOT__stallState;
     CData/*0:0*/ control_store__DOT__RECIEVED;
+    CData/*0:0*/ control_store__DOT__STORE_WAS_READY;
     CData/*0:0*/ control_store__DOT___T;
     CData/*0:0*/ control_store__DOT___T_2;
     CData/*2:0*/ control_store__DOT___GEN_5;
-    CData/*0:0*/ control_store__DOT___T_43;
+    CData/*0:0*/ control_store__DOT___T_44;
     CData/*0:0*/ control_store__DOT___GEN_33;
     CData/*2:0*/ control_store__DOT___GEN_40;
     CData/*2:0*/ control_store__DOT___GEN_42;

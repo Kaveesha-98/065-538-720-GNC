@@ -124,7 +124,6 @@ int main(int argc, char **argv){
 		if(i == 5){
 			tb-> io_STORE_READY = 1;
 			tick(++tickcount, tb, tfp);
-			tick(++tickcount, tb, tfp);
 			tb-> io_STORE_READY = 0;
 		}
 	}
