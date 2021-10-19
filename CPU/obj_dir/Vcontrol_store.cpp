@@ -610,7 +610,9 @@ void Vcontrol_store::_settle__TOP__3(Vcontrol_store__Syms* __restrict vlSymsp) {
                                                 : 0U)
                                             : ((4U 
                                                 == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                                ? 0U
+                                                ? ((IData)(vlTOPp->io_LOAD_READY)
+                                                    ? 0U
+                                                    : 5U)
                                                 : (
                                                    (5U 
                                                     == (IData)(vlTOPp->control_store__DOT__stateReg))
@@ -756,7 +758,9 @@ VL_INLINE_OPT void Vcontrol_store::_combo__TOP__4(Vcontrol_store__Syms* __restri
                                                 : 0U)
                                             : ((4U 
                                                 == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                                ? 0U
+                                                ? ((IData)(vlTOPp->io_LOAD_READY)
+                                                    ? 0U
+                                                    : 5U)
                                                 : (
                                                    (5U 
                                                     == (IData)(vlTOPp->control_store__DOT__stateReg))

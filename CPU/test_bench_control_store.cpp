@@ -40,7 +40,7 @@ void tick(int tickcount, Vcontrol_store *tb, VerilatedVcdC* tfp){
 
 int main(int argc, char **argv){
 
-	std::string instruction_string = "sb";
+	std::string instruction_string = "lb";
 	std::string machine_instruction;
 	int register_source_1 = 31;
 	int register_source_2 = 4;
@@ -51,6 +51,7 @@ int main(int argc, char **argv){
 	std::string register_type = "0110011";
 	std::string immediate_type = "0010011";
 	std::string storing_type = "0100011";
+	std::string loading_type = "0000011";
 	
 	std::string immediate12bit = std::bitset< 12 >( immediate ).to_string();
 
@@ -64,7 +65,9 @@ int main(int argc, char **argv){
 	{"slti", "0010011"}, {"sltui", "0010011"}, {"xori", "0010011"},
 	{"srli", "0010011"}, {"srai", "0010011"}, {"ori", "0010011"},
 	{"andi", "0010011"},
-	{"sb", "0100011"}, {"sh", "0100011"}, {"sw", "0100011"}
+	{"sb", "0100011"}, {"sh", "0100011"}, {"sw", "0100011"},
+	{"lb", "0000011"}, {"lh", "0000011"}, {"lw", "0000011"},
+	{"lbu", "0000011"}, {"lhu", "0000011"}
 	};
 								
 	std::map<std::string, std::string> funct3 = {
@@ -75,6 +78,8 @@ int main(int argc, char **argv){
 	{"sltui", "011"}, {"xori", "100"}, {"srli", "101"}, {"srai", "101"},
 	{"ori", "110"}, {"andi", "111"},
 	{"sb", "000"}, {"sh", "001"}, {"sw", "010"},
+	{"lb", "000"}, {"lh", "001"}, {"lw", "010"},
+	{"lbu", "100"}, {"lhu", "101"}
 	};
 								
 	std::map<std::string, std::string> funct7 = {
@@ -93,7 +98,9 @@ int main(int argc, char **argv){
 		machine_instruction = std::bitset< 12 >( immediate ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + std::bitset< 5 >( register_destination ).to_string() + opcode[instruction_string];
 	} else if(opcode[instruction_string] == storing_type){
 		machine_instruction = immediate12bit.substr(0, 7) + std::bitset< 5 >( register_source_2 ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + immediate12bit.substr(7, 11) + opcode[instruction_string];
-	} 
+	} else if(opcode[instruction_string] == loading_type){
+		machine_instruction = std::bitset< 12 >( immediate ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + std::bitset< 5 >( register_destination ).to_string() + opcode[instruction_string];
+	}
 
 	unsigned tickcount = 0;
 	
@@ -121,6 +128,12 @@ int main(int argc, char **argv){
 	
 	for(int i = 0; i < 20; i++){
 		tick(++tickcount, tb, tfp);
+		if(tb -> io_LOAD_ADDRESS_IN == 1){
+			tick(++tickcount, tb, tfp);
+			tick(++tickcount, tb, tfp);
+			tb-> io_LOAD_READY = 1;
+			tick(++tickcount, tb, tfp);
+		}
 		if(i == 5){
 			tb-> io_STORE_READY = 1;
 			tick(++tickcount, tb, tfp);

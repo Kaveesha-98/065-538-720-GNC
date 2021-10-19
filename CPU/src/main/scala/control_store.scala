@@ -199,6 +199,7 @@ class control_store extends Module{
 			stateReg := Mux(instruction(6, 0) === "b0000011".U, stage4, waiting)
 		}
 		is(stage4){
+			stateReg := waiting
 			io.RD := instruction(11, 7)
 			when(io.LOAD_READY === 0.U){
 				stallState := stateReg
@@ -208,7 +209,6 @@ class control_store extends Module{
 				io.WRITE_EN := 1.U
 				io.CHOOSE_MEMORY_LOAD := 1.U
 			}
-			stateReg := waiting
 		}
 		is(stalling){
 			switch(stallState){
