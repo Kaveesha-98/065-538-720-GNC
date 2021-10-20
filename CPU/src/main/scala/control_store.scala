@@ -55,6 +55,7 @@ class control_store extends Module{
 	val instruction = RegInit(0.U(32.W))
 	val RECIEVED = RegInit(0.U(1.W))
 	val STORE_WAS_READY = RegInit(0.U(1.W))
+	val LOAD_READY = RegInit(0.U(1.W))
 	
 	io.RECIEVED := RECIEVED
 	io.RS1 := 0.U
@@ -80,6 +81,7 @@ class control_store extends Module{
 	io.UPDATE_PC := 0.U
 	RECIEVED := 0.U
 	STORE_WAS_READY := io.STORE_READY
+	LOAD_READY := io.LOAD_READY
 	
 	switch(stateReg){
 		is(waiting){
@@ -199,15 +201,15 @@ class control_store extends Module{
 			stateReg := Mux(instruction(6, 0) === "b0000011".U, stage4, waiting)
 		}
 		is(stage4){
-			stateReg := waiting
 			io.RD := instruction(11, 7)
-			when(io.LOAD_READY === 0.U){
+			when(LOAD_READY === 0.U){
 				stallState := stateReg
 				stateReg := stalling
 				io.WRITE_EN := 0.U
 			}otherwise{
 				io.WRITE_EN := 1.U
 				io.CHOOSE_MEMORY_LOAD := 1.U
+				stateReg := waiting
 			}
 		}
 		is(stalling){
@@ -218,7 +220,7 @@ class control_store extends Module{
 					}
 				}
 				is(stage4){
-					when(io.LOAD_READY === 1.U){
+					when(LOAD_READY === 1.U){
 						stateReg := stallState
 					}
 				}

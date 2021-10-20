@@ -98,6 +98,8 @@ VL_INLINE_OPT void Vcontrol_store::_sequent__TOP__2(Vcontrol_store__Syms* __rest
     CData/*2:0*/ __Vdly__control_store__DOT__stateReg;
     // Body
     __Vdly__control_store__DOT__stateReg = vlTOPp->control_store__DOT__stateReg;
+    vlTOPp->control_store__DOT__LOAD_READY = ((~ (IData)(vlTOPp->reset)) 
+                                              & (IData)(vlTOPp->io_LOAD_READY));
     vlTOPp->control_store__DOT__RECIEVED = ((~ (IData)(vlTOPp->reset)) 
                                             & ((0U 
                                                 == (IData)(vlTOPp->control_store__DOT__stateReg)) 
@@ -365,6 +367,16 @@ VL_INLINE_OPT void Vcontrol_store::_sequent__TOP__2(Vcontrol_store__Syms* __rest
                                                         == 
                                                         (0x7fU 
                                                          & vlTOPp->control_store__DOT__instruction))))));
+    vlTOPp->control_store__DOT___GEN_42 = ((3U == (IData)(vlTOPp->control_store__DOT__stateReg))
+                                            ? (IData)(vlTOPp->control_store__DOT__stallState)
+                                            : ((4U 
+                                                == (IData)(vlTOPp->control_store__DOT__stateReg))
+                                                ? ((IData)(vlTOPp->control_store__DOT__LOAD_READY)
+                                                    ? (IData)(vlTOPp->control_store__DOT__stallState)
+                                                    : (IData)(vlTOPp->control_store__DOT__stateReg))
+                                                : (IData)(vlTOPp->control_store__DOT__stallState)));
+    vlTOPp->control_store__DOT___GEN_33 = ((4U == (IData)(vlTOPp->control_store__DOT__stateReg)) 
+                                           & (IData)(vlTOPp->control_store__DOT__LOAD_READY));
     vlTOPp->io_IMMEDIATE = ((0U == (IData)(vlTOPp->control_store__DOT__stateReg))
                              ? 0U : ((1U == (IData)(vlTOPp->control_store__DOT__stateReg))
                                       ? ((0x37U == 
@@ -400,6 +412,23 @@ VL_INLINE_OPT void Vcontrol_store::_sequent__TOP__2(Vcontrol_store__Syms* __rest
                                                   | vlTOPp->control_store__DOT___T_24)
                                                   : vlTOPp->control_store__DOT___T_24))
                                              : 0U));
+    vlTOPp->io_CHOOSE_MEMORY_LOAD = ((0U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
+                                     & ((1U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
+                                        & ((2U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
+                                           & ((3U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
+                                              & (IData)(vlTOPp->control_store__DOT___GEN_33)))));
+    vlTOPp->io_WRITE_EN = ((0U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
+                           & ((1U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
+                              & ((2U == (IData)(vlTOPp->control_store__DOT__stateReg))
+                                  ? (0x67U == (0x77U 
+                                               & vlTOPp->control_store__DOT__instruction))
+                                  : ((3U == (IData)(vlTOPp->control_store__DOT__stateReg))
+                                      ? ((0x33U == 
+                                          (0x7fU & vlTOPp->control_store__DOT__instruction)) 
+                                         | (0x13U == 
+                                            (0x7fU 
+                                             & vlTOPp->control_store__DOT__instruction)))
+                                      : (IData)(vlTOPp->control_store__DOT___GEN_33)))));
 }
 
 void Vcontrol_store::_settle__TOP__3(Vcontrol_store__Syms* __restrict vlSymsp) {
@@ -586,7 +615,7 @@ void Vcontrol_store::_settle__TOP__3(Vcontrol_store__Syms* __restrict vlSymsp) {
                                             ? (IData)(vlTOPp->control_store__DOT__stallState)
                                             : ((4U 
                                                 == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                                ? ((IData)(vlTOPp->io_LOAD_READY)
+                                                ? ((IData)(vlTOPp->control_store__DOT__LOAD_READY)
                                                     ? (IData)(vlTOPp->control_store__DOT__stallState)
                                                     : (IData)(vlTOPp->control_store__DOT__stateReg))
                                                 : (IData)(vlTOPp->control_store__DOT__stallState)));
@@ -610,7 +639,7 @@ void Vcontrol_store::_settle__TOP__3(Vcontrol_store__Syms* __restrict vlSymsp) {
                                                 : 0U)
                                             : ((4U 
                                                 == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                                ? ((IData)(vlTOPp->io_LOAD_READY)
+                                                ? ((IData)(vlTOPp->control_store__DOT__LOAD_READY)
                                                     ? 0U
                                                     : 5U)
                                                 : (
@@ -627,7 +656,7 @@ void Vcontrol_store::_settle__TOP__3(Vcontrol_store__Syms* __restrict vlSymsp) {
                                                     ((4U 
                                                       == (IData)(vlTOPp->control_store__DOT__stallState))
                                                       ? 
-                                                     ((IData)(vlTOPp->io_LOAD_READY)
+                                                     ((IData)(vlTOPp->control_store__DOT__LOAD_READY)
                                                        ? (IData)(vlTOPp->control_store__DOT__stallState)
                                                        : (IData)(vlTOPp->control_store__DOT__stateReg))
                                                       : (IData)(vlTOPp->control_store__DOT__stateReg)))
@@ -671,7 +700,7 @@ void Vcontrol_store::_settle__TOP__3(Vcontrol_store__Syms* __restrict vlSymsp) {
                                                   & (vlTOPp->control_store__DOT__instruction 
                                                      >> 0x14U)))));
     vlTOPp->control_store__DOT___GEN_33 = ((4U == (IData)(vlTOPp->control_store__DOT__stateReg)) 
-                                           & (IData)(vlTOPp->io_LOAD_READY));
+                                           & (IData)(vlTOPp->control_store__DOT__LOAD_READY));
     vlTOPp->io_IMMEDIATE = ((0U == (IData)(vlTOPp->control_store__DOT__stateReg))
                              ? 0U : ((1U == (IData)(vlTOPp->control_store__DOT__stateReg))
                                       ? ((0x37U == 
@@ -730,14 +759,6 @@ VL_INLINE_OPT void Vcontrol_store::_combo__TOP__4(Vcontrol_store__Syms* __restri
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcontrol_store::_combo__TOP__4\n"); );
     Vcontrol_store* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->control_store__DOT___GEN_42 = ((3U == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                            ? (IData)(vlTOPp->control_store__DOT__stallState)
-                                            : ((4U 
-                                                == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                                ? ((IData)(vlTOPp->io_LOAD_READY)
-                                                    ? (IData)(vlTOPp->control_store__DOT__stallState)
-                                                    : (IData)(vlTOPp->control_store__DOT__stateReg))
-                                                : (IData)(vlTOPp->control_store__DOT__stallState)));
     vlTOPp->io_RS1 = ((0U == (IData)(vlTOPp->control_store__DOT__stateReg))
                        ? 0U : ((1U == (IData)(vlTOPp->control_store__DOT__stateReg))
                                 ? ((0x37U == vlTOPp->io_INSTRUCTION)
@@ -758,7 +779,7 @@ VL_INLINE_OPT void Vcontrol_store::_combo__TOP__4(Vcontrol_store__Syms* __restri
                                                 : 0U)
                                             : ((4U 
                                                 == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                                ? ((IData)(vlTOPp->io_LOAD_READY)
+                                                ? ((IData)(vlTOPp->control_store__DOT__LOAD_READY)
                                                     ? 0U
                                                     : 5U)
                                                 : (
@@ -775,30 +796,11 @@ VL_INLINE_OPT void Vcontrol_store::_combo__TOP__4(Vcontrol_store__Syms* __restri
                                                     ((4U 
                                                       == (IData)(vlTOPp->control_store__DOT__stallState))
                                                       ? 
-                                                     ((IData)(vlTOPp->io_LOAD_READY)
+                                                     ((IData)(vlTOPp->control_store__DOT__LOAD_READY)
                                                        ? (IData)(vlTOPp->control_store__DOT__stallState)
                                                        : (IData)(vlTOPp->control_store__DOT__stateReg))
                                                       : (IData)(vlTOPp->control_store__DOT__stateReg)))
                                                     : (IData)(vlTOPp->control_store__DOT__stateReg))));
-    vlTOPp->control_store__DOT___GEN_33 = ((4U == (IData)(vlTOPp->control_store__DOT__stateReg)) 
-                                           & (IData)(vlTOPp->io_LOAD_READY));
-    vlTOPp->io_CHOOSE_MEMORY_LOAD = ((0U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
-                                     & ((1U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
-                                        & ((2U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
-                                           & ((3U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
-                                              & (IData)(vlTOPp->control_store__DOT___GEN_33)))));
-    vlTOPp->io_WRITE_EN = ((0U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
-                           & ((1U != (IData)(vlTOPp->control_store__DOT__stateReg)) 
-                              & ((2U == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                  ? (0x67U == (0x77U 
-                                               & vlTOPp->control_store__DOT__instruction))
-                                  : ((3U == (IData)(vlTOPp->control_store__DOT__stateReg))
-                                      ? ((0x33U == 
-                                          (0x7fU & vlTOPp->control_store__DOT__instruction)) 
-                                         | (0x13U == 
-                                            (0x7fU 
-                                             & vlTOPp->control_store__DOT__instruction)))
-                                      : (IData)(vlTOPp->control_store__DOT___GEN_33)))));
 }
 
 void Vcontrol_store::_eval(Vcontrol_store__Syms* __restrict vlSymsp) {
@@ -898,6 +900,7 @@ void Vcontrol_store::_ctor_var_reset() {
     control_store__DOT__instruction = VL_RAND_RESET_I(32);
     control_store__DOT__RECIEVED = VL_RAND_RESET_I(1);
     control_store__DOT__STORE_WAS_READY = VL_RAND_RESET_I(1);
+    control_store__DOT__LOAD_READY = VL_RAND_RESET_I(1);
     control_store__DOT___T = VL_RAND_RESET_I(1);
     control_store__DOT___T_2 = VL_RAND_RESET_I(1);
     control_store__DOT___T_15 = VL_RAND_RESET_I(12);

@@ -129,8 +129,6 @@ int main(int argc, char **argv){
 	for(int i = 0; i < 20; i++){
 		tick(++tickcount, tb, tfp);
 		if(tb -> io_LOAD_ADDRESS_IN == 1){
-			tick(++tickcount, tb, tfp);
-			tick(++tickcount, tb, tfp);
 			tb-> io_LOAD_READY = 1;
 			tick(++tickcount, tb, tfp);
 		}
