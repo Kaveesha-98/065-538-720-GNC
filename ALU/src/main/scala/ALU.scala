@@ -42,10 +42,11 @@ class ALU extends Module {
     switch(ALU_OP){
         is(constants.add){ ALUoutput := ALUinput1 + ALUinput2 }                                 // Addition       
         is(constants.sub){ ALUoutput := ALUinput1 - ALUinput2 }                                 // Subtraction
-        is(constants.sll){ ALUoutput := (ALUinput1.asUInt << ALUinput2(4,0).asUInt).asSInt }    // Left shift
-        is(constants.sra){ ALUoutput := (ALUinput1.asUInt >> ALUinput2(4,0).asUInt).asSInt }    // Arithmatic right shift
+        is(constants.sll){ ALUoutput := ALUinput1 << ALUinput2(4,0).asUInt }                    // Left shift
+        is(constants.srl){ ALUoutput := (ALUinput1.asUInt >> ALUinput2(4,0).asUInt).asSInt }    // Logical right shift
+        is(constants.sra){ ALUoutput := ALUinput1 >> ALUinput2(4,0).asUInt }                    // Arithmatic right shift
         is(constants.xor){ ALUoutput := ALUinput1 ^ ALUinput2 }                                 // XOR
-        is(constants.or) { ALUoutput := ALUinput1 | ALUinput2 }                                  // OR
+        is(constants.or ){ ALUoutput := ALUinput1 | ALUinput2 }                                 // OR
         is(constants.and){ ALUoutput := ALUinput1 & ALUinput2 }                                 // AND
     }
 
