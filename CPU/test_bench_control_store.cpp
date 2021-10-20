@@ -40,20 +40,22 @@ void tick(int tickcount, Vcontrol_store *tb, VerilatedVcdC* tfp){
 
 int main(int argc, char **argv){
 
-	std::string instruction_string = "sb";
+	std::string instruction_string = "bge";
 	std::string machine_instruction;
 	int register_source_1 = 31;
 	int register_source_2 = 4;
 	int register_destination = 10;
-	int immediate = -7;
+	int immediate = 2078;
 
 	//opcode types
 	std::string register_type = "0110011";
 	std::string immediate_type = "0010011";
 	std::string storing_type = "0100011";
 	std::string loading_type = "0000011";
+	std::string conditional_branching = "1100011";
 	
 	std::string immediate12bit = std::bitset< 12 >( immediate ).to_string();
+	std::string immBranch12bit = std::bitset< 13 >( immediate ).to_string();
 
 	//opcodes
 	std::map<std::string, std::string> opcode = {
@@ -67,7 +69,9 @@ int main(int argc, char **argv){
 	{"andi", "0010011"},
 	{"sb", "0100011"}, {"sh", "0100011"}, {"sw", "0100011"},
 	{"lb", "0000011"}, {"lh", "0000011"}, {"lw", "0000011"},
-	{"lbu", "0000011"}, {"lhu", "0000011"}
+	{"lbu", "0000011"}, {"lhu", "0000011"},
+	{"beq", "1100011"}, {"bne", "1100011"}, {"blt", "1100011"},
+	{"bge", "1100011"}, {"bltu", "1100011"}, {"bgeu", "1100011"}
 	};
 								
 	std::map<std::string, std::string> funct3 = {
@@ -79,7 +83,9 @@ int main(int argc, char **argv){
 	{"ori", "110"}, {"andi", "111"},
 	{"sb", "000"}, {"sh", "001"}, {"sw", "010"},
 	{"lb", "000"}, {"lh", "001"}, {"lw", "010"},
-	{"lbu", "100"}, {"lhu", "101"}
+	{"lbu", "100"}, {"lhu", "101"},
+	{"beq", "000"}, {"bne", "001"}, {"blt", "100"},
+	{"bge", "101"}, {"bltu", "110"}, {"bgeu", "111"}
 	};
 								
 	std::map<std::string, std::string> funct7 = {
@@ -100,11 +106,18 @@ int main(int argc, char **argv){
 		machine_instruction = immediate12bit.substr(0, 7) + std::bitset< 5 >( register_source_2 ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + immediate12bit.substr(7, 11) + opcode[instruction_string];
 	} else if(opcode[instruction_string] == loading_type){
 		machine_instruction = std::bitset< 12 >( immediate ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + std::bitset< 5 >( register_destination ).to_string() + opcode[instruction_string];
+	} else if(opcode[instruction_string] == conditional_branching){
+		machine_instruction = immBranch12bit[0] + immBranch12bit.substr(2, 7) + std::bitset< 5 >( register_source_2 ).to_string() + std::bitset< 5 >( register_source_1 ).to_string() + funct3[instruction_string] + immBranch12bit.substr(8, 11) + immBranch12bit[1] + opcode[instruction_string];
 	}
 
 	unsigned tickcount = 0;
 	
 	std::cout << "machine instruction: " << machine_instruction << '\n';
+	std::cout << "machine instruction: " << immBranch12bit[1] << '\n';
+	std::cout << "machine instruction: " << immBranch12bit.substr(8, 10) << '\n';
+	std::cout << "machine instruction: " << immBranch12bit.substr(2, 6) << '\n';
+	std::cout << "machine instruction: " << immBranch12bit[0] << '\n';
+	std::cout << "machine instruction: " << immBranch12bit << '\n';
 
 	// Call commandArgs first!
 	Verilated::commandArgs(argc, argv);
