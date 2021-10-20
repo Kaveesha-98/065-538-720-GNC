@@ -54,7 +54,7 @@ class control_store extends Module{
 	val stallState = RegInit(stalling)
 	val instruction = RegInit(0.U(32.W))
 	val RECIEVED = RegInit(0.U(1.W))
-	val STORE_WAS_READY = RegInit(0.U(1.W))
+	val STORE_READY = RegInit(0.U(1.W))
 	val LOAD_READY = RegInit(0.U(1.W))
 	
 	io.RECIEVED := RECIEVED
@@ -80,7 +80,7 @@ class control_store extends Module{
 	io.BRANCH_ADDRESS_SOURCE_ALU := 0.U
 	io.UPDATE_PC := 0.U
 	RECIEVED := 0.U
-	STORE_WAS_READY := io.STORE_READY
+	STORE_READY := io.STORE_READY
 	LOAD_READY := io.LOAD_READY
 	
 	switch(stateReg){
@@ -127,12 +127,14 @@ class control_store extends Module{
 			
 			//--give data and data size to store unit
 			when(instruction(6, 0) === "b0100011".U){
-				io.DATA_IN := 1.U
+				
 				io.STORE_SIZE := Mux(instruction(13) === 1.U, "b00".U, ~instruction(13, 12))
-				when((io.STORE_READY|STORE_WAS_READY) === 0.U){
+				when(STORE_READY === 0.U){
 					//store unit unavailable
 					stallState := stateReg
 					stateReg := stalling
+				}otherwise{
+					io.DATA_IN := 1.U
 				}
 			}
 		}

@@ -120,7 +120,7 @@ void Vcontrol_store::traceInitThis__1(Vcontrol_store__Syms* __restrict vlSymsp, 
         vcdp->declBus(c+9,"control_store stallState", false,-1, 2,0);
         vcdp->declBus(c+17,"control_store instruction", false,-1, 31,0);
         vcdp->declBit(c+25,"control_store RECIEVED", false,-1);
-        vcdp->declBit(c+33,"control_store STORE_WAS_READY", false,-1);
+        vcdp->declBit(c+33,"control_store STORE_READY", false,-1);
         vcdp->declBit(c+41,"control_store LOAD_READY", false,-1);
         vcdp->declBus(c+49,"control_store hi", false,-1, 6,0);
         vcdp->declBus(c+57,"control_store lo", false,-1, 4,0);
@@ -146,7 +146,7 @@ void Vcontrol_store::traceFullThis__1(Vcontrol_store__Syms* __restrict vlSymsp, 
         vcdp->fullBus(c+9,(vlTOPp->control_store__DOT__stallState),3);
         vcdp->fullBus(c+17,(vlTOPp->control_store__DOT__instruction),32);
         vcdp->fullBit(c+25,(vlTOPp->control_store__DOT__RECIEVED));
-        vcdp->fullBit(c+33,(vlTOPp->control_store__DOT__STORE_WAS_READY));
+        vcdp->fullBit(c+33,(vlTOPp->control_store__DOT__STORE_READY));
         vcdp->fullBit(c+41,(vlTOPp->control_store__DOT__LOAD_READY));
         vcdp->fullBus(c+49,((0x7fU & (vlTOPp->control_store__DOT__instruction 
                                       >> 0x19U))),7);

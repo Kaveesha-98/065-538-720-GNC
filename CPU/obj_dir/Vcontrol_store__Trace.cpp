@@ -43,7 +43,7 @@ void Vcontrol_store::traceChgThis__2(Vcontrol_store__Syms* __restrict vlSymsp, V
         vcdp->chgBus(c+9,(vlTOPp->control_store__DOT__stallState),3);
         vcdp->chgBus(c+17,(vlTOPp->control_store__DOT__instruction),32);
         vcdp->chgBit(c+25,(vlTOPp->control_store__DOT__RECIEVED));
-        vcdp->chgBit(c+33,(vlTOPp->control_store__DOT__STORE_WAS_READY));
+        vcdp->chgBit(c+33,(vlTOPp->control_store__DOT__STORE_READY));
         vcdp->chgBit(c+41,(vlTOPp->control_store__DOT__LOAD_READY));
         vcdp->chgBus(c+49,((0x7fU & (vlTOPp->control_store__DOT__instruction 
                                      >> 0x19U))),7);

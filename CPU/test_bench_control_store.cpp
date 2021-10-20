@@ -40,7 +40,7 @@ void tick(int tickcount, Vcontrol_store *tb, VerilatedVcdC* tfp){
 
 int main(int argc, char **argv){
 
-	std::string instruction_string = "lb";
+	std::string instruction_string = "sb";
 	std::string machine_instruction;
 	int register_source_1 = 31;
 	int register_source_2 = 4;
@@ -125,14 +125,13 @@ int main(int argc, char **argv){
 	tb-> io_INSTRUCTION_LOADED = 1;
 	tick(++tickcount, tb, tfp);
 	tb-> io_INSTRUCTION_LOADED = 0;
+	tb-> io_STORE_READY = 1;
+	tick(++tickcount, tb, tfp);
+	tb-> io_STORE_READY = 0;
 	
 	for(int i = 0; i < 20; i++){
 		tick(++tickcount, tb, tfp);
-		if(tb -> io_LOAD_ADDRESS_IN == 1){
-			tb-> io_LOAD_READY = 1;
-			tick(++tickcount, tb, tfp);
-		}
-		if(i == 5){
+		if(i == 0){
 			tb-> io_STORE_READY = 1;
 			tick(++tickcount, tb, tfp);
 			tb-> io_STORE_READY = 0;
