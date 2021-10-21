@@ -24,10 +24,16 @@ class Tester(dut: ALU) extends PeekPokeTester(dut) {
     
 }
 
+//object Tester extends App {
+//	chisel3.iotesters.Driver(() => new ALU()) { c => 
+//	new Tester(c)
+//	}
+//}
+
 object Tester extends App {
-	chisel3.iotesters.Driver(() => new ALU()) { c => 
-	new Tester(c)
-	}
+  iotesters.Driver.execute(Array("--target-dir", "generated", "--generate-vcd-output", "on"), () => new ALU()) {
+    c => new Tester(c)
+  }
 }
 
 class SimpleSpec extends FlatSpec with Matchers {
