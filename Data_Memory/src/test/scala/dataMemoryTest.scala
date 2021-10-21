@@ -4,14 +4,14 @@ import org.scalatest._
 
 class Tester(dut: Memory ) extends PeekPokeTester(dut) {
   // Write data 5 to address 6
-  poke(dut.io.wrEna,true.B)
-  poke(dut.io.wrData,5.S)
-  poke(dut.io.wrAddr,6.U)
+  poke(dut.io.mem_write,true.B)
+  poke(dut.io.mem_write_data,5.S)
+  poke(dut.io.mem_write_address,6.U)
   step(1)
   // Write data 40 to address 10
-  poke(dut.io.wrEna,true.B)
-  poke(dut.io.wrData,-40.S)
-  poke(dut.io.wrAddr,10.U)
+  poke(dut.io.mem_write,true.B)
+  poke(dut.io.mem_write_data,-40.S)
+  poke(dut.io.mem_write_address,10.U)
   step(1)
   // Read address 6
   poke(dut.io.rdAddr,6.U)
@@ -26,9 +26,9 @@ class Tester(dut: Memory ) extends PeekPokeTester(dut) {
   println("result: " + peek(dut.io.rdData).toString)
   println("")
   // Write data 50 to address 6 and read address 6
-  poke(dut.io.wrEna,true.B)
-  poke(dut.io.wrData,-50.S)
-  poke(dut.io.wrAddr,6.U)
+  poke(dut.io.mem_write,true.B)
+  poke(dut.io.mem_write_data,-50.S)
+  poke(dut.io.mem_write_address,6.U)
   poke(dut.io.rdAddr,6.U)
   step(1)
   // First read
@@ -41,13 +41,6 @@ class Tester(dut: Memory ) extends PeekPokeTester(dut) {
   println("result: " + peek(dut.io.rdData).toString)
   println("")
 
-  //var i = 0
-  //for( i <- 3 to 10){
-    //println("clk cycle: " + i.toString)
-    //println("result: " + peek(dut.io.rdData).toString)
-    //println("")
-    //step(1)
-  //}
 }
 
 object Tester extends App {
