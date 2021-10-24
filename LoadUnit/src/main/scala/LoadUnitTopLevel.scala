@@ -5,18 +5,18 @@ import chisel3.Driver
 class Load_Unit extends Module{
 	val io = IO(new Bundle{
 		
-		val load_mem_address_in = Input(UInt(32.W))				// Corresponding memory address to Load Data - Input
+		val load_mem_address_in = Input(UInt(32.W))					// Corresponding memory address to Load Data - Input
 		val load_data = Input(SInt(8.W))						// Loaded Data into Load Unit		
 		
 		val LOAD_TO_REG = Input(UInt(1.W))						// Control signal to load data from Load Unit to a Register
-		val LOAD_SIZE = Input(UInt(2.W))					    // Control signal containing the size of the data to be loaded
-		val LOAD_ADDRESS_IN = Input(UInt(1.W))					// Control signal to enable mem read address to Load Unit
+		val LOAD_SIZE = Input(UInt(2.W))						// Control signal containing the size of the data to be loaded
+		val LOAD_ADDRESS_IN = Input(UInt(1.W))						// Control signal to enable mem read address to Load Unit
 		
 		val mem_read = Output(UInt(1.W))						// Control signal to load data
 		val LOAD_READY = Output(UInt(1.W))						// Status of Load Unit
 
-		val load_mem_address_out = Output(UInt(32.W))			// Corresponding memory address to Load Data - Output
-		val load_data_out = Output(SInt(32.W))					// Output from load unit ; the Loaded data into Load unit
+		val load_mem_address_out = Output(UInt(32.W))					// Corresponding memory address to Load Data - Output
+		val load_data_out = Output(SInt(32.W))						// Output from load unit ; the Loaded data into Load unit
 
 	})
 
@@ -37,11 +37,11 @@ class Load_Unit extends Module{
 	val cntReg = RegInit(0.U(2.W))
 
 	// States pf Mem read FSM
-    val present_r :: absent_r :: Nil = Enum(2)
+    	val present_r :: absent_r :: Nil = Enum(2)
 	val reading = RegInit(absent_r)
 
 	// States of data Load FSM
-    val present_l :: absent_l :: Nil = Enum(2)
+    	val present_l :: absent_l :: Nil = Enum(2)
 	val loading = RegInit(absent_l)
 	
 	// States of ststus of Load_Unit FSM
@@ -68,12 +68,12 @@ class Load_Unit extends Module{
 		io.mem_read := 1.U
 		count_begin := 1.U
 		count_begin := io.mem_read
-        when(load_data_size_buffer === 3.U){
+        	when(load_data_size_buffer === 3.U){
 			stateReg := ready                           
 			reading := absent_r
         }.otherwise{
-            load_data_address_buffer := load_data_address_buffer + 1.U
-			load_data_size_buffer := load_data_size_buffer + 1.U
+            	load_data_address_buffer := load_data_address_buffer + 1.U
+		load_data_size_buffer := load_data_size_buffer + 1.U
 		}
 		
 	}.otherwise{
@@ -81,14 +81,14 @@ class Load_Unit extends Module{
 		io.mem_read := 0.U
 	}
 	
-    when(loading === present_l){
-       load_data_buffer := io.load_data						
-        when(load_data_size_buffer === 3.U){
+    	when(loading === present_l){
+       		load_data_buffer := io.load_data						
+        	when(load_data_size_buffer === 3.U){
 			stateReg := ready                          
 			loading := absent_l
        }.otherwise{
-            load_data_buffer := load_data_buffer << 8
-			load_data_size_buffer := load_data_size_buffer + 1.U
+		load_data_buffer := load_data_buffer << 8
+		load_data_size_buffer := load_data_size_buffer + 1.U
 		}
 	}
 
@@ -120,29 +120,29 @@ class Load_Unit extends Module{
 
 // Data Memory
 class Memory() extends Module{
-    val io = IO(new Bundle{
+    	val io = IO(new Bundle{
 		val mem_read = Input(UInt(1.W))
-        val rdAddr = Input(UInt(32.W))
-        val rdData = Output(SInt(8.W))
-        val wrEna = Input(Bool())
-        val wrData = Input(SInt(8.W))
-        val wrAddr = Input(UInt(32.W))
-    })
+        	val rdAddr = Input(UInt(32.W))
+        	val rdData = Output(SInt(8.W))
+        	val wrEna = Input(Bool())
+        	val wrData = Input(SInt(8.W))
+        	val wrAddr = Input(UInt(32.W))
+    	})
 
-    val mem = SyncReadMem(1024, SInt(8.W))
+    	val mem = SyncReadMem(1024, SInt(8.W))
 	val memData = WireInit(0.S(8.W))
-    val wrDataReg = RegNext(io.wrData)
-    val doForwardReg = RegNext(io.wrAddr === io.rdAddr && io.wrEna === 1.U)
+    	val wrDataReg = RegNext(io.wrData)
+    	val doForwardReg = RegNext(io.wrAddr === io.rdAddr && io.wrEna === 1.U)
 
-    when(io.mem_read === 1.U) {
-        memData := mem.read(io.rdAddr)
-    }
+    	when(io.mem_read === 1.U) {
+        	memData := mem.read(io.rdAddr)
+    	}
 
-    when(io.wrEna === 1.U) {
-        mem.write(io.wrAddr , io.wrData)
-    }
+    	when(io.wrEna === 1.U) {
+        	mem.write(io.wrAddr , io.wrData)
+    	}
     
-    io.rdData := Mux(doForwardReg , wrDataReg , memData)
+    	io.rdData := Mux(doForwardReg , wrDataReg , memData)
 }
 
 class Store_Unit extends Module{
@@ -282,7 +282,3 @@ class TopLevel extends Module {
 object TopLevel extends App{
 	(new chisel3.stage.ChiselStage).emitVerilog(new TopLevel)
 }
-
-/*object Load_Unit extends App{
-	(new chisel3.stage.ChiselStage).emitVerilog(new Load_Unit)
-}*/
