@@ -117,3 +117,7 @@ class Load_Unit extends Module{
 		}	
 	}
 }
+
+object Load_Unit extends App{
+	(new chisel3.stage.ChiselStage).emitVerilog(new Load_Unit)
+}
