@@ -33,10 +33,10 @@ class ALU extends Module {
     val ALU_OP           = io.ALU_OP
     val ALUinput1        = io.ALUinput1
     val ALUinput2        = io.ALUinput2
-    val ALUoutput        = WireInit(0.S(32.W))
-    val EQUAL            = WireInit(1.U(1.W))
-    val LESS_THAN        = WireInit(0.U(1.W))
-    val SIGNED_LESS_THAN = WireInit(0.U(1.W))
+    val ALUoutput        = RegInit(0.S(32.W))
+    val EQUAL            = RegInit(1.U(1.W))
+    val LESS_THAN        = RegInit(0.U(1.W))
+    val SIGNED_LESS_THAN = RegInit(0.U(1.W))
 
     // ALU operations
     switch(ALU_OP){
