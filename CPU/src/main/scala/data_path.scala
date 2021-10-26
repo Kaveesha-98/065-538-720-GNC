@@ -29,28 +29,32 @@ class data_path extends Module{
 		val instruction_return_address = Input(UInt(32.W))//return address for a procedure call
 		val instruction_next_address = Output(UInt(32.W))//next instruction address in branching
 		val PROCEDURE_BRANCHING = Input(UInt(1.W))//=1 choose return address
+		//for auipc instruction
+		val CHOOSE_PC = Input(UInt(1.W))
+		val PC = Input(UInt(32.W))
 	})
 	
 	val cpuALU = Module(new ALU())
 	val registerFile = Module(new register_file())
 	
 	//Value storing registers between cycles
-	val ALU_in1 = Reg(SInt(32.W))
-	val ALU_in2 = Reg(SInt(32.W))
-	val ALU_out = Reg(SInt(32.W))
+	val ALU_in1 = RegInit(0.S(32.W))
+	val ALU_in2 = RegInit(0.S(32.W))
 	
-	ALU_out := cpuALU.io.ALUoutput
+	val ALU_out = cpuALU.io.ALUoutput
 	
 	//Writing to registerFile
 	val rdData = Mux(io.CHOOSE_MEMORY_LOAD === 1.U, io.load_data, ALU_out)
 	registerFile.io.rdData := Mux(io.PROCEDURE_BRANCHING === 1.U, io.instruction_return_address.asSInt, rdData)
 	
 	//Finding input for ALU
-	//Input1
+	
 	val rs1_ALU = Mux(io.RS1 === io.ALU_RD, ALU_out, registerFile.io.rs1Data)
 	val rs1_ALU_rd = Mux(io.RS1 === io.RD, rdData, rs1_ALU)
-	ALU_in1 := Mux(io.RS1 === 0.U, 0.S, rs1_ALU_rd)
-	//Input2
+	val not_auipc = Mux(io.RS1 === 0.U, 0.S, rs1_ALU_rd)
+	ALU_in1 := Mux(io.CHOOSE_PC === 1.U, io.PC.asSInt, not_auipc)
+	
+	
 	val rs2_ALU = Mux(io.RS2 === io.ALU_RD, ALU_out, registerFile.io.rs2Data)
 	val rs2_ALU_rd = Mux(io.RS2 === io.RD, rdData, rs2_ALU)
 	val rs2_ALU_rd_0U = Mux(io.RS2 === 0.U, 0.S, rs2_ALU_rd)
