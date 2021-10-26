@@ -16,7 +16,7 @@ class control_store extends Module{
         //ALU to control unit connections
         val ALU_OP = Output(UInt(4.W)) //ALUOperations{add, sub, sll, sra, srl, xor, or, and}
 		//For data Flow conrol
-		val PROCEDURE_BRANCHING = Output(UInt(1.W))//=1 choose return address
+		val PROCEDURE_BRANCHING = Output(UInt(1.W))//=1 choose return address for RD
 		val CHOOSE_IMMEDIATE = Output(UInt(1.W))
 		val CHOOSE_MEMORY_LOAD = Output(UInt(1.W))
 		val IMMEDIATE = Output(SInt(32.W))
@@ -37,6 +37,8 @@ class control_store extends Module{
 		val BRANCH_ADDRESS_SOURCE_ALU = Output(UInt(1.W))
 		//PC update
 		val UPDATE_PC = Output(UInt(1.W))
+		//for auipc instrution
+		val CHOOSE_PC = Output(UInt(1.W))
 	})
 	
 	//opcodes
@@ -79,6 +81,8 @@ class control_store extends Module{
 	io.PROCEDURE_BRANCHING := 0.U
 	io.BRANCH_ADDRESS_SOURCE_ALU := 0.U
 	io.UPDATE_PC := 0.U
+	io.CHOOSE_PC := 0.U
+	
 	RECIEVED := 0.U
 	STORE_READY := io.STORE_READY
 	LOAD_READY := io.LOAD_READY
@@ -100,6 +104,8 @@ class control_store extends Module{
 			//give data and data size to store unit
 			
 			stateReg := stage2
+			
+			io.CHOOSE_PC := Mux(instruction(6, 0) === "b001_0111".U, 1.U, 0.U)
 			
 			//--Read registers
 			when(io.INSTRUCTION === "b011_0111".U){

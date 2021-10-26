@@ -106,5 +106,6 @@ void Vcontrol_store::traceChgThis__3(Vcontrol_store__Syms* __restrict vlSymsp, V
         vcdp->chgBit(c+337,(vlTOPp->io_BRANCH_CONDITION));
         vcdp->chgBit(c+345,(vlTOPp->io_BRANCH_ADDRESS_SOURCE_ALU));
         vcdp->chgBit(c+353,(vlTOPp->io_UPDATE_PC));
+        vcdp->chgBit(c+361,(vlTOPp->io_CHOOSE_PC));
     }
 }

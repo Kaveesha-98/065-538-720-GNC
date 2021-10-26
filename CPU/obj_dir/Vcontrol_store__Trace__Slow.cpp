@@ -88,6 +88,7 @@ void Vcontrol_store::traceInitThis__1(Vcontrol_store__Syms* __restrict vlSymsp, 
         vcdp->declBit(c+337,"io_BRANCH_CONDITION", false,-1);
         vcdp->declBit(c+345,"io_BRANCH_ADDRESS_SOURCE_ALU", false,-1);
         vcdp->declBit(c+353,"io_UPDATE_PC", false,-1);
+        vcdp->declBit(c+361,"io_CHOOSE_PC", false,-1);
         vcdp->declBit(c+137,"control_store clock", false,-1);
         vcdp->declBit(c+145,"control_store reset", false,-1);
         vcdp->declBus(c+153,"control_store io_INSTRUCTION", false,-1, 31,0);
@@ -116,6 +117,7 @@ void Vcontrol_store::traceInitThis__1(Vcontrol_store__Syms* __restrict vlSymsp, 
         vcdp->declBit(c+337,"control_store io_BRANCH_CONDITION", false,-1);
         vcdp->declBit(c+345,"control_store io_BRANCH_ADDRESS_SOURCE_ALU", false,-1);
         vcdp->declBit(c+353,"control_store io_UPDATE_PC", false,-1);
+        vcdp->declBit(c+361,"control_store io_CHOOSE_PC", false,-1);
         vcdp->declBus(c+1,"control_store stateReg", false,-1, 2,0);
         vcdp->declBus(c+9,"control_store stallState", false,-1, 2,0);
         vcdp->declBus(c+17,"control_store instruction", false,-1, 31,0);
@@ -200,5 +202,6 @@ void Vcontrol_store::traceFullThis__1(Vcontrol_store__Syms* __restrict vlSymsp, 
         vcdp->fullBit(c+337,(vlTOPp->io_BRANCH_CONDITION));
         vcdp->fullBit(c+345,(vlTOPp->io_BRANCH_ADDRESS_SOURCE_ALU));
         vcdp->fullBit(c+353,(vlTOPp->io_UPDATE_PC));
+        vcdp->fullBit(c+361,(vlTOPp->io_CHOOSE_PC));
     }
 }

@@ -10,10 +10,41 @@
 
 using namespace std;
 
+void tick(int tickcount, Vcontrol_store *tb, VerilatedVcdC* tfp){
+	tb->eval();
+	if (tfp){
+		tfp->dump(tickcount*10 - 2);
+	}
+	tb->clock = 1;
+	tb->eval();
+	if(tfp){
+		tfp->dump(tickcount*10);
+	}
+	tb->clock = 0;
+	tb->eval();
+	if(tfp){
+		tfp->dump(tickcount*10 + 5);
+		tfp->flush();
+	}
+}
+
+int instructionToInt(std::string machine_instruction){
+	int int_instruction = 0;
+	int multiplier = 1;
+	for(int i = 31; i >= 0; i--){
+		if(machine_instruction[i] == '1'){
+			int_instruction += multiplier;
+		}
+		multiplier = multiplier*2;
+	}
+	return int_instruction;
+}
+
 class assm_translator{
 	public:
 		int RS1, RS2, RD, immediate;
-		string translate(string Op);
+		string translate();
+		string Op;
 		
 		//opcode types
 		std::string register_type = "0110011";
@@ -78,7 +109,7 @@ string bitsOf_From_To_(string bits, int end, int start){
 	return returnSlice;
 }
 
-string assm_translator::translate(string Op){
+string assm_translator::translate(){
 	string immediate12bit = bitset< 12 >( immediate ).to_string();
 	string immBranch12bit = bitset< 13 >( immediate ).to_string();
 	string immBranch20bit = bitset< 21 >( immediate ).to_string();
@@ -149,12 +180,40 @@ string assm_translator::translate(string Op){
 	return machine_instruction;
 }
 
-int main(){
+int main(int argc, char **argv){
+
+	unsigned tickcount = 0;
+
+	// Call commandArgs first!
+	Verilated::commandArgs(argc, argv);
+	
+	//Instantiate our design
+	Vcontrol_store *tb = new Vcontrol_store;
+	
+	Verilated::traceEverOn(true);
+	VerilatedVcdC* tfp = new VerilatedVcdC;
+	tb->trace(tfp, 99);
+	tfp->open("control_storetrace.vcd");
+
 	assm_translator translator;
 	translator.RS1 = 3;
 	translator.RS2 = 6;
 	translator.RD = 19;
+	translator.Op = "bge";
 	translator.immediate = -7;
-	cout << translator.translate("lui") << endl;
+	cout << translator.translate() << endl;
+	
+	tb-> io_INSTRUCTION = instructionToInt(translator.translate());
+	tb-> io_INSTRUCTION_LOADED = 1;
+	tick(++tickcount, tb, tfp);
+	tb-> io_INSTRUCTION_LOADED = 0;
+	
+	for(int i = 0; i < 20; i++){
+		tick(++tickcount, tb, tfp);
+		if(i==2){
+			tb-> io_LOAD_READY = 1;
+			tick(++tickcount, tb, tfp);
+		}
+	}
 
 }

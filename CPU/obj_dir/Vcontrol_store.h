@@ -49,6 +49,7 @@ VL_MODULE(Vcontrol_store) {
     VL_OUT8(io_BRANCH_CONDITION,0,0);
     VL_OUT8(io_BRANCH_ADDRESS_SOURCE_ALU,0,0);
     VL_OUT8(io_UPDATE_PC,0,0);
+    VL_OUT8(io_CHOOSE_PC,0,0);
     VL_IN(io_INSTRUCTION,31,0);
     VL_OUT(io_IMMEDIATE,31,0);
     VL_OUT(io_BRANCH_IMMEDIATE,31,0);
@@ -63,14 +64,14 @@ VL_MODULE(Vcontrol_store) {
     CData/*0:0*/ control_store__DOT___T;
     CData/*0:0*/ control_store__DOT___T_2;
     CData/*2:0*/ control_store__DOT___GEN_5;
-    CData/*0:0*/ control_store__DOT___T_43;
+    CData/*0:0*/ control_store__DOT___T_46;
     CData/*0:0*/ control_store__DOT___GEN_34;
     CData/*2:0*/ control_store__DOT___GEN_41;
     CData/*2:0*/ control_store__DOT___GEN_43;
-    SData/*11:0*/ control_store__DOT___T_15;
-    SData/*12:0*/ control_store__DOT___T_23;
+    SData/*11:0*/ control_store__DOT___T_18;
+    SData/*12:0*/ control_store__DOT___T_26;
     IData/*31:0*/ control_store__DOT__instruction;
-    IData/*20:0*/ control_store__DOT___T_24;
+    IData/*20:0*/ control_store__DOT___T_27;
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
