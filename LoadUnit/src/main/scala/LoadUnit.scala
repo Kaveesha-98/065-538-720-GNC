@@ -16,60 +16,32 @@ class Load_Unit extends Module{
 		val LOAD_READY = Output(UInt(1.W))					// Status of Load Unit
 
 		val load_mem_address_out = Output(UInt(32.W))				// Corresponding memory address to Load Data - Output
+		val load_begin = Input(UInt(1.W))					// Control signal to start accepting load data from data memory
 		val load_data_out = Output(SInt(32.W))					// Output from load unit ; the Loaded data into Load unit
-
 	})
-
-	// Set vatiables for outputs
-	val load_mem_address_out = WireInit(0.U(32.W))
-	val mem_read = WireInit(0.U(1.W))
-	val load_data_out = WireInit(0.S(32.W))
-	val LOAD_READY = WireInit(0.U(1.W))
 
 	// Buffers
 	val load_data_buffer = RegInit(0.S(32.W))
 	val load_data_size_buffer = RegInit(0.U(2.W))
+	val loaded_data_size_buffer = RegInit(0.U(2.W))
 	val load_data_address_buffer = RegInit(0.U(32.W))
-	
-	// Clock cycle Counter Regs
-	val count_begin = RegInit(0.U(1.W))
-	val load_begin = RegInit(0.U(1.W))
-	val cntReg = RegInit(0.U(2.W))
 
 	// States pf Mem read FSM
     	val present_r :: absent_r :: Nil = Enum(2)
 	val reading = RegInit(absent_r)
 
 	// States of data Load FSM
-    	val present_l :: absent_l :: Nil = Enum(2)
+   	val present_l :: absent_l :: Nil = Enum(2)
 	val loading = RegInit(absent_l)
 	
 	// States of ststus of Load_Unit FSM
 	val ready :: not_ready :: Nil = Enum(2)
 	val stateReg = RegInit(ready)
-	
-	io.load_mem_address_out := load_mem_address_out
-	io.mem_read := mem_read
-	io.load_data_out := load_data_out
-	io.LOAD_READY := LOAD_READY
-
-	// Clock cycle counter for waiting after Mem read control signal is activated (2-clock cycles)
-	when(count_begin === 1.U){
-		cntReg := cntReg + 1.U
-		when(cntReg === 2.U){
-			load_begin := 1.U
-			count_begin := 0.U
-			cntReg := 0.U
-		}
-	}
 
 	when(reading === present_r){
 		io.load_mem_address_out := load_data_address_buffer
 		io.mem_read := 1.U
-		count_begin := 1.U
-		count_begin := io.mem_read
-        	when(load_data_size_buffer === 3.U){
-			stateReg := ready                           
+        	when(load_data_size_buffer === 3.U){                       
 			reading := absent_r
         	}.otherwise{
             		load_data_address_buffer := load_data_address_buffer + 1.U
@@ -82,15 +54,18 @@ class Load_Unit extends Module{
 	}
 	
     	when(loading === present_l){
-	    	load_data_buffer := io.load_data						
-	   	when(load_data_size_buffer === 3.U){
-			stateReg := ready                          
+       		load_data_buffer := Cat(load_data_buffer(31,8), io.load_data).asSInt			
+        	when(loaded_data_size_buffer === 3.U){
+			stateReg := not_ready                          
 			loading := absent_l
-       }.otherwise{
-            	load_data_buffer := load_data_buffer << 8
-		load_data_size_buffer := load_data_size_buffer + 1.U
+       		}.otherwise{
+            		load_data_buffer := load_data_buffer << 8
+			loaded_data_size_buffer := loaded_data_size_buffer + 1.U
 		}
 	}
+
+	io.load_data_out := 0.S
+	io.LOAD_READY := 0.U
 
 	// Load_Unit FSM state transition and operations under each state, under control signals
 	switch(stateReg){
@@ -99,6 +74,7 @@ class Load_Unit extends Module{
 				stateReg := not_ready
 				load_data_address_buffer := io.load_mem_address_in
 				load_data_size_buffer := io.LOAD_SIZE
+				loaded_data_size_buffer := io.LOAD_SIZE
 				reading := present_r
 				io.LOAD_READY := 0.U
 			}.otherwise{
@@ -106,13 +82,12 @@ class Load_Unit extends Module{
 			}
 		}
 		is(not_ready){
-			when(load_begin === 1.U){
-				loading := present_l
-				load_begin := 0.U
-				io.LOAD_READY := 0.U				
-			}.elsewhen(io.LOAD_TO_REG === 1.U && loading === absent_l){
+			when(io.LOAD_TO_REG === 1.U && loading === absent_l){
 				stateReg := ready
 				io.load_data_out := load_data_buffer
+			}.elsewhen(io.load_begin === 1.U && loading === absent_l){
+				loading := present_l
+				io.LOAD_READY := 0.U				
 			}
 		}	
 	}
