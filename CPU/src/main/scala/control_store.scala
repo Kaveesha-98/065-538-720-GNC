@@ -200,7 +200,8 @@ class control_store extends Module{
 			//--writeback on arithmetic
 			io.RD := instruction(11, 7)
 			
-			when(instruction(6, 0) === "b0110011".U | instruction(6, 0) === "b0010011".U){
+			//for arithmetic and auipc and lui
+			when(instruction(4) === "b1".U){
 				io.WRITE_EN := 1.U
 				stateReg := waiting
 				io.CHOOSE_MEMORY_LOAD := 0.U
