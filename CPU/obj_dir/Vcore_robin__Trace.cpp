@@ -349,10 +349,12 @@ void Vcore_robin::traceChgThis__5(Vcore_robin__Syms* __restrict vlSymsp, Verilat
         vcdp->chgBus(c+289,(((IData)(4U) + vlTOPp->core_robin__DOT__PC)),32);
         vcdp->chgBus(c+297,(vlTOPp->core_robin__DOT__PC),32);
         vcdp->chgBus(c+305,(((IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__storing)
-                              ? 0U : (0xffU & vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer))),8);
+                              ? (0xffU & vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer)
+                              : 0U)),8);
         vcdp->chgBus(c+313,(((IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__storing)
-                              ? 0U : vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer_address)),32);
-        vcdp->chgBit(c+321,((1U & (~ (IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__storing)))));
+                              ? vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer_address
+                              : 0U)),32);
+        vcdp->chgBit(c+321,(vlTOPp->core_robin__DOT__storeUnit__DOT__storing));
         vcdp->chgBus(c+329,(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg),3);
         vcdp->chgBus(c+337,(vlTOPp->core_robin__DOT__controlStore__DOT__stallState),3);
         vcdp->chgBus(c+345,(vlTOPp->core_robin__DOT__controlStore__DOT__instruction),32);
@@ -419,8 +421,9 @@ void Vcore_robin::traceChgThis__5(Vcore_robin__Syms* __restrict vlSymsp, Verilat
         vcdp->chgBus(c+729,(vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer),32);
         vcdp->chgBus(c+737,(vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_size_buffer),2);
         vcdp->chgBus(c+745,(vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer_address),32);
-        vcdp->chgBit(c+753,(vlTOPp->core_robin__DOT__storeUnit__DOT__storing));
-        vcdp->chgBit(c+761,(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg));
+        vcdp->chgBit(c+753,(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg));
+        vcdp->chgBus(c+761,((0xffffffU & (vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer 
+                                          >> 8U))),24);
     }
 }
 

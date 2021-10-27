@@ -199,7 +199,7 @@ int main(int argc, char **argv){
 	translator.RS1 = 0;
 	translator.RS2 = 0;
 	translator.RD = 19;
-	translator.Op = "beq";
+	translator.Op = "sw";
 	translator.immediate = 8;
 	cout << translator.translate() << endl;
 	

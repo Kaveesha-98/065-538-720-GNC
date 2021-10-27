@@ -21,7 +21,7 @@ class Store_Unit extends Module{
 	val store_data_buffer = RegInit(0.U(32.W))
 	val store_data_size_buffer = RegInit(0.U(2.W))
 	val store_data_buffer_address = RegInit(0.U(32.W))
-	val present :: absent :: Nil = Enum(2)
+	val absent :: present :: Nil = Enum(2)
 	val storing = RegInit(absent)
 	
 	val ready :: not_ready :: Nil = Enum(2)
@@ -29,26 +29,10 @@ class Store_Unit extends Module{
 	
 	io.mem_write_data := 0.S
 	io.STORE_READY := 0.U
-	
+	io.mem_write := 0.U
+	io.mem_write_address := 0.U
 	//Storing the data
-	when(storing === present){
-		io.mem_write_address := store_data_buffer_address
-		io.mem_write_data := store_data_buffer(7, 0).asSInt
-		io.mem_write := 1.U
-		store_data_buffer := store_data_buffer >> 8
-		store_data_buffer_address := store_data_buffer_address + 1.U
-		when(store_data_size_buffer === 3.U){
-			stateReg := ready//Unit is ready for another store instruction
-			storing := absent
-		}otherwise{
-			store_data_size_buffer := store_data_size_buffer + 1.U
-		}
-		
-	}otherwise{
-		io.mem_write_data := 0.S
-		io.mem_write_address := 0.U
-		io.mem_write := 0.U
-	}
+	
 	
 	switch(stateReg){
 		is(ready){
@@ -61,13 +45,35 @@ class Store_Unit extends Module{
 			io.STORE_READY := 1.U
 		}
 		is(not_ready){
-			when(io.ADDRESS_IN === 1.U && storing === absent){
+			when(io.ADDRESS_IN === 1.U & storing === absent){
 				store_data_buffer_address := io.store_address
 				storing := present				
 			}
 			io.STORE_READY := 0.U
 		}
 	
+	}
+	
+	switch(storing){
+		is(present){
+			io.mem_write_address := store_data_buffer_address
+			io.mem_write_data := store_data_buffer(7, 0).asSInt
+			io.mem_write := 1.U
+			//store_data_buffer := store_data_buffer >> 8
+			store_data_buffer := Cat("b0000_0000".U, store_data_buffer(31, 8))
+			store_data_buffer_address := store_data_buffer_address + 1.U
+			when(store_data_size_buffer === 3.U){
+				stateReg := ready//Unit is ready for another store instruction
+				storing := absent
+			}otherwise{
+				store_data_size_buffer := store_data_size_buffer + 1.U
+			}
+		}
+		is(absent){
+		io.mem_write_data := 0.S
+		io.mem_write_address := 0.U
+		io.mem_write := 0.U
+		}
 	}
 	
 	

@@ -67,11 +67,11 @@ VL_MODULE(Vcore_robin) {
         CData/*1:0*/ core_robin__DOT__storeUnit__DOT__store_data_size_buffer;
         CData/*0:0*/ core_robin__DOT__storeUnit__DOT__storing;
         CData/*0:0*/ core_robin__DOT__storeUnit__DOT__stateReg;
+        CData/*0:0*/ core_robin__DOT__storeUnit__DOT___T;
         CData/*0:0*/ core_robin__DOT__storeUnit__DOT___GEN_9;
-        CData/*1:0*/ core_robin__DOT__storeUnit__DOT___GEN_10;
-        CData/*0:0*/ core_robin__DOT__storeUnit__DOT___T_9;
-        CData/*0:0*/ core_robin__DOT__storeUnit__DOT___GEN_11;
-        CData/*0:0*/ core_robin__DOT__storeUnit__DOT___GEN_25;
+        CData/*1:0*/ core_robin__DOT__storeUnit__DOT___GEN_11;
+        CData/*0:0*/ core_robin__DOT__storeUnit__DOT___GEN_14;
+        CData/*1:0*/ core_robin__DOT__storeUnit__DOT___T_15;
         SData/*11:0*/ core_robin__DOT__controlStore__DOT___T_18;
         SData/*12:0*/ core_robin__DOT__controlStore__DOT___T_55;
         IData/*31:0*/ core_robin__DOT__PC;
@@ -126,8 +126,9 @@ VL_MODULE(Vcore_robin) {
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT___GEN_54;
         IData/*31:0*/ core_robin__DOT__storeUnit__DOT__store_data_buffer;
         IData/*31:0*/ core_robin__DOT__storeUnit__DOT__store_data_buffer_address;
-        IData/*31:0*/ core_robin__DOT__storeUnit__DOT___GEN_6;
-        IData/*31:0*/ core_robin__DOT__storeUnit__DOT___GEN_7;
+        IData/*31:0*/ core_robin__DOT__storeUnit__DOT___GEN_4;
+        IData/*24:0*/ core_robin__DOT__storeUnit__DOT___T_10;
+        IData/*31:0*/ core_robin__DOT__storeUnit__DOT___T_12;
         QData/*62:0*/ core_robin__DOT__dataPath__DOT__cpuALU__DOT___GEN_7;
         QData/*62:0*/ core_robin__DOT__dataPath__DOT__cpuALU__DOT___GEN_11;
     };

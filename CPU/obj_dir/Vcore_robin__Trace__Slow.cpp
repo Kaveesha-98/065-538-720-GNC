@@ -294,8 +294,9 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBus(c+729,"core_robin storeUnit store_data_buffer", false,-1, 31,0);
         vcdp->declBus(c+737,"core_robin storeUnit store_data_size_buffer", false,-1, 1,0);
         vcdp->declBus(c+745,"core_robin storeUnit store_data_buffer_address", false,-1, 31,0);
-        vcdp->declBit(c+753,"core_robin storeUnit storing", false,-1);
-        vcdp->declBit(c+761,"core_robin storeUnit stateReg", false,-1);
+        vcdp->declBit(c+321,"core_robin storeUnit storing", false,-1);
+        vcdp->declBit(c+753,"core_robin storeUnit stateReg", false,-1);
+        vcdp->declBus(c+761,"core_robin storeUnit lo", false,-1, 23,0);
     }
 }
 
@@ -578,10 +579,12 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->fullBus(c+289,(((IData)(4U) + vlTOPp->core_robin__DOT__PC)),32);
         vcdp->fullBus(c+297,(vlTOPp->core_robin__DOT__PC),32);
         vcdp->fullBus(c+305,(((IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__storing)
-                               ? 0U : (0xffU & vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer))),8);
+                               ? (0xffU & vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer)
+                               : 0U)),8);
         vcdp->fullBus(c+313,(((IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__storing)
-                               ? 0U : vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer_address)),32);
-        vcdp->fullBit(c+321,((1U & (~ (IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__storing)))));
+                               ? vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer_address
+                               : 0U)),32);
+        vcdp->fullBit(c+321,(vlTOPp->core_robin__DOT__storeUnit__DOT__storing));
         vcdp->fullBus(c+329,(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg),3);
         vcdp->fullBus(c+337,(vlTOPp->core_robin__DOT__controlStore__DOT__stallState),3);
         vcdp->fullBus(c+345,(vlTOPp->core_robin__DOT__controlStore__DOT__instruction),32);
@@ -648,8 +651,9 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->fullBus(c+729,(vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer),32);
         vcdp->fullBus(c+737,(vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_size_buffer),2);
         vcdp->fullBus(c+745,(vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer_address),32);
-        vcdp->fullBit(c+753,(vlTOPp->core_robin__DOT__storeUnit__DOT__storing));
-        vcdp->fullBit(c+761,(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg));
+        vcdp->fullBit(c+753,(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg));
+        vcdp->fullBus(c+761,((0xffffffU & (vlTOPp->core_robin__DOT__storeUnit__DOT__store_data_buffer 
+                                           >> 8U))),24);
         vcdp->fullBit(c+769,(vlTOPp->clock));
         vcdp->fullBit(c+777,(vlTOPp->reset));
         vcdp->fullBus(c+785,(vlTOPp->io_INSTRUCTION),32);
