@@ -49,7 +49,7 @@ void Vcore_robin::eval() {
             Verilated::debug(1);
             __Vchange = _change_request(vlSymsp);
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("core_robin.v", 1114, "",
+            VL_FATAL_MT("core_robin.v", 1115, "",
                 "Verilated model didn't converge\n"
                 "- See DIDNOTCONVERGE in the Verilator manual");
         } else {
@@ -75,7 +75,7 @@ void Vcore_robin::_eval_initial_loop(Vcore_robin__Syms* __restrict vlSymsp) {
             Verilated::debug(1);
             __Vchange = _change_request(vlSymsp);
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("core_robin.v", 1114, "",
+            VL_FATAL_MT("core_robin.v", 1115, "",
                 "Verilated model didn't DC converge\n"
                 "- See DIDNOTCONVERGE in the Verilator manual");
         } else {
@@ -284,7 +284,7 @@ VL_INLINE_OPT void Vcore_robin::_sequent__TOP__2(Vcore_robin__Syms* __restrict v
             if ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))) {
                 if ((0x23U == (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))) {
                     vlTOPp->core_robin__DOT__controlStore__DOT__stallState 
-                        = vlTOPp->core_robin__DOT__controlStore__DOT___GEN_5;
+                        = vlTOPp->core_robin__DOT__controlStore__DOT___GEN_4;
                 }
             } else {
                 if ((2U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))) {
@@ -640,7 +640,7 @@ VL_INLINE_OPT void Vcore_robin::_sequent__TOP__2(Vcore_robin__Syms* __restrict v
                 = ((IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_2)
                     ? ((0x23U == (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
                         ? ((IData)(vlTOPp->core_robin__DOT__controlStore__DOT__STORE_READY)
-                            ? 2U : 5U) : 2U) : ((IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_46)
+                            ? 2U : 5U) : 2U) : ((IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_34)
                                                  ? 3U
                                                  : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_41)));
         }
@@ -657,16 +657,16 @@ VL_INLINE_OPT void Vcore_robin::_sequent__TOP__2(Vcore_robin__Syms* __restrict v
                                                      >> 7U)))
                       : (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                          >> 0x14U)));
-    vlTOPp->core_robin__DOT__controlStore__DOT___T_26 
+    vlTOPp->core_robin__DOT__controlStore__DOT___T_55 
         = ((0x1000U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                        >> 0x13U)) | ((0x800U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                                                 << 4U)) 
-                                     | ((0x780U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                                   >> 1U)) 
-                                        | (0x7eU & 
+                                     | ((0x7e0U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
+                                                   >> 0x14U)) 
+                                        | (0x1eU & 
                                            (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                            >> 0x18U)))));
-    vlTOPp->core_robin__DOT__controlStore__DOT___T_27 
+                                            >> 7U)))));
+    vlTOPp->core_robin__DOT__controlStore__DOT___T_56 
         = ((0x100000U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                          >> 0xbU)) | ((0xff000U & vlTOPp->core_robin__DOT__controlStore__DOT__instruction) 
                                       | ((0x800U & 
@@ -679,7 +679,7 @@ VL_INLINE_OPT void Vcore_robin::_sequent__TOP__2(Vcore_robin__Syms* __restrict v
         = (0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg));
     vlTOPp->core_robin__DOT__controlStore__DOT___T_2 
         = (1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg));
-    vlTOPp->core_robin__DOT__controlStore__DOT___T_46 
+    vlTOPp->core_robin__DOT__controlStore__DOT___T_34 
         = (2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg));
     vlTOPp->core_robin__DOT__controlStore_io_RD = (
                                                    (0U 
@@ -778,26 +778,30 @@ VL_INLINE_OPT void Vcore_robin::_sequent__TOP__2(Vcore_robin__Syms* __restrict v
         (vlTOPp->core_robin__DOT__PC + ((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                          ? 0U : ((1U 
                                                   == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                                  ? 
-                                                 ((0x63U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
+                                                  ? 0U
+                                                  : 
+                                                 ((2U 
+                                                   == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                                    ? 
-                                                  ((0x80000000U 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                  ((0x63U 
+                                                    == 
+                                                    (0x7fU 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
                                                     ? 
-                                                   (0xffffe000U 
-                                                    | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_26))
-                                                    : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_26))
-                                                   : 
-                                                  ((0x80000000U 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
-                                                    ? 
-                                                   (0xffe00000U 
-                                                    | vlTOPp->core_robin__DOT__controlStore__DOT___T_27)
-                                                    : vlTOPp->core_robin__DOT__controlStore__DOT___T_27))
-                                                  : 0U)));
+                                                   ((0x80000000U 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                     ? 
+                                                    (0xffffe000U 
+                                                     | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
+                                                     : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
+                                                    : 
+                                                   ((0x80000000U 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                     ? 
+                                                    (0xffe00000U 
+                                                     | vlTOPp->core_robin__DOT__controlStore__DOT___T_56)
+                                                     : vlTOPp->core_robin__DOT__controlStore__DOT___T_56))
+                                                   : 0U))));
     vlTOPp->core_robin__DOT__controlStore_io_WRITE_EN 
         = ((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
            & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
@@ -897,7 +901,7 @@ VL_INLINE_OPT void Vcore_robin::_sequent__TOP__2(Vcore_robin__Syms* __restrict v
                             ? (vlTOPp->core_robin__DOT__dataPath__DOT__ALU_in1 
                                & vlTOPp->core_robin__DOT__dataPath__DOT__ALU_in2)
                             : vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput)))));
-    vlTOPp->core_robin__DOT__controlStore__DOT___GEN_5 
+    vlTOPp->core_robin__DOT__controlStore__DOT___GEN_4 
         = ((IData)(vlTOPp->core_robin__DOT__controlStore__DOT__STORE_READY)
             ? (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stallState)
             : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg));
@@ -1082,7 +1086,7 @@ void Vcore_robin::_settle__TOP__3(Vcore_robin__Syms* __restrict vlSymsp) {
                                                      >> 7U)))
                       : (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                          >> 0x14U)));
-    vlTOPp->core_robin__DOT__controlStore__DOT___T_46 
+    vlTOPp->core_robin__DOT__controlStore__DOT___T_34 
         = (2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg));
     vlTOPp->core_robin__DOT__controlStore_io_RD = (
                                                    (0U 
@@ -1145,16 +1149,16 @@ void Vcore_robin::_settle__TOP__3(Vcore_robin__Syms* __restrict vlSymsp) {
               & ((2U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                  & ((3U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                     & (0x23U == (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))))));
-    vlTOPp->core_robin__DOT__controlStore__DOT___T_26 
+    vlTOPp->core_robin__DOT__controlStore__DOT___T_55 
         = ((0x1000U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                        >> 0x13U)) | ((0x800U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                                                 << 4U)) 
-                                     | ((0x780U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                                   >> 1U)) 
-                                        | (0x7eU & 
+                                     | ((0x7e0U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
+                                                   >> 0x14U)) 
+                                        | (0x1eU & 
                                            (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                            >> 0x18U)))));
-    vlTOPp->core_robin__DOT__controlStore__DOT___T_27 
+                                            >> 7U)))));
+    vlTOPp->core_robin__DOT__controlStore__DOT___T_56 
         = ((0x100000U & (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                          >> 0xbU)) | ((0xff000U & vlTOPp->core_robin__DOT__controlStore__DOT__instruction) 
                                       | ((0x800U & 
@@ -1201,7 +1205,7 @@ void Vcore_robin::_settle__TOP__3(Vcore_robin__Syms* __restrict vlSymsp) {
                                       : 0U)) : 0U)));
     vlTOPp->core_robin__DOT__storeUnit__DOT___T_9 = 
         (1U & (~ (IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg)));
-    vlTOPp->core_robin__DOT__controlStore__DOT___GEN_5 
+    vlTOPp->core_robin__DOT__controlStore__DOT___GEN_4 
         = ((IData)(vlTOPp->core_robin__DOT__controlStore__DOT__STORE_READY)
             ? (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stallState)
             : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg));
@@ -1245,26 +1249,30 @@ void Vcore_robin::_settle__TOP__3(Vcore_robin__Syms* __restrict vlSymsp) {
         (vlTOPp->core_robin__DOT__PC + ((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                          ? 0U : ((1U 
                                                   == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                                  ? 
-                                                 ((0x63U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
+                                                  ? 0U
+                                                  : 
+                                                 ((2U 
+                                                   == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                                    ? 
-                                                  ((0x80000000U 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                  ((0x63U 
+                                                    == 
+                                                    (0x7fU 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
                                                     ? 
-                                                   (0xffffe000U 
-                                                    | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_26))
-                                                    : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_26))
-                                                   : 
-                                                  ((0x80000000U 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
-                                                    ? 
-                                                   (0xffe00000U 
-                                                    | vlTOPp->core_robin__DOT__controlStore__DOT___T_27)
-                                                    : vlTOPp->core_robin__DOT__controlStore__DOT___T_27))
-                                                  : 0U)));
+                                                   ((0x80000000U 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                     ? 
+                                                    (0xffffe000U 
+                                                     | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
+                                                     : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
+                                                    : 
+                                                   ((0x80000000U 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                     ? 
+                                                    (0xffe00000U 
+                                                     | vlTOPp->core_robin__DOT__controlStore__DOT___T_56)
+                                                     : vlTOPp->core_robin__DOT__controlStore__DOT___T_56))
+                                                   : 0U))));
     vlTOPp->core_robin__DOT__controlStore_io_WRITE_EN 
         = ((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
            & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
@@ -1696,10 +1704,10 @@ void Vcore_robin::_ctor_var_reset() {
     core_robin__DOT__controlStore__DOT___T = VL_RAND_RESET_I(1);
     core_robin__DOT__controlStore__DOT___T_2 = VL_RAND_RESET_I(1);
     core_robin__DOT__controlStore__DOT___T_18 = VL_RAND_RESET_I(12);
-    core_robin__DOT__controlStore__DOT___T_26 = VL_RAND_RESET_I(13);
-    core_robin__DOT__controlStore__DOT___T_27 = VL_RAND_RESET_I(21);
-    core_robin__DOT__controlStore__DOT___GEN_5 = VL_RAND_RESET_I(3);
-    core_robin__DOT__controlStore__DOT___T_46 = VL_RAND_RESET_I(1);
+    core_robin__DOT__controlStore__DOT___GEN_4 = VL_RAND_RESET_I(3);
+    core_robin__DOT__controlStore__DOT___T_34 = VL_RAND_RESET_I(1);
+    core_robin__DOT__controlStore__DOT___T_55 = VL_RAND_RESET_I(13);
+    core_robin__DOT__controlStore__DOT___T_56 = VL_RAND_RESET_I(21);
     core_robin__DOT__controlStore__DOT___GEN_34 = VL_RAND_RESET_I(1);
     core_robin__DOT__controlStore__DOT___GEN_41 = VL_RAND_RESET_I(3);
     core_robin__DOT__controlStore__DOT___GEN_43 = VL_RAND_RESET_I(3);

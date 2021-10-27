@@ -197,10 +197,10 @@ int main(int argc, char **argv){
 	
 	assm_translator translator;
 	translator.RS1 = 0;
-	translator.RS2 = 6;
+	translator.RS2 = 0;
 	translator.RD = 19;
-	translator.Op = "addi";
-	translator.immediate = -7;
+	translator.Op = "beq";
+	translator.immediate = 8;
 	cout << translator.translate() << endl;
 	
 	tb-> io_INSTRUCTION = instructionToInt(translator.translate());

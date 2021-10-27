@@ -56,8 +56,8 @@ VL_MODULE(Vcore_robin) {
         CData/*0:0*/ core_robin__DOT__controlStore__DOT__LOAD_READY;
         CData/*0:0*/ core_robin__DOT__controlStore__DOT___T;
         CData/*0:0*/ core_robin__DOT__controlStore__DOT___T_2;
-        CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_5;
-        CData/*0:0*/ core_robin__DOT__controlStore__DOT___T_46;
+        CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_4;
+        CData/*0:0*/ core_robin__DOT__controlStore__DOT___T_34;
         CData/*0:0*/ core_robin__DOT__controlStore__DOT___GEN_34;
         CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_41;
         CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_43;
@@ -73,12 +73,12 @@ VL_MODULE(Vcore_robin) {
         CData/*0:0*/ core_robin__DOT__storeUnit__DOT___GEN_11;
         CData/*0:0*/ core_robin__DOT__storeUnit__DOT___GEN_25;
         SData/*11:0*/ core_robin__DOT__controlStore__DOT___T_18;
-        SData/*12:0*/ core_robin__DOT__controlStore__DOT___T_26;
+        SData/*12:0*/ core_robin__DOT__controlStore__DOT___T_55;
         IData/*31:0*/ core_robin__DOT__PC;
         IData/*31:0*/ core_robin__DOT__noBranchNextAddr;
         IData/*31:0*/ core_robin__DOT__branchImmBranchAddr;
         IData/*31:0*/ core_robin__DOT__controlStore__DOT__instruction;
-        IData/*20:0*/ core_robin__DOT__controlStore__DOT___T_27;
+        IData/*20:0*/ core_robin__DOT__controlStore__DOT___T_56;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile_io_rdData;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__ALU_in1;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__ALU_in2;

@@ -23,6 +23,7 @@ class core_robin extends Module{
 	val loadUnit = Module(new Load_Unit())
 	
 	val PC = RegInit(0.U(32.W))
+	//val nextAddress = Reg(UInt(32.W))
 	
 	//find the next address of PC
 	val noBranchNextAddr = PC + 4.U

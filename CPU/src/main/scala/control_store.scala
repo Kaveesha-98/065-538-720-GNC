@@ -122,14 +122,7 @@ class control_store extends Module{
 			//--enabling/disabling immediate
 			io.CHOOSE_IMMEDIATE := Mux((instruction(6, 0) === "b0110011".U | instruction(6, 0) === "b1100011".U), 0.U, 1.U)
 			
-			//--branching immediate generation
-			val imm12bitBranch = Cat(Cat(Cat(instruction(31), instruction(7)), Cat(instruction(11, 8), instruction(30, 25))),"b0".U)
-			val imm20bitBranch = Cat(Cat(Cat(instruction(31), instruction(19, 12)), Cat(instruction(20), instruction(30, 21))), "b0".U)
-			when(instruction(6, 0) === "b1100011".U){
-				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffffe000".U | imm12bitBranch, "h00001fff".U & imm12bitBranch)
-			}otherwise{
-				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffe00000".U | imm20bitBranch, "h001fffff".U & imm20bitBranch)
-			}
+			
 			
 			//--give data and data size to store unit
 			when(instruction(6, 0) === "b0100011".U){
@@ -172,6 +165,15 @@ class control_store extends Module{
 			when(instruction(6, 0) === "b1100011".U){
 				io.BRANCH_SELECT := instruction(14, 13)
 				io.BRANCH_CONDITION := ~instruction(12)
+			}
+			
+			//--branching immediate generation
+			val imm12bitBranch = Cat(Cat(Cat(instruction(31), instruction(7)), Cat(instruction(30, 25), instruction(11, 8))),"b0".U)
+			val imm20bitBranch = Cat(Cat(Cat(instruction(31), instruction(19, 12)), Cat(instruction(20), instruction(30, 21))), "b0".U)
+			when(instruction(6, 0) === "b1100011".U){
+				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffffe000".U | imm12bitBranch, "h00001fff".U & imm12bitBranch)
+			}otherwise{
+				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffe00000".U | imm20bitBranch, "h001fffff".U & imm20bitBranch)
 			}
 			
 			//updating pc
