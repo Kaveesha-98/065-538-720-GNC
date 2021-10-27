@@ -56,8 +56,9 @@ class Store_Unit extends Module{
 				stateReg := not_ready
 				store_data_buffer := io.store_data.asUInt
 				store_data_size_buffer := io.STORE_SIZE
-				io.STORE_READY := 1.U
+				io.STORE_READY := 0.U
 			}
+			io.STORE_READY := 1.U
 		}
 		is(not_ready){
 			when(io.ADDRESS_IN === 1.U && storing === absent){

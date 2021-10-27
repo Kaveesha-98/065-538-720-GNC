@@ -8,6 +8,7 @@ class core_robin extends Module{
 		val INSTRUCTION = Input(UInt(32.W))
 		val RECIEVED = Output(UInt(1.W))
 		val INSTRUCTION_LOADED = Input(UInt(1.W))
+		val PC = Output(UInt(32.W))
 		//data memory connections
 		val rdAddr = Output(UInt(32.W))
         val rdData = Input(SInt(8.W))
@@ -34,7 +35,8 @@ class core_robin extends Module{
 	val conditionalBranching = branchCheck & controlStore.io.BRANCH_CONDITION
 	//all address except jalr
 	val conditionaljalOrnoBranch = Mux((conditionalBranching | controlStore.io.PROCEDURE_BRANCHING) === 1.U, branchImmBranchAddr, noBranchNextAddr)
-	val nexAddress = Mux(controlStore.io.BRANCH_ADDRESS_SOURCE_ALU === 1.U, dataPath.io.instruction_next_address, conditionaljalOrnoBranch)
+	val nextAddress = Mux(controlStore.io.BRANCH_ADDRESS_SOURCE_ALU === 1.U, dataPath.io.instruction_next_address, conditionaljalOrnoBranch)
+	PC := Mux(controlStore.io.UPDATE_PC === 1.U, nextAddress, PC)
 	
 	//connecting to prefech
 	controlStore.io.INSTRUCTION := io.INSTRUCTION
@@ -93,6 +95,8 @@ class core_robin extends Module{
 	//connecting load unit to IO
 	loadUnit.io.rdData := io.rdData
 	io.rdAddr := loadUnit.io.rdAddr
+	
+	io.PC := PC
 }
 
 object core_robin extends App{
