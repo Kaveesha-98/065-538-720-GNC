@@ -395,18 +395,21 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
                                    ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                    : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
                                : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL))));
-        vcdp->fullBit(c+121,((((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
-                                ? ((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
-                                    ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
-                                    : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
-                                : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 
-                              & ((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                 & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                    & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                       & ((0x63U == 
-                                           (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
-                                          & (~ (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                                >> 0xcU)))))))));
+        vcdp->fullBit(c+121,(((((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                 ? ((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                     ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
+                                     : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
+                                 : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 
+                               & ((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                  & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                     & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                        & ((0x63U == 
+                                            (0x7fU 
+                                             & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
+                                           & (~ (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
+                                                 >> 0xcU))))))) 
+                              & (((IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT) 
+                                  >> 1U) & (~ (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))))));
         vcdp->fullBus(c+129,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                                ? 0U : ((0x1fU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                                         ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_31

@@ -198,8 +198,8 @@ int main(int argc, char **argv){
 	assm_translator translator;
 	translator.RS1 = 0;
 	translator.RS2 = 0;
-	translator.RD = 19;
-	translator.Op = "sw";
+	translator.RD = 0;
+	translator.Op = "addi";
 	translator.immediate = 8;
 	cout << translator.translate() << endl;
 	
@@ -207,8 +207,18 @@ int main(int argc, char **argv){
 	tb-> io_INSTRUCTION_LOADED = 1;
 	tick(++tickcount, tb, tfp);
 	tb-> io_INSTRUCTION_LOADED = 0;
+	translator.immediate += 1;
+	translator.RD += 1;
 	
 	for(int i = 0; i < 20; i++){
 		tick(++tickcount, tb, tfp);
+		tb-> io_INSTRUCTION = instructionToInt(translator.translate());
+		tb-> io_INSTRUCTION_LOADED = 1;
+		if (tb -> io_RECIEVED == 1){
+			tb-> io_INSTRUCTION_LOADED = 0;
+			tick(++tickcount, tb, tfp);
+			translator.immediate += 1;
+			translator.RD += 1;
+		}
 	}
 }

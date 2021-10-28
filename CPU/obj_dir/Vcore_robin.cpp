@@ -518,27 +518,31 @@ VL_INLINE_OPT void Vcore_robin::_sequent__TOP__2(Vcore_robin__Syms* __restrict v
                                                         (0x7fU 
                                                          & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))))))
                                             ? vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput
-                                            : (((((1U 
-                                                   & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
-                                                   ? 
-                                                  ((2U 
+                                            : (((((
+                                                   (1U 
                                                     & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
-                                                    ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
-                                                    : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
-                                                   : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 
-                                                 & ((0U 
-                                                     != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                                    & ((1U 
-                                                        != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                                       & ((2U 
-                                                           == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                                          & ((0x63U 
-                                                              == 
-                                                              (0x7fU 
-                                                               & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
-                                                             & (~ 
-                                                                (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                                                 >> 0xcU))))))) 
+                                                    ? 
+                                                   ((2U 
+                                                     & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                                     ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
+                                                     : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
+                                                    : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 
+                                                  & ((0U 
+                                                      != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                                     & ((1U 
+                                                         != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                                        & ((2U 
+                                                            == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                                           & ((0x63U 
+                                                               == 
+                                                               (0x7fU 
+                                                                & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
+                                                              & (~ 
+                                                                 (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
+                                                                  >> 0xcU))))))) 
+                                                 & (((IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT) 
+                                                     >> 1U) 
+                                                    & (~ (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT)))) 
                                                 | (IData)(vlTOPp->core_robin__DOT__controlStore_io_PROCEDURE_BRANCHING))
                                                 ? vlTOPp->core_robin__DOT__branchImmBranchAddr
                                                 : vlTOPp->core_robin__DOT__noBranchNextAddr));
