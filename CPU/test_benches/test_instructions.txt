@@ -1,6 +1,6 @@
 //testing register type
 //losding testing values to registers
-lui x1, 0xAAAAA
+lui x1, 0xAAAAB
 addi x1, 0xAAA
 lui x2, 0x55555
 addi x2, 0x555
