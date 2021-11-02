@@ -1,0 +1,50 @@
+//testing register type
+//losding testing values to registers
+lui x1, 0xAAAAA
+addi x1, 0xAAA
+lui x2, 0x55555
+addi x2, 0x555
+//testing and
+and x3, x1, x2
+and x0, x1, x2
+//testing or
+or x4, x1, x2
+or x0, x1, x2
+//testing sra------------------------------------------------
+addi x5, x0, 1
+sra x6, x1, x5
+LOOP1:slli x5, x5, 1
+sra x6, x1, x5
+bne x0, x5, LOOP1
+//testing srl------------------------------------------
+addi x5, x0, 1
+srl x6, x1, x5
+LOOP2:slli x5, x5, 1
+srl x6, x1, x5
+bne x5, x0, LOOP2
+xor x7, x1, x2
+xor x0, x1, x2
+srli x8, x4, 1
+//testing slt, sltu-------------------------------------
+addi x9, x0, 1
+slli x9, x9, 30
+xori x10, x9, -1
+sltu x11, x9, x10
+slt x12, x9, x10
+addi x10, x10, 1
+sltu x11, x9, x10
+slt x12, x9, x10
+addi x10, x10, 1
+sltu x11, x9, x10
+slt x12, x9, x10
+//testing sll---------------------
+addi x5, x0, 1
+sll x13, x1, x5
+LOOP3:slli x5, x5, 1
+sll x13, x1, x5
+bne x5, x0, LOOP3
+//testing add, substract---------------------------------------
+add x14, x1, x2
+sub x15, x1, x2
+add x14, x2, x1
+sub x15, x2, x1
