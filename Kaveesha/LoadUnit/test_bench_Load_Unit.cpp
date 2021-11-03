@@ -37,9 +37,11 @@ int main(int argc, char **argv){
 	tb->trace(tfp, 99);
 	tfp->open("Load_Unittrace.vcd");
 	
+	tb->io_load_mem_address_in = 16;
 	tb->io_LOAD_ADDRESS_IN = 1;
 	tb->io_load_data = 10;
-	tb->io_load_begin = 1;
+	tick(++tickcount, tb, tfp);
+	tb->io_LOAD_ADDRESS_IN = 0;
 	
 	for(int i = 0; i < 20; i++){
 		tick(++tickcount, tb, tfp);

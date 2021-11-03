@@ -1,3 +1,4 @@
+/* verilator lint_off UNUSED */
 module Memory(
   input         clock,
   input         reset,

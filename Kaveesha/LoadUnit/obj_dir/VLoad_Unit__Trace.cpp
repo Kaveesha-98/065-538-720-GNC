@@ -41,12 +41,9 @@ void VLoad_Unit::traceChgThis__2(VLoad_Unit__Syms* __restrict vlSymsp, Verilated
     {
         vcdp->chgBus(c+1,(vlTOPp->Load_Unit__DOT__load_data_buffer),32);
         vcdp->chgBus(c+9,(vlTOPp->Load_Unit__DOT__load_data_size_buffer),2);
-        vcdp->chgBus(c+17,(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer),2);
-        vcdp->chgBus(c+25,(vlTOPp->Load_Unit__DOT__load_data_address_buffer),32);
-        vcdp->chgBit(c+33,(vlTOPp->Load_Unit__DOT__reading));
-        vcdp->chgBit(c+41,(vlTOPp->Load_Unit__DOT__loading));
-        vcdp->chgBit(c+49,(vlTOPp->Load_Unit__DOT__stateReg));
-        vcdp->chgBus(c+57,((0xffffffU & vlTOPp->Load_Unit__DOT__load_data_buffer)),24);
+        vcdp->chgBus(c+17,(vlTOPp->Load_Unit__DOT__load_data_address_buffer),32);
+        vcdp->chgBit(c+25,(vlTOPp->Load_Unit__DOT__stateReg));
+        vcdp->chgBus(c+33,((0xffffffU & vlTOPp->Load_Unit__DOT__load_data_buffer)),24);
     }
 }
 
@@ -56,17 +53,17 @@ void VLoad_Unit::traceChgThis__3(VLoad_Unit__Syms* __restrict vlSymsp, Verilated
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+65,(vlTOPp->clock));
-        vcdp->chgBit(c+73,(vlTOPp->reset));
-        vcdp->chgBus(c+81,(vlTOPp->io_load_mem_address_in),32);
-        vcdp->chgBus(c+89,(vlTOPp->io_load_data),8);
-        vcdp->chgBit(c+97,(vlTOPp->io_LOAD_TO_REG));
-        vcdp->chgBus(c+105,(vlTOPp->io_LOAD_SIZE),2);
-        vcdp->chgBit(c+113,(vlTOPp->io_LOAD_ADDRESS_IN));
-        vcdp->chgBit(c+121,(vlTOPp->io_mem_read));
-        vcdp->chgBit(c+129,(vlTOPp->io_LOAD_READY));
-        vcdp->chgBus(c+137,(vlTOPp->io_load_mem_address_out),32);
-        vcdp->chgBit(c+145,(vlTOPp->io_load_begin));
-        vcdp->chgBus(c+153,(vlTOPp->io_load_data_out),32);
+        vcdp->chgBit(c+41,(vlTOPp->clock));
+        vcdp->chgBit(c+49,(vlTOPp->reset));
+        vcdp->chgBus(c+57,(vlTOPp->io_load_mem_address_in),32);
+        vcdp->chgBus(c+65,(vlTOPp->io_load_data),8);
+        vcdp->chgBit(c+73,(vlTOPp->io_LOAD_TO_REG));
+        vcdp->chgBus(c+81,(vlTOPp->io_LOAD_SIZE),2);
+        vcdp->chgBit(c+89,(vlTOPp->io_LOAD_ADDRESS_IN));
+        vcdp->chgBit(c+97,(vlTOPp->io_mem_read));
+        vcdp->chgBit(c+105,(vlTOPp->io_LOAD_READY));
+        vcdp->chgBus(c+113,(vlTOPp->io_load_mem_address_out),32);
+        vcdp->chgBit(c+121,(vlTOPp->io_load_begin));
+        vcdp->chgBus(c+129,(vlTOPp->io_load_data_out),32);
     }
 }

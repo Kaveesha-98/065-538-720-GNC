@@ -89,239 +89,125 @@ VL_INLINE_OPT void VLoad_Unit::_sequent__TOP__1(VLoad_Unit__Syms* __restrict vlS
     VLoad_Unit* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
     CData/*1:0*/ __Vdly__Load_Unit__DOT__load_data_size_buffer;
-    CData/*0:0*/ __Vdly__Load_Unit__DOT__reading;
-    CData/*0:0*/ __Vdly__Load_Unit__DOT__loading;
+    CData/*0:0*/ __Vdly__Load_Unit__DOT__stateReg;
     // Body
     __Vdly__Load_Unit__DOT__load_data_size_buffer = vlTOPp->Load_Unit__DOT__load_data_size_buffer;
-    __Vdly__Load_Unit__DOT__reading = vlTOPp->Load_Unit__DOT__reading;
-    __Vdly__Load_Unit__DOT__loading = vlTOPp->Load_Unit__DOT__loading;
-    vlTOPp->Load_Unit__DOT__load_data_buffer = ((IData)(vlTOPp->reset)
-                                                 ? 0U
-                                                 : (IData)(vlTOPp->Load_Unit__DOT___GEN_12));
-    __Vdly__Load_Unit__DOT__load_data_size_buffer = 
-        ((IData)(vlTOPp->reset) ? 0U : ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                         ? (IData)(vlTOPp->Load_Unit__DOT___GEN_7)
-                                         : (((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
-                                             & (~ (IData)(vlTOPp->Load_Unit__DOT__reading)))
-                                             ? (IData)(vlTOPp->io_LOAD_SIZE)
-                                             : (IData)(vlTOPp->Load_Unit__DOT___GEN_7))));
-    vlTOPp->Load_Unit__DOT__loaded_data_size_buffer 
-        = ((IData)(vlTOPp->reset) ? 0U : ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                           ? (IData)(vlTOPp->Load_Unit__DOT___GEN_15)
-                                           : (((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
-                                               & (~ (IData)(vlTOPp->Load_Unit__DOT__reading)))
-                                               ? (IData)(vlTOPp->io_LOAD_SIZE)
-                                               : (IData)(vlTOPp->Load_Unit__DOT___GEN_15))));
-    vlTOPp->Load_Unit__DOT__load_data_address_buffer 
-        = ((IData)(vlTOPp->reset) ? 0U : ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                           ? vlTOPp->Load_Unit__DOT___GEN_6
-                                           : (((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
-                                               & (~ (IData)(vlTOPp->Load_Unit__DOT__reading)))
-                                               ? vlTOPp->io_load_mem_address_in
-                                               : vlTOPp->Load_Unit__DOT___GEN_6)));
+    __Vdly__Load_Unit__DOT__stateReg = vlTOPp->Load_Unit__DOT__stateReg;
     if (vlTOPp->reset) {
-        __Vdly__Load_Unit__DOT__reading = 0U;
+        vlTOPp->Load_Unit__DOT__load_data_buffer = 0U;
     } else {
-        if (vlTOPp->Load_Unit__DOT__stateReg) {
-            if (vlTOPp->Load_Unit__DOT__reading) {
-                if ((3U == (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer))) {
-                    __Vdly__Load_Unit__DOT__reading = 0U;
-                }
+        if (vlTOPp->Load_Unit__DOT___T) {
+            if (vlTOPp->io_LOAD_ADDRESS_IN) {
+                vlTOPp->Load_Unit__DOT__load_data_buffer = 0U;
             }
         } else {
-            __Vdly__Load_Unit__DOT__reading = vlTOPp->Load_Unit__DOT___GEN_20;
+            if (vlTOPp->Load_Unit__DOT__stateReg) {
+                vlTOPp->Load_Unit__DOT__load_data_buffer 
+                    = vlTOPp->Load_Unit__DOT___load_data_buffer_T;
+            }
         }
     }
-    __Vdly__Load_Unit__DOT__loading = ((~ (IData)(vlTOPp->reset)) 
-                                       & ((IData)(vlTOPp->Load_Unit__DOT___T_4)
-                                           ? (IData)(vlTOPp->Load_Unit__DOT___GEN_14)
-                                           : ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                               ? (((IData)(vlTOPp->io_LOAD_TO_REG) 
-                                                   & (~ (IData)(vlTOPp->Load_Unit__DOT__loading)))
-                                                   ? (IData)(vlTOPp->Load_Unit__DOT___GEN_14)
-                                                   : (IData)(vlTOPp->Load_Unit__DOT___GEN_22))
-                                               : (IData)(vlTOPp->Load_Unit__DOT___GEN_14))));
-    vlTOPp->Load_Unit__DOT__stateReg = ((~ (IData)(vlTOPp->reset)) 
-                                        & ((IData)(vlTOPp->Load_Unit__DOT___T_4)
-                                            ? (((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
-                                                & (~ (IData)(vlTOPp->Load_Unit__DOT__reading))) 
-                                               | (IData)(vlTOPp->Load_Unit__DOT___GEN_13))
-                                            : ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                                ? (
-                                                   (~ 
-                                                    ((IData)(vlTOPp->io_LOAD_TO_REG) 
-                                                     & (~ (IData)(vlTOPp->Load_Unit__DOT__loading)))) 
-                                                   & (IData)(vlTOPp->Load_Unit__DOT___GEN_13))
-                                                : (IData)(vlTOPp->Load_Unit__DOT___GEN_13))));
+    if (vlTOPp->reset) {
+        __Vdly__Load_Unit__DOT__load_data_size_buffer = 0U;
+    } else {
+        if (vlTOPp->Load_Unit__DOT___T) {
+            if (vlTOPp->io_LOAD_ADDRESS_IN) {
+                __Vdly__Load_Unit__DOT__load_data_size_buffer 
+                    = vlTOPp->io_LOAD_SIZE;
+            }
+        } else {
+            if (vlTOPp->Load_Unit__DOT__stateReg) {
+                if ((3U != (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer))) {
+                    __Vdly__Load_Unit__DOT__load_data_size_buffer 
+                        = vlTOPp->Load_Unit__DOT___load_data_size_buffer_T_1;
+                }
+            }
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->Load_Unit__DOT__load_data_address_buffer = 0U;
+    } else {
+        if (vlTOPp->Load_Unit__DOT___T) {
+            if (vlTOPp->io_LOAD_ADDRESS_IN) {
+                vlTOPp->Load_Unit__DOT__load_data_address_buffer 
+                    = vlTOPp->io_load_mem_address_in;
+            }
+        } else {
+            if (vlTOPp->Load_Unit__DOT__stateReg) {
+                if ((3U != (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer))) {
+                    vlTOPp->Load_Unit__DOT__load_data_address_buffer 
+                        = vlTOPp->Load_Unit__DOT___load_data_address_buffer_T_1;
+                }
+            }
+        }
+    }
+    if (vlTOPp->reset) {
+        __Vdly__Load_Unit__DOT__stateReg = 0U;
+    } else {
+        if (vlTOPp->Load_Unit__DOT___T) {
+            __Vdly__Load_Unit__DOT__stateReg = vlTOPp->Load_Unit__DOT___GEN_0;
+        } else {
+            if (vlTOPp->Load_Unit__DOT__stateReg) {
+                if ((3U == (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer))) {
+                    __Vdly__Load_Unit__DOT__stateReg = 0U;
+                }
+            }
+        }
+    }
     vlTOPp->Load_Unit__DOT__load_data_size_buffer = __Vdly__Load_Unit__DOT__load_data_size_buffer;
-    vlTOPp->Load_Unit__DOT__reading = __Vdly__Load_Unit__DOT__reading;
-    vlTOPp->Load_Unit__DOT__loading = __Vdly__Load_Unit__DOT__loading;
-    vlTOPp->Load_Unit__DOT___T_4 = (1U & (~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)));
-    vlTOPp->io_mem_read = vlTOPp->Load_Unit__DOT__reading;
-    vlTOPp->Load_Unit__DOT___GEN_7 = (3U & ((IData)(vlTOPp->Load_Unit__DOT__reading)
-                                             ? ((3U 
-                                                 == (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer))
-                                                 ? (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)
-                                                 : 
-                                                ((IData)(1U) 
-                                                 + (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)))
-                                             : (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)));
-    vlTOPp->io_load_mem_address_out = ((IData)(vlTOPp->Load_Unit__DOT__reading)
-                                        ? vlTOPp->Load_Unit__DOT__load_data_address_buffer
-                                        : 0U);
-    vlTOPp->Load_Unit__DOT___GEN_6 = ((IData)(vlTOPp->Load_Unit__DOT__reading)
-                                       ? ((3U == (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer))
-                                           ? vlTOPp->Load_Unit__DOT__load_data_address_buffer
-                                           : ((IData)(1U) 
-                                              + vlTOPp->Load_Unit__DOT__load_data_address_buffer))
-                                       : vlTOPp->Load_Unit__DOT__load_data_address_buffer);
-    vlTOPp->Load_Unit__DOT___GEN_15 = (3U & ((IData)(vlTOPp->Load_Unit__DOT__loading)
-                                              ? ((3U 
-                                                  == (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer))
-                                                  ? (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)
-                                                  : 
-                                                 ((IData)(1U) 
-                                                  + (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)))
-                                              : (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)));
-    vlTOPp->Load_Unit__DOT___GEN_13 = ((IData)(vlTOPp->Load_Unit__DOT__loading)
-                                        ? ((3U == (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)) 
-                                           | (IData)(vlTOPp->Load_Unit__DOT__stateReg))
-                                        : (IData)(vlTOPp->Load_Unit__DOT__stateReg));
-    vlTOPp->Load_Unit__DOT___GEN_14 = ((IData)(vlTOPp->Load_Unit__DOT__loading)
-                                        ? ((3U != (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)) 
-                                           & (IData)(vlTOPp->Load_Unit__DOT__loading))
-                                        : (IData)(vlTOPp->Load_Unit__DOT__loading));
+    vlTOPp->Load_Unit__DOT__stateReg = __Vdly__Load_Unit__DOT__stateReg;
+    vlTOPp->Load_Unit__DOT___load_data_size_buffer_T_1 
+        = (3U & ((IData)(1U) + (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)));
+    vlTOPp->io_load_data_out = vlTOPp->Load_Unit__DOT__load_data_buffer;
+    vlTOPp->Load_Unit__DOT___load_data_address_buffer_T_1 
+        = ((IData)(1U) + vlTOPp->Load_Unit__DOT__load_data_address_buffer);
+    vlTOPp->Load_Unit__DOT___T = (1U & (~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)));
+    vlTOPp->io_mem_read = vlTOPp->Load_Unit__DOT__stateReg;
+    vlTOPp->io_load_mem_address_out = ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
+                                        ? ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
+                                            ? vlTOPp->Load_Unit__DOT__load_data_address_buffer
+                                            : 0U) : 0U);
 }
 
 void VLoad_Unit::_settle__TOP__2(VLoad_Unit__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoad_Unit::_settle__TOP__2\n"); );
     VLoad_Unit* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->Load_Unit__DOT___T_4 = (1U & (~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)));
-    vlTOPp->io_mem_read = vlTOPp->Load_Unit__DOT__reading;
-    vlTOPp->Load_Unit__DOT___GEN_7 = (3U & ((IData)(vlTOPp->Load_Unit__DOT__reading)
-                                             ? ((3U 
-                                                 == (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer))
-                                                 ? (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)
-                                                 : 
-                                                ((IData)(1U) 
-                                                 + (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)))
-                                             : (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)));
-    vlTOPp->Load_Unit__DOT___GEN_15 = (3U & ((IData)(vlTOPp->Load_Unit__DOT__loading)
-                                              ? ((3U 
-                                                  == (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer))
-                                                  ? (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)
-                                                  : 
-                                                 ((IData)(1U) 
-                                                  + (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)))
-                                              : (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)));
-    vlTOPp->io_load_mem_address_out = ((IData)(vlTOPp->Load_Unit__DOT__reading)
-                                        ? vlTOPp->Load_Unit__DOT__load_data_address_buffer
-                                        : 0U);
-    vlTOPp->Load_Unit__DOT___GEN_6 = ((IData)(vlTOPp->Load_Unit__DOT__reading)
-                                       ? ((3U == (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer))
-                                           ? vlTOPp->Load_Unit__DOT__load_data_address_buffer
-                                           : ((IData)(1U) 
-                                              + vlTOPp->Load_Unit__DOT__load_data_address_buffer))
-                                       : vlTOPp->Load_Unit__DOT__load_data_address_buffer);
-    vlTOPp->Load_Unit__DOT___GEN_13 = ((IData)(vlTOPp->Load_Unit__DOT__loading)
-                                        ? ((3U == (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)) 
-                                           | (IData)(vlTOPp->Load_Unit__DOT__stateReg))
-                                        : (IData)(vlTOPp->Load_Unit__DOT__stateReg));
-    vlTOPp->Load_Unit__DOT___GEN_20 = (((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
-                                        & (~ (IData)(vlTOPp->Load_Unit__DOT__reading))) 
-                                       | ((IData)(vlTOPp->Load_Unit__DOT__reading)
-                                           ? ((3U != (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)) 
-                                              & (IData)(vlTOPp->Load_Unit__DOT__reading))
-                                           : (IData)(vlTOPp->Load_Unit__DOT__reading)));
+    vlTOPp->Load_Unit__DOT___T = (1U & (~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)));
+    vlTOPp->Load_Unit__DOT___load_data_address_buffer_T_1 
+        = ((IData)(1U) + vlTOPp->Load_Unit__DOT__load_data_address_buffer);
+    vlTOPp->Load_Unit__DOT___load_data_size_buffer_T_1 
+        = (3U & ((IData)(1U) + (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)));
+    vlTOPp->io_mem_read = vlTOPp->Load_Unit__DOT__stateReg;
+    vlTOPp->io_load_data_out = vlTOPp->Load_Unit__DOT__load_data_buffer;
+    vlTOPp->Load_Unit__DOT___GEN_0 = ((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
+                                      | (IData)(vlTOPp->Load_Unit__DOT__stateReg));
+    vlTOPp->Load_Unit__DOT___load_data_buffer_T = (
+                                                   (0xffffff00U 
+                                                    & (vlTOPp->Load_Unit__DOT__load_data_buffer 
+                                                       << 8U)) 
+                                                   | (IData)(vlTOPp->io_load_data));
     vlTOPp->io_LOAD_READY = (1U & ((~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)) 
-                                   & (~ ((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
-                                         & (~ (IData)(vlTOPp->Load_Unit__DOT__reading))))));
-    vlTOPp->io_load_data_out = ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                 ? ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                     ? (((IData)(vlTOPp->io_LOAD_TO_REG) 
-                                         & (~ (IData)(vlTOPp->Load_Unit__DOT__loading)))
-                                         ? vlTOPp->Load_Unit__DOT__load_data_buffer
-                                         : 0U) : 0U)
-                                 : 0U);
-    vlTOPp->Load_Unit__DOT___GEN_14 = ((IData)(vlTOPp->Load_Unit__DOT__loading)
-                                        ? ((3U != (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer)) 
-                                           & (IData)(vlTOPp->Load_Unit__DOT__loading))
-                                        : (IData)(vlTOPp->Load_Unit__DOT__loading));
-    vlTOPp->Load_Unit__DOT___load_data_buffer_T_1 = 
-        ((0xffffff00U & (vlTOPp->Load_Unit__DOT__load_data_buffer 
-                         << 8U)) | (IData)(vlTOPp->io_load_data));
-    vlTOPp->Load_Unit__DOT___GEN_22 = (((IData)(vlTOPp->io_load_begin) 
-                                        & (~ (IData)(vlTOPp->Load_Unit__DOT__loading))) 
-                                       | (IData)(vlTOPp->Load_Unit__DOT___GEN_14));
-    vlTOPp->Load_Unit__DOT___GEN_12 = ((IData)(vlTOPp->Load_Unit__DOT__loading)
-                                        ? ((3U == (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer))
-                                            ? (((QData)((IData)(
-                                                                (0xffU 
-                                                                 & VL_NEGATE_I((IData)(
-                                                                                (1U 
-                                                                                & (vlTOPp->Load_Unit__DOT___load_data_buffer_T_1 
-                                                                                >> 0x1fU))))))) 
-                                                << 0x20U) 
-                                               | (QData)((IData)(vlTOPp->Load_Unit__DOT___load_data_buffer_T_1)))
-                                            : ((QData)((IData)(vlTOPp->Load_Unit__DOT__load_data_buffer)) 
-                                               << 8U))
-                                        : (((QData)((IData)(
-                                                            (0xffU 
-                                                             & VL_NEGATE_I((IData)(
-                                                                                (1U 
-                                                                                & (vlTOPp->Load_Unit__DOT__load_data_buffer 
-                                                                                >> 0x1fU))))))) 
-                                            << 0x20U) 
-                                           | (QData)((IData)(vlTOPp->Load_Unit__DOT__load_data_buffer))));
+                                   & (~ (IData)(vlTOPp->io_LOAD_ADDRESS_IN))));
+    vlTOPp->io_load_mem_address_out = ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
+                                        ? ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
+                                            ? vlTOPp->Load_Unit__DOT__load_data_address_buffer
+                                            : 0U) : 0U);
 }
 
 VL_INLINE_OPT void VLoad_Unit::_combo__TOP__3(VLoad_Unit__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoad_Unit::_combo__TOP__3\n"); );
     VLoad_Unit* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->Load_Unit__DOT___load_data_buffer_T_1 = 
-        ((0xffffff00U & (vlTOPp->Load_Unit__DOT__load_data_buffer 
-                         << 8U)) | (IData)(vlTOPp->io_load_data));
-    vlTOPp->Load_Unit__DOT___GEN_20 = (((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
-                                        & (~ (IData)(vlTOPp->Load_Unit__DOT__reading))) 
-                                       | ((IData)(vlTOPp->Load_Unit__DOT__reading)
-                                           ? ((3U != (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)) 
-                                              & (IData)(vlTOPp->Load_Unit__DOT__reading))
-                                           : (IData)(vlTOPp->Load_Unit__DOT__reading)));
+    vlTOPp->Load_Unit__DOT___load_data_buffer_T = (
+                                                   (0xffffff00U 
+                                                    & (vlTOPp->Load_Unit__DOT__load_data_buffer 
+                                                       << 8U)) 
+                                                   | (IData)(vlTOPp->io_load_data));
+    vlTOPp->Load_Unit__DOT___GEN_0 = ((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
+                                      | (IData)(vlTOPp->Load_Unit__DOT__stateReg));
     vlTOPp->io_LOAD_READY = (1U & ((~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)) 
-                                   & (~ ((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
-                                         & (~ (IData)(vlTOPp->Load_Unit__DOT__reading))))));
-    vlTOPp->io_load_data_out = ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                 ? ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
-                                     ? (((IData)(vlTOPp->io_LOAD_TO_REG) 
-                                         & (~ (IData)(vlTOPp->Load_Unit__DOT__loading)))
-                                         ? vlTOPp->Load_Unit__DOT__load_data_buffer
-                                         : 0U) : 0U)
-                                 : 0U);
-    vlTOPp->Load_Unit__DOT___GEN_22 = (((IData)(vlTOPp->io_load_begin) 
-                                        & (~ (IData)(vlTOPp->Load_Unit__DOT__loading))) 
-                                       | (IData)(vlTOPp->Load_Unit__DOT___GEN_14));
-    vlTOPp->Load_Unit__DOT___GEN_12 = ((IData)(vlTOPp->Load_Unit__DOT__loading)
-                                        ? ((3U == (IData)(vlTOPp->Load_Unit__DOT__loaded_data_size_buffer))
-                                            ? (((QData)((IData)(
-                                                                (0xffU 
-                                                                 & VL_NEGATE_I((IData)(
-                                                                                (1U 
-                                                                                & (vlTOPp->Load_Unit__DOT___load_data_buffer_T_1 
-                                                                                >> 0x1fU))))))) 
-                                                << 0x20U) 
-                                               | (QData)((IData)(vlTOPp->Load_Unit__DOT___load_data_buffer_T_1)))
-                                            : ((QData)((IData)(vlTOPp->Load_Unit__DOT__load_data_buffer)) 
-                                               << 8U))
-                                        : (((QData)((IData)(
-                                                            (0xffU 
-                                                             & VL_NEGATE_I((IData)(
-                                                                                (1U 
-                                                                                & (vlTOPp->Load_Unit__DOT__load_data_buffer 
-                                                                                >> 0x1fU))))))) 
-                                            << 0x20U) 
-                                           | (QData)((IData)(vlTOPp->Load_Unit__DOT__load_data_buffer))));
+                                   & (~ (IData)(vlTOPp->io_LOAD_ADDRESS_IN))));
 }
 
 void VLoad_Unit::_eval(VLoad_Unit__Syms* __restrict vlSymsp) {
@@ -403,20 +289,12 @@ void VLoad_Unit::_ctor_var_reset() {
     io_load_data_out = VL_RAND_RESET_I(32);
     Load_Unit__DOT__load_data_buffer = VL_RAND_RESET_I(32);
     Load_Unit__DOT__load_data_size_buffer = VL_RAND_RESET_I(2);
-    Load_Unit__DOT__loaded_data_size_buffer = VL_RAND_RESET_I(2);
     Load_Unit__DOT__load_data_address_buffer = VL_RAND_RESET_I(32);
-    Load_Unit__DOT__reading = VL_RAND_RESET_I(1);
-    Load_Unit__DOT__loading = VL_RAND_RESET_I(1);
     Load_Unit__DOT__stateReg = VL_RAND_RESET_I(1);
-    Load_Unit__DOT___GEN_6 = VL_RAND_RESET_I(32);
-    Load_Unit__DOT___GEN_7 = VL_RAND_RESET_I(2);
-    Load_Unit__DOT___load_data_buffer_T_1 = VL_RAND_RESET_I(32);
-    Load_Unit__DOT___GEN_12 = VL_RAND_RESET_Q(40);
-    Load_Unit__DOT___GEN_13 = VL_RAND_RESET_I(1);
-    Load_Unit__DOT___GEN_14 = VL_RAND_RESET_I(1);
-    Load_Unit__DOT___GEN_15 = VL_RAND_RESET_I(2);
-    Load_Unit__DOT___T_4 = VL_RAND_RESET_I(1);
-    Load_Unit__DOT___GEN_20 = VL_RAND_RESET_I(1);
-    Load_Unit__DOT___GEN_22 = VL_RAND_RESET_I(1);
+    Load_Unit__DOT___T = VL_RAND_RESET_I(1);
+    Load_Unit__DOT___GEN_0 = VL_RAND_RESET_I(1);
+    Load_Unit__DOT___load_data_buffer_T = VL_RAND_RESET_I(32);
+    Load_Unit__DOT___load_data_address_buffer_T_1 = VL_RAND_RESET_I(32);
+    Load_Unit__DOT___load_data_size_buffer_T_1 = VL_RAND_RESET_I(2);
     __Vm_traceActivity = 0;
 }

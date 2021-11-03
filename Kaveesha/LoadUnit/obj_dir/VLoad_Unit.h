@@ -40,22 +40,14 @@ VL_MODULE(VLoad_Unit) {
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
     CData/*1:0*/ Load_Unit__DOT__load_data_size_buffer;
-    CData/*1:0*/ Load_Unit__DOT__loaded_data_size_buffer;
-    CData/*0:0*/ Load_Unit__DOT__reading;
-    CData/*0:0*/ Load_Unit__DOT__loading;
     CData/*0:0*/ Load_Unit__DOT__stateReg;
-    CData/*1:0*/ Load_Unit__DOT___GEN_7;
-    CData/*0:0*/ Load_Unit__DOT___GEN_13;
-    CData/*0:0*/ Load_Unit__DOT___GEN_14;
-    CData/*1:0*/ Load_Unit__DOT___GEN_15;
-    CData/*0:0*/ Load_Unit__DOT___T_4;
-    CData/*0:0*/ Load_Unit__DOT___GEN_20;
-    CData/*0:0*/ Load_Unit__DOT___GEN_22;
+    CData/*0:0*/ Load_Unit__DOT___T;
+    CData/*0:0*/ Load_Unit__DOT___GEN_0;
+    CData/*1:0*/ Load_Unit__DOT___load_data_size_buffer_T_1;
     IData/*31:0*/ Load_Unit__DOT__load_data_buffer;
     IData/*31:0*/ Load_Unit__DOT__load_data_address_buffer;
-    IData/*31:0*/ Load_Unit__DOT___GEN_6;
-    IData/*31:0*/ Load_Unit__DOT___load_data_buffer_T_1;
-    QData/*39:0*/ Load_Unit__DOT___GEN_12;
+    IData/*31:0*/ Load_Unit__DOT___load_data_buffer_T;
+    IData/*31:0*/ Load_Unit__DOT___load_data_address_buffer_T_1;
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
