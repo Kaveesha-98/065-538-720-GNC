@@ -46,8 +46,7 @@ void VLoad_Unit::traceChgThis__2(VLoad_Unit__Syms* __restrict vlSymsp, Verilated
         vcdp->chgBit(c+33,(vlTOPp->Load_Unit__DOT__reading));
         vcdp->chgBit(c+41,(vlTOPp->Load_Unit__DOT__loading));
         vcdp->chgBit(c+49,(vlTOPp->Load_Unit__DOT__stateReg));
-        vcdp->chgBus(c+57,((0xffffffU & (vlTOPp->Load_Unit__DOT__load_data_buffer 
-                                         >> 8U))),24);
+        vcdp->chgBus(c+57,((0xffffffU & vlTOPp->Load_Unit__DOT__load_data_buffer)),24);
     }
 }
 

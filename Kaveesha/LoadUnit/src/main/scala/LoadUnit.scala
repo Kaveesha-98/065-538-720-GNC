@@ -54,7 +54,7 @@ class Load_Unit extends Module{
 	}
 	
     	when(loading === present_l){
-       		load_data_buffer := Cat(load_data_buffer(31,8), io.load_data.asUInt).asSInt			
+       		load_data_buffer := Cat(load_data_buffer(23,0), io.load_data).asSInt			
         	when(loaded_data_size_buffer === 3.U){
 			stateReg := not_ready                          
 			loading := absent_l

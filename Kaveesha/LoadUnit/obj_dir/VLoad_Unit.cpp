@@ -249,8 +249,8 @@ void VLoad_Unit::_settle__TOP__2(VLoad_Unit__Syms* __restrict vlSymsp) {
                                            & (IData)(vlTOPp->Load_Unit__DOT__loading))
                                         : (IData)(vlTOPp->Load_Unit__DOT__loading));
     vlTOPp->Load_Unit__DOT___load_data_buffer_T_1 = 
-        ((0xffffff00U & vlTOPp->Load_Unit__DOT__load_data_buffer) 
-         | (IData)(vlTOPp->io_load_data));
+        ((0xffffff00U & (vlTOPp->Load_Unit__DOT__load_data_buffer 
+                         << 8U)) | (IData)(vlTOPp->io_load_data));
     vlTOPp->Load_Unit__DOT___GEN_22 = (((IData)(vlTOPp->io_load_begin) 
                                         & (~ (IData)(vlTOPp->Load_Unit__DOT__loading))) 
                                        | (IData)(vlTOPp->Load_Unit__DOT___GEN_14));
@@ -281,8 +281,8 @@ VL_INLINE_OPT void VLoad_Unit::_combo__TOP__3(VLoad_Unit__Syms* __restrict vlSym
     VLoad_Unit* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->Load_Unit__DOT___load_data_buffer_T_1 = 
-        ((0xffffff00U & vlTOPp->Load_Unit__DOT__load_data_buffer) 
-         | (IData)(vlTOPp->io_load_data));
+        ((0xffffff00U & (vlTOPp->Load_Unit__DOT__load_data_buffer 
+                         << 8U)) | (IData)(vlTOPp->io_load_data));
     vlTOPp->Load_Unit__DOT___GEN_20 = (((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
                                         & (~ (IData)(vlTOPp->Load_Unit__DOT__reading))) 
                                        | ((IData)(vlTOPp->Load_Unit__DOT__reading)

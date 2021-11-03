@@ -35,10 +35,11 @@ int main(int argc, char **argv){
 	Verilated::traceEverOn(true);
 	VerilatedVcdC* tfp = new VerilatedVcdC;
 	tb->trace(tfp, 99);
-	tfp->open("led_movertrace.vcd");
+	tfp->open("Load_Unittrace.vcd");
 	
-	tb->io_load_begin = 1;
 	tb->io_LOAD_ADDRESS_IN = 1;
+	tb->io_load_data = 10;
+	tb->io_load_begin = 1;
 	
 	for(int i = 0; i < 20; i++){
 		tick(++tickcount, tb, tfp);

@@ -1,0 +1,330 @@
+$date
+2021-11-03T02:43+0000
+$end
+$version
+0.2
+$end
+$comment
+
+$end
+$timescale 1ns  $end
+$scope module Load_Unit $end
+ $var wire 2 ! _load_data_size_buffer_T_1 $end
+ $var wire 1 " stateReg $end
+ $var wire 1 # _GEN_22 $end
+ $var wire 1 $ _GEN_16 $end
+ $var wire 32 % io_load_mem_address_out $end
+ $var wire 1 & io_LOAD_TO_REG $end
+ $var wire 2 ' _GEN_2 $end
+ $var wire 40 ( _GEN_10 $end
+ $var wire 1 ) _T $end
+ $var wire 32 * _GEN_25 $end
+ $var wire 2 + _GEN_19 $end
+ $var wire 1 , _GEN_5 $end
+ $var wire 1 - reading $end
+ $var wire 1 . _GEN_13 $end
+ $var wire 32 / _load_data_buffer_T $end
+ $var wire 1 0 _GEN_8 $end
+ $var wire 3 1 _loaded_data_size_buffer_T $end
+ $var wire 1 2 _GEN_39 $end
+ $var wire 1 3 _GEN_30 $end
+ $var wire 1 4 _GEN_24 $end
+ $var wire 2 5 io_LOAD_SIZE $end
+ $var wire 3 6 _load_data_size_buffer_T $end
+ $var wire 32 7 load_data_address_buffer $end
+ $var wire 40 8 _load_data_buffer_T_2 $end
+ $var wire 32 9 _GEN_33 $end
+ $var wire 33 : _load_data_address_buffer_T $end
+ $var wire 32 ; _load_data_address_buffer_T_1 $end
+ $var wire 40 < _GEN_12 $end
+ $var wire 2 = _GEN_15 $end
+ $var wire 2 > _GEN_7 $end
+ $var wire 2 ? loaded_data_size_buffer $end
+ $var wire 1 @ _GEN_36 $end
+ $var wire 1 A _GEN_21 $end
+ $var wire 2 B _GEN_18 $end
+ $var wire 32 C _GEN_1 $end
+ $var wire 8 D load_data_buffer_lo $end
+ $var wire 1 E io_LOAD_ADDRESS_IN $end
+ $var wire 32 F load_data_buffer $end
+ $var wire 2 G _GEN_35 $end
+ $var wire 1 H clock $end
+ $var wire 1 I io_mem_read $end
+ $var wire 32 J _GEN_17 $end
+ $var wire 1 K _GEN_26 $end
+ $var wire 1 L _GEN_32 $end
+ $var wire 2 M _GEN_11 $end
+ $var wire 1 N loading $end
+ $var wire 1 O io_load_begin $end
+ $var wire 32 P _load_data_buffer_T_1 $end
+ $var wire 1 Q io_LOAD_READY $end
+ $var wire 1 R _GEN_20 $end
+ $var wire 2 S load_data_size_buffer $end
+ $var wire 32 T _GEN_29 $end
+ $var wire 1 U _GEN_14 $end
+ $var wire 32 V _GEN_6 $end
+ $var wire 1 W _GEN_0 $end
+ $var wire 2 X _loaded_data_size_buffer_T_1 $end
+ $var wire 24 Y load_data_buffer_hi $end
+ $var wire 1 Z _GEN_9 $end
+ $var wire 32 [ io_load_data_out $end
+ $var wire 1 \ reset $end
+ $var wire 32 ] io_load_mem_address_in $end
+ $var wire 2 ^ _GEN_34 $end
+ $var wire 1 _ _GEN_28 $end
+ $var wire 32 ` _GEN_40 $end
+ $var wire 8 a io_load_data $end
+$upscope $end
+$enddefinitions $end
+$dumpvars
+0&
+b00 '
+0Z
+b00000000000000000000000000000000 [
+0R
+b000000000000000000000000000000000 :
+b0000000000000000000000000000000000000000 <
+b00 >
+0"
+0N
+b0000000000000000000000000000000000000000 8
+03
+b00000000000000000000000000000000 `
+b00 S
+0-
+b00 !
+0L
+b00 M
+b00 G
+b00000000000000000000000000000000 *
+b0000000000000000000000000000000000000000 (
+0)
+0H
+b00 ^
+0@
+0_
+0W
+b00000000000000000000000000000000 C
+b00000000000000000000000000000000 ;
+b00000000 a
+b000 1
+b000000000000000000000000 Y
+b00 =
+b00000000000000000000000000000000 T
+b00 ?
+b00000000000000000000000000000000 7
+b00000000000000000000000000000000 V
+0U
+b00000000000000000000000000000000 9
+0#
+b00 X
+b00000000000000000000000000000000 P
+0O
+02
+b00000000 D
+0Q
+0I
+04
+b00000000000000000000000000000000 J
+b00 5
+0K
+0.
+b00000000000000000000000000000000 /
+0E
+00
+b00000000000000000000000000000000 F
+0\
+b00000000000000000000000000000000 ]
+b000 6
+b00 +
+0A
+0,
+b00 B
+0$
+b00000000000000000000000000000000 %
+$end
+#0
+b01 B
+1Q
+b01 X
+b00000000000000000000000000000001 C
+b00000000000000000000000000000001 J
+b01 '
+b001 6
+b01 =
+b01 >
+b01 M
+1)
+1\
+b01 !
+b001 1
+b01 G
+b00000000000000000000000000000001 V
+b00000000000000000000000000000001 9
+b01 +
+b000000000000000000000000000000001 :
+1I
+b01 ^
+1A
+b00000000000000000000000000000001 ;
+#1
+13
+b00 B
+1-
+1R
+b00000000000000000000000000000000 J
+1K
+1Z
+b00 =
+b00 >
+0)
+1N
+1U
+1@
+b00 G
+1#
+12
+b00000000000000000000000000000000 V
+b00000000000000000000000000000000 9
+1H
+1W
+b00 +
+b00 ^
+0I
+1,
+#6
+0H
+#11
+1H
+#16
+0H
+#21
+1H
+#26
+0H
+#31
+1H
+#36
+0H
+#41
+1H
+#46
+b11 B
+0Q
+0R
+b00000000000000000000000000001010 J
+b11 5
+1E
+1L
+0\
+0@
+b11 G
+b00000000000000000000000000001010 ]
+0H
+1$
+b00000000000000000000000000001010 9
+b11 +
+b11 ^
+0A
+#51
+14
+1R
+b11 S
+b100 6
+b00000000000000000000000000001010 7
+b11 M
+10
+b100 1
+1H
+1I
+1A
+1_
+0-
+b00000000000000000000000000001010 %
+b00 X
+b00000000000000000000000000001010 C
+1.
+b11 '
+b11 =
+b11 >
+1)
+b00 !
+b11 ?
+1"
+1@
+b00000000000000000000000000001010 V
+b000000000000000000000000000001011 :
+b00000000000000000000000000001011 ;
+#56
+0H
+#61
+1-
+b00000000000000000000000000000000 %
+0R
+1H
+0I
+0A
+0)
+#66
+03
+0#
+b00000101 D
+02
+0K
+0H
+1O
+b00000101 a
+b0000000000000000000000000000000000000101 (
+b00000000000000000000000000000101 /
+b00000000000000000000000000000101 P
+#71
+13
+0N
+b0000000000000000000000000000000000000101 <
+b00000000000000000000000000000101 `
+1#
+12
+1K
+1H
+#76
+1&
+0H
+#81
+b00000000000000000000000000000101 T
+1N
+04
+b00000000000000000000000000000101 F
+b0000000000000000000000000000010100000000 8
+0#
+b00000000000000000000000000000101 *
+1H
+0L
+b00000000000000000000000000000101 [
+0_
+#86
+0H
+#91
+b00000000000000000000000000000000 T
+0"
+0.
+0@
+1H
+1L
+b00000000000000000000000000000000 [
+#96
+1Q
+1R
+1@
+0&
+1#
+b00000000000000000000000000000000 *
+0H
+0E
+0$
+0O
+0L
+1A
+#101
+1H
+#106
+0H

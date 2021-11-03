@@ -108,8 +108,7 @@ void VLoad_Unit::traceFullThis__1(VLoad_Unit__Syms* __restrict vlSymsp, Verilate
         vcdp->fullBit(c+33,(vlTOPp->Load_Unit__DOT__reading));
         vcdp->fullBit(c+41,(vlTOPp->Load_Unit__DOT__loading));
         vcdp->fullBit(c+49,(vlTOPp->Load_Unit__DOT__stateReg));
-        vcdp->fullBus(c+57,((0xffffffU & (vlTOPp->Load_Unit__DOT__load_data_buffer 
-                                          >> 8U))),24);
+        vcdp->fullBus(c+57,((0xffffffU & vlTOPp->Load_Unit__DOT__load_data_buffer)),24);
         vcdp->fullBit(c+65,(vlTOPp->clock));
         vcdp->fullBit(c+73,(vlTOPp->reset));
         vcdp->fullBus(c+81,(vlTOPp->io_load_mem_address_in),32);
