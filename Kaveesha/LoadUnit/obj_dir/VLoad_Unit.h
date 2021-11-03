@@ -33,6 +33,7 @@ VL_MODULE(VLoad_Unit) {
     VL_OUT8(io_mem_read,0,0);
     VL_OUT8(io_LOAD_READY,0,0);
     VL_IN8(io_load_begin,0,0);
+    VL_IN8(io_EXTENSION,0,0);
     VL_IN(io_load_mem_address_in,31,0);
     VL_OUT(io_load_mem_address_out,31,0);
     VL_OUT(io_load_data_out,31,0);
@@ -40,6 +41,8 @@ VL_MODULE(VLoad_Unit) {
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
     CData/*1:0*/ Load_Unit__DOT__load_data_size_buffer;
+    CData/*1:0*/ Load_Unit__DOT__LOAD_SIZE;
+    CData/*0:0*/ Load_Unit__DOT__EXTENSION;
     CData/*0:0*/ Load_Unit__DOT__stateReg;
     CData/*0:0*/ Load_Unit__DOT___T;
     CData/*0:0*/ Load_Unit__DOT___GEN_0;

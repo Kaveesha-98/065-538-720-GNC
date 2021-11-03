@@ -1,4 +1,7 @@
-[0m[[0m[31merror[0m] [0m[0m/mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/Kaveesha/LoadUnit/src/main/scala/LoadUnit.scala:51:14: reassignment to val[0m
-[0m[[0m[31merror[0m] [0m[0m	io.mem_read = 0.U[0m
-[0m[[0m[31merror[0m] [0m[0m	            ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/Kaveesha/LoadUnit/src/main/scala/LoadUnit.scala:47:42: identifier expected but integer literal found.[0m
+[0m[[0m[31merror[0m] [0m[0m	val data_out_high = load_data_buffer(31:8) | extending_mask [0m
+[0m[[0m[31merror[0m] [0m[0m	                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/Kaveesha/LoadUnit/src/main/scala/LoadUnit.scala:81:1: ')' expected but '}' found.[0m
+[0m[[0m[31merror[0m] [0m[0m}[0m
+[0m[[0m[31merror[0m] [0m[0m^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m

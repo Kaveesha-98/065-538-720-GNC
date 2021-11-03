@@ -94,6 +94,24 @@ VL_INLINE_OPT void VLoad_Unit::_sequent__TOP__1(VLoad_Unit__Syms* __restrict vlS
     __Vdly__Load_Unit__DOT__load_data_size_buffer = vlTOPp->Load_Unit__DOT__load_data_size_buffer;
     __Vdly__Load_Unit__DOT__stateReg = vlTOPp->Load_Unit__DOT__stateReg;
     if (vlTOPp->reset) {
+        vlTOPp->Load_Unit__DOT__EXTENSION = 0U;
+    } else {
+        if ((1U & (~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)))) {
+            if (vlTOPp->io_LOAD_ADDRESS_IN) {
+                vlTOPp->Load_Unit__DOT__EXTENSION = vlTOPp->io_EXTENSION;
+            }
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->Load_Unit__DOT__LOAD_SIZE = 0U;
+    } else {
+        if ((1U & (~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)))) {
+            if (vlTOPp->io_LOAD_ADDRESS_IN) {
+                vlTOPp->Load_Unit__DOT__LOAD_SIZE = vlTOPp->io_LOAD_SIZE;
+            }
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->Load_Unit__DOT__load_data_buffer = 0U;
     } else {
         if (vlTOPp->Load_Unit__DOT___T) {
@@ -158,9 +176,32 @@ VL_INLINE_OPT void VLoad_Unit::_sequent__TOP__1(VLoad_Unit__Syms* __restrict vlS
     vlTOPp->Load_Unit__DOT__stateReg = __Vdly__Load_Unit__DOT__stateReg;
     vlTOPp->Load_Unit__DOT___load_data_size_buffer_T_1 
         = (3U & ((IData)(1U) + (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)));
-    vlTOPp->io_load_data_out = vlTOPp->Load_Unit__DOT__load_data_buffer;
     vlTOPp->Load_Unit__DOT___load_data_address_buffer_T_1 
         = ((IData)(1U) + vlTOPp->Load_Unit__DOT__load_data_address_buffer);
+    vlTOPp->io_load_data_out = ((0xffffff00U & ((0xffffff00U 
+                                                 & vlTOPp->Load_Unit__DOT__load_data_buffer) 
+                                                | (((((1U 
+                                                       & (IData)(vlTOPp->Load_Unit__DOT__LOAD_SIZE))
+                                                       ? 
+                                                      (vlTOPp->Load_Unit__DOT__load_data_buffer 
+                                                       >> 7U)
+                                                       : 
+                                                      (vlTOPp->Load_Unit__DOT__load_data_buffer 
+                                                       >> 0xfU)) 
+                                                     & (IData)(vlTOPp->Load_Unit__DOT__EXTENSION))
+                                                     ? 
+                                                    ((((2U 
+                                                        & (IData)(vlTOPp->Load_Unit__DOT__LOAD_SIZE))
+                                                        ? 0xffffU
+                                                        : 0U) 
+                                                      << 8U) 
+                                                     | ((3U 
+                                                         == (IData)(vlTOPp->Load_Unit__DOT__LOAD_SIZE))
+                                                         ? 0xffU
+                                                         : 0U))
+                                                     : 0U) 
+                                                   << 8U))) 
+                                | (0xffU & vlTOPp->Load_Unit__DOT__load_data_buffer));
     vlTOPp->Load_Unit__DOT___T = (1U & (~ (IData)(vlTOPp->Load_Unit__DOT__stateReg)));
     vlTOPp->io_mem_read = vlTOPp->Load_Unit__DOT__stateReg;
     vlTOPp->io_load_mem_address_out = ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
@@ -179,7 +220,6 @@ void VLoad_Unit::_settle__TOP__2(VLoad_Unit__Syms* __restrict vlSymsp) {
     vlTOPp->Load_Unit__DOT___load_data_size_buffer_T_1 
         = (3U & ((IData)(1U) + (IData)(vlTOPp->Load_Unit__DOT__load_data_size_buffer)));
     vlTOPp->io_mem_read = vlTOPp->Load_Unit__DOT__stateReg;
-    vlTOPp->io_load_data_out = vlTOPp->Load_Unit__DOT__load_data_buffer;
     vlTOPp->Load_Unit__DOT___GEN_0 = ((IData)(vlTOPp->io_LOAD_ADDRESS_IN) 
                                       | (IData)(vlTOPp->Load_Unit__DOT__stateReg));
     vlTOPp->Load_Unit__DOT___load_data_buffer_T = (
@@ -193,6 +233,30 @@ void VLoad_Unit::_settle__TOP__2(VLoad_Unit__Syms* __restrict vlSymsp) {
                                         ? ((IData)(vlTOPp->Load_Unit__DOT__stateReg)
                                             ? vlTOPp->Load_Unit__DOT__load_data_address_buffer
                                             : 0U) : 0U);
+    vlTOPp->io_load_data_out = ((0xffffff00U & ((0xffffff00U 
+                                                 & vlTOPp->Load_Unit__DOT__load_data_buffer) 
+                                                | (((((1U 
+                                                       & (IData)(vlTOPp->Load_Unit__DOT__LOAD_SIZE))
+                                                       ? 
+                                                      (vlTOPp->Load_Unit__DOT__load_data_buffer 
+                                                       >> 7U)
+                                                       : 
+                                                      (vlTOPp->Load_Unit__DOT__load_data_buffer 
+                                                       >> 0xfU)) 
+                                                     & (IData)(vlTOPp->Load_Unit__DOT__EXTENSION))
+                                                     ? 
+                                                    ((((2U 
+                                                        & (IData)(vlTOPp->Load_Unit__DOT__LOAD_SIZE))
+                                                        ? 0xffffU
+                                                        : 0U) 
+                                                      << 8U) 
+                                                     | ((3U 
+                                                         == (IData)(vlTOPp->Load_Unit__DOT__LOAD_SIZE))
+                                                         ? 0xffU
+                                                         : 0U))
+                                                     : 0U) 
+                                                   << 8U))) 
+                                | (0xffU & vlTOPp->Load_Unit__DOT__load_data_buffer));
 }
 
 VL_INLINE_OPT void VLoad_Unit::_combo__TOP__3(VLoad_Unit__Syms* __restrict vlSymsp) {
@@ -269,6 +333,8 @@ void VLoad_Unit::_eval_debug_assertions() {
         Verilated::overWidthError("io_LOAD_ADDRESS_IN");}
     if (VL_UNLIKELY((io_load_begin & 0xfeU))) {
         Verilated::overWidthError("io_load_begin");}
+    if (VL_UNLIKELY((io_EXTENSION & 0xfeU))) {
+        Verilated::overWidthError("io_EXTENSION");}
 }
 #endif  // VL_DEBUG
 
@@ -287,9 +353,12 @@ void VLoad_Unit::_ctor_var_reset() {
     io_load_mem_address_out = VL_RAND_RESET_I(32);
     io_load_begin = VL_RAND_RESET_I(1);
     io_load_data_out = VL_RAND_RESET_I(32);
+    io_EXTENSION = VL_RAND_RESET_I(1);
     Load_Unit__DOT__load_data_buffer = VL_RAND_RESET_I(32);
     Load_Unit__DOT__load_data_size_buffer = VL_RAND_RESET_I(2);
     Load_Unit__DOT__load_data_address_buffer = VL_RAND_RESET_I(32);
+    Load_Unit__DOT__LOAD_SIZE = VL_RAND_RESET_I(2);
+    Load_Unit__DOT__EXTENSION = VL_RAND_RESET_I(1);
     Load_Unit__DOT__stateReg = VL_RAND_RESET_I(1);
     Load_Unit__DOT___T = VL_RAND_RESET_I(1);
     Load_Unit__DOT___GEN_0 = VL_RAND_RESET_I(1);

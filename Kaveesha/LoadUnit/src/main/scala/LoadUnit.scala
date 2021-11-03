@@ -18,6 +18,7 @@ class Load_Unit extends Module{
 		val load_mem_address_out = Output(UInt(32.W))				// Corresponding memory address to Load Data - Output
 		val load_begin = Input(UInt(1.W))					// Control signal to start accepting load data from data memory
 		val load_data_out = Output(SInt(32.W))					// Output from load unit ; the Loaded data into Load unit
+		val EXTENSION = Input(UInt(1.W))
 	})
 
 	// Buffers
@@ -25,6 +26,8 @@ class Load_Unit extends Module{
 	val load_data_size_buffer = RegInit(0.U(2.W))
 	val loaded_data_size_buffer = RegInit(0.U(2.W))
 	val load_data_address_buffer = RegInit(0.U(32.W))
+	val LOAD_SIZE = RegInit(0.U(2.W))
+	val EXTENSION = RegInit(0.U(1.W))
 	
 	// States of ststus of Load_Unit FSM
 	val ready :: not_ready :: Nil = Enum(2)
@@ -34,7 +37,16 @@ class Load_Unit extends Module{
 	io.LOAD_READY := 0.U
 	io.load_mem_address_out := 0.U
 	io.mem_read := 0.U
-	io.load_data_out := load_data_buffer.asSInt
+	
+	
+	//Implementing sign extension
+	val MSB = Mux(LOAD_SIZE(0) === 1.U, load_data_buffer(7), load_data_buffer(15))
+	val needMask = MSB & EXTENSION
+	val mask = Cat(Mux(LOAD_SIZE(1) === 1.U, "hffff".U, "h0000".U), Mux(LOAD_SIZE === 3.U, "hff".U, "h00".U))
+	val extending_mask = Mux(needMask === 1.U, mask, "h000000".U)
+	val data_out = Cat(load_data_buffer(31,8) | extending_mask, load_data_buffer(7,0))
+	
+	io.load_data_out := data_out.asSInt
 
 	// Load_Unit FSM state transition and operations under each state, under control signals
 	switch(stateReg){
@@ -46,6 +58,8 @@ class Load_Unit extends Module{
 				loaded_data_size_buffer := io.LOAD_SIZE
 				load_data_buffer := 0.U
 				io.LOAD_READY := 0.U
+				LOAD_SIZE := io.LOAD_SIZE
+				EXTENSION := io.EXTENSION
 			}.otherwise{
 				io.LOAD_READY := 1.U
 				io.mem_read := 0.U
