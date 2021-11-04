@@ -39,7 +39,7 @@ int main(int argc, char **argv){
 	
 	tb->io_load_mem_address_in = 16;
 	tb->io_LOAD_ADDRESS_IN = 1;
-	tb->io_LOAD_SIZE = 0;
+	tb->io_LOAD_SIZE = 3;
 	tb->io_load_data = 0xA0;
 	tb->io_EXTENSION = 1;
 	tick(++tickcount, tb, tfp);
