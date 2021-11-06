@@ -16,7 +16,6 @@ class Load_Unit extends Module{
 		val LOAD_READY = Output(UInt(1.W))					// Status of Load Unit
 
 		val load_mem_address_out = Output(UInt(32.W))				// Corresponding memory address to Load Data - Output
-		val load_begin = Input(UInt(1.W))					// Control signal to start accepting load data from data memory
 		val load_data_out = Output(SInt(32.W))					// Output from load unit ; the Loaded data into Load unit
 		val EXTENSION = Input(UInt(1.W))
 	})
