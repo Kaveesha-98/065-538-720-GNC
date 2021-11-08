@@ -162,27 +162,7 @@ class control_store extends Module{
 				io.BRANCH_ADDRESS_SOURCE_ALU := Mux(instruction(6, 0) === "b1100111".U, 1.U, 0.U)
 			}
 			
-			when(instruction(6, 0) === "b1100011".U){
-				io.BRANCH_SELECT := instruction(14, 13)
-				io.BRANCH_CONDITION := ~instruction(12)
-			}
 			
-			//--branching immediate generation
-			val imm12bitBranch = Cat(Cat(Cat(instruction(31), instruction(7)), Cat(instruction(30, 25), instruction(11, 8))),"b0".U)
-			val imm20bitBranch = Cat(Cat(Cat(instruction(31), instruction(19, 12)), Cat(instruction(20), instruction(30, 21))), "b0".U)
-			when(instruction(6, 0) === "b1100011".U){
-				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffffe000".U | imm12bitBranch, "h00001fff".U & imm12bitBranch)
-			}otherwise{
-				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffe00000".U | imm20bitBranch, "h001fffff".U & imm20bitBranch)
-			}
-			
-			//updating pc
-			io.UPDATE_PC := 1.U
-			
-			//ending branching operations
-			when(instruction(6, 0) === "b1101111".U | instruction(6, 0) === "b1100111".U | instruction(6, 0) === "b1100011".U){
-				stateReg := waiting
-			}
 						
 			stateReg := stage3
 		}
@@ -201,6 +181,35 @@ class control_store extends Module{
 			
 			//--writeback on arithmetic
 			io.RD := instruction(11, 7)
+			
+			//--branching immediate generation
+			val imm12bitBranch = Cat(Cat(Cat(instruction(31), instruction(7)), Cat(instruction(30, 25), instruction(11, 8))),"b0".U)
+			val imm20bitBranch = Cat(Cat(Cat(instruction(31), instruction(19, 12)), Cat(instruction(20), instruction(30, 21))), "b0".U)
+			when(instruction(6, 0) === "b1100011".U){
+				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffffe000".U | imm12bitBranch, "h00001fff".U & imm12bitBranch)
+			}otherwise{
+				io.BRANCH_IMMEDIATE := Mux(instruction(31), "hffe00000".U | imm20bitBranch, "h001fffff".U & imm20bitBranch)
+			}
+			
+			
+			when(instruction(6, 0) === "b1100011".U){
+				io.BRANCH_SELECT := instruction(14, 13)
+				io.BRANCH_CONDITION := ~instruction(12)
+			}
+			
+			when((instruction(6, 0)&"b1110111".U) === "b1100111".U){
+				io.PROCEDURE_BRANCHING := 1.U
+				io.BRANCH_ADDRESS_SOURCE_ALU := Mux(instruction(6, 0) === "b1100111".U, 1.U, 0.U)
+			}
+			
+			
+			//updating pc
+			io.UPDATE_PC := 1.U
+			
+			//ending branching operations
+			when(instruction(6, 0) === "b1101111".U | instruction(6, 0) === "b1100111".U | instruction(6, 0) === "b1100011".U){
+				stateReg := waiting
+			}
 			
 			//for arithmetic and auipc and lui
 			when(instruction(4) === "b1".U){

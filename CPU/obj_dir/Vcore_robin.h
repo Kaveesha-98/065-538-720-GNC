@@ -58,9 +58,10 @@ VL_MODULE(Vcore_robin) {
         CData/*0:0*/ core_robin__DOT__controlStore__DOT___T_2;
         CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_4;
         CData/*0:0*/ core_robin__DOT__controlStore__DOT___T_34;
-        CData/*0:0*/ core_robin__DOT__controlStore__DOT___GEN_34;
-        CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_41;
-        CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_43;
+        CData/*0:0*/ core_robin__DOT__controlStore__DOT___GEN_15;
+        CData/*0:0*/ core_robin__DOT__controlStore__DOT___GEN_36;
+        CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_48;
+        CData/*2:0*/ core_robin__DOT__controlStore__DOT___GEN_51;
         CData/*0:0*/ core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL;
         CData/*0:0*/ core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN;
         CData/*0:0*/ core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN;
@@ -73,12 +74,12 @@ VL_MODULE(Vcore_robin) {
         CData/*0:0*/ core_robin__DOT__storeUnit__DOT___GEN_14;
         CData/*1:0*/ core_robin__DOT__storeUnit__DOT___T_15;
         SData/*11:0*/ core_robin__DOT__controlStore__DOT___T_18;
-        SData/*12:0*/ core_robin__DOT__controlStore__DOT___T_55;
+        SData/*12:0*/ core_robin__DOT__controlStore__DOT___T_65;
         IData/*31:0*/ core_robin__DOT__PC;
         IData/*31:0*/ core_robin__DOT__noBranchNextAddr;
         IData/*31:0*/ core_robin__DOT__branchImmBranchAddr;
         IData/*31:0*/ core_robin__DOT__controlStore__DOT__instruction;
-        IData/*20:0*/ core_robin__DOT__controlStore__DOT___T_56;
+        IData/*20:0*/ core_robin__DOT__controlStore__DOT___T_66;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile_io_rdData;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__ALU_in1;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__ALU_in2;
@@ -103,9 +104,9 @@ VL_MODULE(Vcore_robin) {
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_12;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_13;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_14;
-        IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_15;
     };
     struct {
+        IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_15;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_16;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_17;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_18;

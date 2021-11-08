@@ -85,30 +85,30 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBit(c+769,"core_robin controlStore_clock", false,-1);
         vcdp->declBit(c+777,"core_robin controlStore_reset", false,-1);
         vcdp->declBus(c+785,"core_robin controlStore_io_INSTRUCTION", false,-1, 31,0);
-        vcdp->declBit(c+193,"core_robin controlStore_io_RECIEVED", false,-1);
+        vcdp->declBit(c+201,"core_robin controlStore_io_RECIEVED", false,-1);
         vcdp->declBit(c+801,"core_robin controlStore_io_INSTRUCTION_LOADED", false,-1);
-        vcdp->declBus(c+185,"core_robin controlStore_io_RS1", false,-1, 4,0);
+        vcdp->declBus(c+193,"core_robin controlStore_io_RS1", false,-1, 4,0);
         vcdp->declBus(c+1,"core_robin controlStore_io_RS2", false,-1, 4,0);
         vcdp->declBus(c+9,"core_robin controlStore_io_RD", false,-1, 4,0);
         vcdp->declBit(c+17,"core_robin controlStore_io_WRITE_EN", false,-1);
         vcdp->declBus(c+25,"core_robin controlStore_io_ALU_OP", false,-1, 3,0);
         vcdp->declBit(c+33,"core_robin controlStore_io_PROCEDURE_BRANCHING", false,-1);
-        vcdp->declBit(c+201,"core_robin controlStore_io_CHOOSE_IMMEDIATE", false,-1);
+        vcdp->declBit(c+209,"core_robin controlStore_io_CHOOSE_IMMEDIATE", false,-1);
         vcdp->declBit(c+41,"core_robin controlStore_io_CHOOSE_MEMORY_LOAD", false,-1);
         vcdp->declBus(c+49,"core_robin controlStore_io_IMMEDIATE", false,-1, 31,0);
         vcdp->declBus(c+57,"core_robin controlStore_io_BRANCH_IMMEDIATE", false,-1, 31,0);
-        vcdp->declBit(c+209,"core_robin controlStore_io_STORE_READY", false,-1);
+        vcdp->declBit(c+217,"core_robin controlStore_io_STORE_READY", false,-1);
         vcdp->declBit(c+65,"core_robin controlStore_io_DATA_IN", false,-1);
-        vcdp->declBus(c+217,"core_robin controlStore_io_STORE_SIZE", false,-1, 1,0);
+        vcdp->declBus(c+225,"core_robin controlStore_io_STORE_SIZE", false,-1, 1,0);
         vcdp->declBit(c+73,"core_robin controlStore_io_STORE_ADDRESS_IN", false,-1);
         vcdp->declBus(c+81,"core_robin controlStore_io_BRANCH_SELECT", false,-1, 1,0);
-        vcdp->declBit(c+225,"core_robin controlStore_io_BRANCH_CONDITION", false,-1);
-        vcdp->declBit(c+233,"core_robin controlStore_io_BRANCH_ADDRESS_SOURCE_ALU", false,-1);
+        vcdp->declBit(c+233,"core_robin controlStore_io_BRANCH_CONDITION", false,-1);
+        vcdp->declBit(c+89,"core_robin controlStore_io_BRANCH_ADDRESS_SOURCE_ALU", false,-1);
         vcdp->declBit(c+241,"core_robin controlStore_io_UPDATE_PC", false,-1);
         vcdp->declBit(c+249,"core_robin controlStore_io_CHOOSE_PC", false,-1);
         vcdp->declBit(c+769,"core_robin dataPath_clock", false,-1);
         vcdp->declBit(c+777,"core_robin dataPath_reset", false,-1);
-        vcdp->declBus(c+185,"core_robin dataPath_io_RS1", false,-1, 4,0);
+        vcdp->declBus(c+193,"core_robin dataPath_io_RS1", false,-1, 4,0);
         vcdp->declBus(c+1,"core_robin dataPath_io_RS2", false,-1, 4,0);
         vcdp->declBus(c+9,"core_robin dataPath_io_RD", false,-1, 4,0);
         vcdp->declBit(c+17,"core_robin dataPath_io_WRITE_EN", false,-1);
@@ -116,9 +116,9 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBit(c+257,"core_robin dataPath_io_EQUAL", false,-1);
         vcdp->declBit(c+265,"core_robin dataPath_io_LESS_THAN", false,-1);
         vcdp->declBit(c+273,"core_robin dataPath_io_SIGNED_LESS_THAN", false,-1);
-        vcdp->declBus(c+89,"core_robin dataPath_io_store_data", false,-1, 31,0);
+        vcdp->declBus(c+97,"core_robin dataPath_io_store_data", false,-1, 31,0);
         vcdp->declBus(c+281,"core_robin dataPath_io_store_address", false,-1, 31,0);
-        vcdp->declBit(c+201,"core_robin dataPath_io_CHOOSE_IMMEDIATE", false,-1);
+        vcdp->declBit(c+209,"core_robin dataPath_io_CHOOSE_IMMEDIATE", false,-1);
         vcdp->declBit(c+41,"core_robin dataPath_io_CHOOSE_MEMORY_LOAD", false,-1);
         vcdp->declBus(c+49,"core_robin dataPath_io_IMMEDIATE", false,-1, 31,0);
         vcdp->declBus(c+289,"core_robin dataPath_io_instruction_return_address", false,-1, 31,0);
@@ -131,46 +131,46 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBus(c+305,"core_robin storeUnit_io_mem_write_data", false,-1, 7,0);
         vcdp->declBus(c+313,"core_robin storeUnit_io_mem_write_address", false,-1, 31,0);
         vcdp->declBit(c+321,"core_robin storeUnit_io_mem_write", false,-1);
-        vcdp->declBit(c+209,"core_robin storeUnit_io_STORE_READY", false,-1);
+        vcdp->declBit(c+217,"core_robin storeUnit_io_STORE_READY", false,-1);
         vcdp->declBit(c+65,"core_robin storeUnit_io_DATA_IN", false,-1);
-        vcdp->declBus(c+217,"core_robin storeUnit_io_STORE_SIZE", false,-1, 1,0);
+        vcdp->declBus(c+225,"core_robin storeUnit_io_STORE_SIZE", false,-1, 1,0);
         vcdp->declBit(c+73,"core_robin storeUnit_io_ADDRESS_IN", false,-1);
-        vcdp->declBus(c+89,"core_robin storeUnit_io_store_data", false,-1, 31,0);
+        vcdp->declBus(c+97,"core_robin storeUnit_io_store_data", false,-1, 31,0);
         vcdp->declBus(c+281,"core_robin storeUnit_io_store_address", false,-1, 31,0);
         vcdp->declBus(c+297,"core_robin PC", false,-1, 31,0);
         vcdp->declBus(c+289,"core_robin noBranchNextAddr", false,-1, 31,0);
-        vcdp->declBus(c+97,"core_robin branchImmBranchAddr", false,-1, 31,0);
-        vcdp->declBit(c+105,"core_robin lessThanGreaterThanALUResult", false,-1);
-        vcdp->declBit(c+113,"core_robin branchCheck", false,-1);
-        vcdp->declBit(c+121,"core_robin conditionalBranching", false,-1);
+        vcdp->declBus(c+105,"core_robin branchImmBranchAddr", false,-1, 31,0);
+        vcdp->declBit(c+113,"core_robin lessThanGreaterThanALUResult", false,-1);
+        vcdp->declBit(c+121,"core_robin branchCheck", false,-1);
+        vcdp->declBit(c+129,"core_robin conditionalBranching", false,-1);
         vcdp->declBit(c+769,"core_robin controlStore clock", false,-1);
         vcdp->declBit(c+777,"core_robin controlStore reset", false,-1);
         vcdp->declBus(c+785,"core_robin controlStore io_INSTRUCTION", false,-1, 31,0);
-        vcdp->declBit(c+193,"core_robin controlStore io_RECIEVED", false,-1);
+        vcdp->declBit(c+201,"core_robin controlStore io_RECIEVED", false,-1);
         vcdp->declBit(c+801,"core_robin controlStore io_INSTRUCTION_LOADED", false,-1);
-        vcdp->declBus(c+185,"core_robin controlStore io_RS1", false,-1, 4,0);
+        vcdp->declBus(c+193,"core_robin controlStore io_RS1", false,-1, 4,0);
         vcdp->declBus(c+1,"core_robin controlStore io_RS2", false,-1, 4,0);
         vcdp->declBus(c+9,"core_robin controlStore io_RD", false,-1, 4,0);
         vcdp->declBit(c+17,"core_robin controlStore io_WRITE_EN", false,-1);
         vcdp->declBus(c+25,"core_robin controlStore io_ALU_OP", false,-1, 3,0);
         vcdp->declBit(c+33,"core_robin controlStore io_PROCEDURE_BRANCHING", false,-1);
-        vcdp->declBit(c+201,"core_robin controlStore io_CHOOSE_IMMEDIATE", false,-1);
+        vcdp->declBit(c+209,"core_robin controlStore io_CHOOSE_IMMEDIATE", false,-1);
         vcdp->declBit(c+41,"core_robin controlStore io_CHOOSE_MEMORY_LOAD", false,-1);
         vcdp->declBus(c+49,"core_robin controlStore io_IMMEDIATE", false,-1, 31,0);
         vcdp->declBus(c+57,"core_robin controlStore io_BRANCH_IMMEDIATE", false,-1, 31,0);
-        vcdp->declBit(c+209,"core_robin controlStore io_STORE_READY", false,-1);
+        vcdp->declBit(c+217,"core_robin controlStore io_STORE_READY", false,-1);
         vcdp->declBit(c+65,"core_robin controlStore io_DATA_IN", false,-1);
-        vcdp->declBus(c+217,"core_robin controlStore io_STORE_SIZE", false,-1, 1,0);
+        vcdp->declBus(c+225,"core_robin controlStore io_STORE_SIZE", false,-1, 1,0);
         vcdp->declBit(c+73,"core_robin controlStore io_STORE_ADDRESS_IN", false,-1);
         vcdp->declBus(c+81,"core_robin controlStore io_BRANCH_SELECT", false,-1, 1,0);
-        vcdp->declBit(c+225,"core_robin controlStore io_BRANCH_CONDITION", false,-1);
-        vcdp->declBit(c+233,"core_robin controlStore io_BRANCH_ADDRESS_SOURCE_ALU", false,-1);
+        vcdp->declBit(c+233,"core_robin controlStore io_BRANCH_CONDITION", false,-1);
+        vcdp->declBit(c+89,"core_robin controlStore io_BRANCH_ADDRESS_SOURCE_ALU", false,-1);
         vcdp->declBit(c+241,"core_robin controlStore io_UPDATE_PC", false,-1);
         vcdp->declBit(c+249,"core_robin controlStore io_CHOOSE_PC", false,-1);
         vcdp->declBus(c+329,"core_robin controlStore stateReg", false,-1, 2,0);
         vcdp->declBus(c+337,"core_robin controlStore stallState", false,-1, 2,0);
         vcdp->declBus(c+345,"core_robin controlStore instruction", false,-1, 31,0);
-        vcdp->declBit(c+193,"core_robin controlStore RECIEVED", false,-1);
+        vcdp->declBit(c+201,"core_robin controlStore RECIEVED", false,-1);
         vcdp->declBit(c+353,"core_robin controlStore STORE_READY", false,-1);
         vcdp->declBit(c+361,"core_robin controlStore LOAD_READY", false,-1);
         vcdp->declBus(c+369,"core_robin controlStore hi", false,-1, 6,0);
@@ -186,7 +186,7 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBus(c+449,"core_robin controlStore lo_7", false,-1, 9,0);
         vcdp->declBit(c+769,"core_robin dataPath clock", false,-1);
         vcdp->declBit(c+777,"core_robin dataPath reset", false,-1);
-        vcdp->declBus(c+185,"core_robin dataPath io_RS1", false,-1, 4,0);
+        vcdp->declBus(c+193,"core_robin dataPath io_RS1", false,-1, 4,0);
         vcdp->declBus(c+1,"core_robin dataPath io_RS2", false,-1, 4,0);
         vcdp->declBus(c+9,"core_robin dataPath io_RD", false,-1, 4,0);
         vcdp->declBit(c+17,"core_robin dataPath io_WRITE_EN", false,-1);
@@ -194,9 +194,9 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBit(c+257,"core_robin dataPath io_EQUAL", false,-1);
         vcdp->declBit(c+265,"core_robin dataPath io_LESS_THAN", false,-1);
         vcdp->declBit(c+273,"core_robin dataPath io_SIGNED_LESS_THAN", false,-1);
-        vcdp->declBus(c+89,"core_robin dataPath io_store_data", false,-1, 31,0);
+        vcdp->declBus(c+97,"core_robin dataPath io_store_data", false,-1, 31,0);
         vcdp->declBus(c+281,"core_robin dataPath io_store_address", false,-1, 31,0);
-        vcdp->declBit(c+201,"core_robin dataPath io_CHOOSE_IMMEDIATE", false,-1);
+        vcdp->declBit(c+209,"core_robin dataPath io_CHOOSE_IMMEDIATE", false,-1);
         vcdp->declBit(c+41,"core_robin dataPath io_CHOOSE_MEMORY_LOAD", false,-1);
         vcdp->declBus(c+49,"core_robin dataPath io_IMMEDIATE", false,-1, 31,0);
         vcdp->declBus(c+289,"core_robin dataPath io_instruction_return_address", false,-1, 31,0);
@@ -214,19 +214,19 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBus(c+465,"core_robin dataPath cpuALU_io_ALUinput2", false,-1, 31,0);
         vcdp->declBus(c+281,"core_robin dataPath cpuALU_io_ALUoutput", false,-1, 31,0);
         vcdp->declBit(c+769,"core_robin dataPath registerFile_clock", false,-1);
-        vcdp->declBus(c+185,"core_robin dataPath registerFile_io_RS1", false,-1, 4,0);
+        vcdp->declBus(c+193,"core_robin dataPath registerFile_io_RS1", false,-1, 4,0);
         vcdp->declBus(c+1,"core_robin dataPath registerFile_io_RS2", false,-1, 4,0);
         vcdp->declBus(c+9,"core_robin dataPath registerFile_io_RD", false,-1, 4,0);
         vcdp->declBit(c+17,"core_robin dataPath registerFile_io_WRITE_EN", false,-1);
-        vcdp->declBus(c+169,"core_robin dataPath registerFile_io_rs1Data", false,-1, 31,0);
-        vcdp->declBus(c+129,"core_robin dataPath registerFile_io_rs2Data", false,-1, 31,0);
-        vcdp->declBus(c+137,"core_robin dataPath registerFile_io_rdData", false,-1, 31,0);
+        vcdp->declBus(c+177,"core_robin dataPath registerFile_io_rs1Data", false,-1, 31,0);
+        vcdp->declBus(c+137,"core_robin dataPath registerFile_io_rs2Data", false,-1, 31,0);
+        vcdp->declBus(c+145,"core_robin dataPath registerFile_io_rdData", false,-1, 31,0);
         vcdp->declBus(c+457,"core_robin dataPath ALU_in1", false,-1, 31,0);
         vcdp->declBus(c+465,"core_robin dataPath ALU_in2", false,-1, 31,0);
-        vcdp->declBus(c+145,"core_robin dataPath rdData", false,-1, 31,0);
-        vcdp->declBus(c+177,"core_robin dataPath rs1_ALU", false,-1, 31,0);
-        vcdp->declBus(c+153,"core_robin dataPath rs2_ALU", false,-1, 31,0);
-        vcdp->declBus(c+161,"core_robin dataPath rs2_ALU_rd", false,-1, 31,0);
+        vcdp->declBus(c+153,"core_robin dataPath rdData", false,-1, 31,0);
+        vcdp->declBus(c+185,"core_robin dataPath rs1_ALU", false,-1, 31,0);
+        vcdp->declBus(c+161,"core_robin dataPath rs2_ALU", false,-1, 31,0);
+        vcdp->declBus(c+169,"core_robin dataPath rs2_ALU_rd", false,-1, 31,0);
         vcdp->declBit(c+769,"core_robin dataPath cpuALU clock", false,-1);
         vcdp->declBit(c+777,"core_robin dataPath cpuALU reset", false,-1);
         vcdp->declBus(c+25,"core_robin dataPath cpuALU io_ALU_OP", false,-1, 3,0);
@@ -241,13 +241,13 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBit(c+265,"core_robin dataPath cpuALU LESS_THAN", false,-1);
         vcdp->declBit(c+273,"core_robin dataPath cpuALU SIGNED_LESS_THAN", false,-1);
         vcdp->declBit(c+769,"core_robin dataPath registerFile clock", false,-1);
-        vcdp->declBus(c+185,"core_robin dataPath registerFile io_RS1", false,-1, 4,0);
+        vcdp->declBus(c+193,"core_robin dataPath registerFile io_RS1", false,-1, 4,0);
         vcdp->declBus(c+1,"core_robin dataPath registerFile io_RS2", false,-1, 4,0);
         vcdp->declBus(c+9,"core_robin dataPath registerFile io_RD", false,-1, 4,0);
         vcdp->declBit(c+17,"core_robin dataPath registerFile io_WRITE_EN", false,-1);
-        vcdp->declBus(c+169,"core_robin dataPath registerFile io_rs1Data", false,-1, 31,0);
-        vcdp->declBus(c+129,"core_robin dataPath registerFile io_rs2Data", false,-1, 31,0);
-        vcdp->declBus(c+137,"core_robin dataPath registerFile io_rdData", false,-1, 31,0);
+        vcdp->declBus(c+177,"core_robin dataPath registerFile io_rs1Data", false,-1, 31,0);
+        vcdp->declBus(c+137,"core_robin dataPath registerFile io_rs2Data", false,-1, 31,0);
+        vcdp->declBus(c+145,"core_robin dataPath registerFile io_rdData", false,-1, 31,0);
         vcdp->declBus(c+473,"core_robin dataPath registerFile registerFile_0", false,-1, 31,0);
         vcdp->declBus(c+481,"core_robin dataPath registerFile registerFile_1", false,-1, 31,0);
         vcdp->declBus(c+489,"core_robin dataPath registerFile registerFile_2", false,-1, 31,0);
@@ -285,11 +285,11 @@ void Vcore_robin::traceInitThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
         vcdp->declBus(c+305,"core_robin storeUnit io_mem_write_data", false,-1, 7,0);
         vcdp->declBus(c+313,"core_robin storeUnit io_mem_write_address", false,-1, 31,0);
         vcdp->declBit(c+321,"core_robin storeUnit io_mem_write", false,-1);
-        vcdp->declBit(c+209,"core_robin storeUnit io_STORE_READY", false,-1);
+        vcdp->declBit(c+217,"core_robin storeUnit io_STORE_READY", false,-1);
         vcdp->declBit(c+65,"core_robin storeUnit io_DATA_IN", false,-1);
-        vcdp->declBus(c+217,"core_robin storeUnit io_STORE_SIZE", false,-1, 1,0);
+        vcdp->declBus(c+225,"core_robin storeUnit io_STORE_SIZE", false,-1, 1,0);
         vcdp->declBit(c+73,"core_robin storeUnit io_ADDRESS_IN", false,-1);
-        vcdp->declBus(c+89,"core_robin storeUnit io_store_data", false,-1, 31,0);
+        vcdp->declBus(c+97,"core_robin storeUnit io_store_data", false,-1, 31,0);
         vcdp->declBus(c+281,"core_robin storeUnit io_store_address", false,-1, 31,0);
         vcdp->declBus(c+729,"core_robin storeUnit store_data_buffer", false,-1, 31,0);
         vcdp->declBus(c+737,"core_robin storeUnit store_data_size_buffer", false,-1, 1,0);
@@ -315,7 +315,7 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
                              & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                                 & ((2U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                                    & ((3U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                      & (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_34)))))));
+                                      & (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_36)))))));
         vcdp->fullBus(c+49,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                               ? 0U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                        ? ((0x37U == 
@@ -334,83 +334,103 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
                               ? 0U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                        ? 0U : ((2U 
                                                 == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                                ? (
-                                                   (0x63U 
-                                                    == 
-                                                    (0x7fU 
-                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
+                                                ? 0U
+                                                : (
+                                                   (3U 
+                                                    == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                                     ? 
-                                                   ((0x80000000U 
-                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                   ((0x63U 
+                                                     == 
+                                                     (0x7fU 
+                                                      & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
                                                      ? 
-                                                    (0xffffe000U 
-                                                     | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
-                                                     : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
-                                                    : 
-                                                   ((0x80000000U 
-                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
-                                                     ? 
-                                                    (0xffe00000U 
-                                                     | vlTOPp->core_robin__DOT__controlStore__DOT___T_56)
-                                                     : vlTOPp->core_robin__DOT__controlStore__DOT___T_56))
-                                                : 0U)))),32);
+                                                    ((0x80000000U 
+                                                      & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                      ? 
+                                                     (0xffffe000U 
+                                                      | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_65))
+                                                      : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_65))
+                                                     : 
+                                                    ((0x80000000U 
+                                                      & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                      ? 
+                                                     (0xffe00000U 
+                                                      | vlTOPp->core_robin__DOT__controlStore__DOT___T_66)
+                                                      : vlTOPp->core_robin__DOT__controlStore__DOT___T_66))
+                                                    : 0U))))),32);
         vcdp->fullBit(c+65,(vlTOPp->core_robin__DOT__controlStore_io_DATA_IN));
         vcdp->fullBit(c+73,(vlTOPp->core_robin__DOT__controlStore_io_STORE_ADDRESS_IN));
         vcdp->fullBus(c+81,(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT),2);
-        vcdp->fullBus(c+89,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
+        vcdp->fullBit(c+89,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                             & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+                                    ? (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_15)
+                                    : ((3U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                       & (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_15)))))));
+        vcdp->fullBus(c+97,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                               ? 0U : (((IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2) 
                                        == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RD))
                                        ? vlTOPp->core_robin__DOT__dataPath__DOT__rdData
                                        : vlTOPp->core_robin__DOT__dataPath__DOT__rs2_ALU))),32);
-        vcdp->fullBus(c+97,((vlTOPp->core_robin__DOT__PC 
-                             + ((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                 ? 0U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                          ? 0U : ((2U 
-                                                   == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                                   ? 
-                                                  ((0x63U 
-                                                    == 
-                                                    (0x7fU 
-                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
-                                                    ? 
-                                                   ((0x80000000U 
-                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
-                                                     ? 
-                                                    (0xffffe000U 
-                                                     | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
-                                                     : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
+        vcdp->fullBus(c+105,((vlTOPp->core_robin__DOT__PC 
+                              + ((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+                                  ? 0U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+                                           ? 0U : (
+                                                   (2U 
+                                                    == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+                                                    ? 0U
                                                     : 
-                                                   ((0x80000000U 
-                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                   ((3U 
+                                                     == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                                      ? 
-                                                    (0xffe00000U 
-                                                     | vlTOPp->core_robin__DOT__controlStore__DOT___T_56)
-                                                     : vlTOPp->core_robin__DOT__controlStore__DOT___T_56))
-                                                   : 0U))))),32);
-        vcdp->fullBit(c+105,(((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                                    ((0x63U 
+                                                      == 
+                                                      (0x7fU 
+                                                       & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
+                                                      ? 
+                                                     ((0x80000000U 
+                                                       & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                       ? 
+                                                      (0xffffe000U 
+                                                       | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_65))
+                                                       : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_65))
+                                                      : 
+                                                     ((0x80000000U 
+                                                       & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                       ? 
+                                                      (0xffe00000U 
+                                                       | vlTOPp->core_robin__DOT__controlStore__DOT___T_66)
+                                                       : vlTOPp->core_robin__DOT__controlStore__DOT___T_66))
+                                                     : 0U)))))),32);
+        vcdp->fullBit(c+113,(((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
                                ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))));
-        vcdp->fullBit(c+113,(((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+        vcdp->fullBit(c+121,(((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
                                ? ((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
                                    ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                    : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
                                : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL))));
-        vcdp->fullBit(c+121,(((((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
-                                 ? ((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
-                                     ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
-                                     : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
-                                 : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 
-                               & ((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                  & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                     & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                        & ((0x63U == 
-                                            (0x7fU 
-                                             & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
-                                           & (~ (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                                 >> 0xcU))))))) 
-                              & (((IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT) 
-                                  >> 1U) & (~ (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))))));
-        vcdp->fullBus(c+129,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
+        vcdp->fullBit(c+129,((1U & ((~ (((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                          ? ((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                              ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
+                                              : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
+                                          : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 
+                                        ^ ((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                           & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                              & ((2U 
+                                                  != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                                 & ((3U 
+                                                     == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                                    & ((0x63U 
+                                                        == 
+                                                        (0x7fU 
+                                                         & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
+                                                       & (~ 
+                                                          (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
+                                                           >> 0xcU))))))))) 
+                                    & (((IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT) 
+                                        >> 1U) | (~ (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT)))))));
+        vcdp->fullBus(c+137,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                                ? 0U : ((0x1fU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                                         ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_31
                                         : ((0x1eU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
@@ -447,14 +467,14 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
                                                           == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                                                           ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_22
                                                           : vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT___GEN_54)))))))))))),32);
-        vcdp->fullBus(c+137,(vlTOPp->core_robin__DOT__dataPath__DOT__registerFile_io_rdData),32);
-        vcdp->fullBus(c+145,(vlTOPp->core_robin__DOT__dataPath__DOT__rdData),32);
-        vcdp->fullBus(c+153,(vlTOPp->core_robin__DOT__dataPath__DOT__rs2_ALU),32);
-        vcdp->fullBus(c+161,((((IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2) 
+        vcdp->fullBus(c+145,(vlTOPp->core_robin__DOT__dataPath__DOT__registerFile_io_rdData),32);
+        vcdp->fullBus(c+153,(vlTOPp->core_robin__DOT__dataPath__DOT__rdData),32);
+        vcdp->fullBus(c+161,(vlTOPp->core_robin__DOT__dataPath__DOT__rs2_ALU),32);
+        vcdp->fullBus(c+169,((((IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2) 
                                == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RD))
                                ? vlTOPp->core_robin__DOT__dataPath__DOT__rdData
                                : vlTOPp->core_robin__DOT__dataPath__DOT__rs2_ALU)),32);
-        vcdp->fullBus(c+169,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
+        vcdp->fullBus(c+177,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                ? 0U : ((0x1fU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                         ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_31
                                         : ((0x1eU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
@@ -491,7 +511,7 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
                                                           == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                                           ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_22
                                                           : vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT___GEN_21)))))))))))),32);
-        vcdp->fullBus(c+177,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
+        vcdp->fullBus(c+185,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                ? vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput
                                : ((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                    ? 0U : ((0x1fU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
@@ -532,16 +552,16 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
                                                            == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                                            ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_22
                                                            : vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT___GEN_21))))))))))))),32);
-        vcdp->fullBus(c+185,(vlTOPp->core_robin__DOT__controlStore_io_RS1),5);
-        vcdp->fullBit(c+193,(vlTOPp->core_robin__DOT__controlStore__DOT__RECIEVED));
-        vcdp->fullBit(c+201,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+        vcdp->fullBus(c+193,(vlTOPp->core_robin__DOT__controlStore_io_RS1),5);
+        vcdp->fullBit(c+201,(vlTOPp->core_robin__DOT__controlStore__DOT__RECIEVED));
+        vcdp->fullBit(c+209,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                               & ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                                  & (~ ((0x33U == (0x7fU 
                                                   & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
                                        | (0x63U == 
                                           (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))))))));
-        vcdp->fullBit(c+209,((1U & (~ (IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg)))));
-        vcdp->fullBus(c+217,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+        vcdp->fullBit(c+217,((1U & (~ (IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg)))));
+        vcdp->fullBus(c+225,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                ? 1U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                         ? ((0x23U == 
                                             (0x7fU 
@@ -554,23 +574,18 @@ void Vcore_robin::traceFullThis__1(Vcore_robin__Syms* __restrict vlSymsp, Verila
                                                       (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                                                        >> 0xcU))))
                                             : 1U) : 1U))),2);
-        vcdp->fullBit(c+225,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                              & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                 & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                    & ((0x63U == (0x7fU 
-                                                  & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
-                                       & (~ (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                             >> 0xcU))))))));
         vcdp->fullBit(c+233,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                               & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                 & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                    & ((0x67U == (0x77U 
-                                                  & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
-                                       & (0x67U == 
-                                          (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))))))));
+                                 & ((2U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                    & ((3U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                       & ((0x63U == 
+                                           (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
+                                          & (~ (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
+                                                >> 0xcU)))))))));
         vcdp->fullBit(c+241,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                               & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                 & (2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))))));
+                                 & ((2U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                    & (3U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)))))));
         vcdp->fullBit(c+249,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                               & ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                                  & (0x17U == (0x7fU 

@@ -33,7 +33,7 @@ class core_robin extends Module{
 	//choosing which branch condition is needed
 	val branchCheck = Mux(controlStore.io.BRANCH_SELECT(0) === 1.U, lessThanGreaterThanALUResult, dataPath.io.EQUAL)
 	//look if conditional branching
-	val conditionalBranching = ( branchCheck & controlStore.io.BRANCH_CONDITION ) & (controlStore.io.BRANCH_SELECT(1) & ~controlStore.io.BRANCH_SELECT(0) )
+	val conditionalBranching = ~( branchCheck ^ controlStore.io.BRANCH_CONDITION ) & (controlStore.io.BRANCH_SELECT(1) | ~controlStore.io.BRANCH_SELECT(0) )
 	//all address except jalr
 	val conditionaljalOrnoBranch = Mux((conditionalBranching | controlStore.io.PROCEDURE_BRANCHING) === 1.U, branchImmBranchAddr, noBranchNextAddr)
 	val nextAddress = Mux(controlStore.io.BRANCH_ADDRESS_SOURCE_ALU === 1.U, dataPath.io.instruction_next_address, conditionaljalOrnoBranch)

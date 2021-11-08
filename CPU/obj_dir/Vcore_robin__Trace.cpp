@@ -64,7 +64,7 @@ void Vcore_robin::traceChgThis__2(Vcore_robin__Syms* __restrict vlSymsp, Verilat
                             & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                                & ((2U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                                   & ((3U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                     & (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_34)))))));
+                                     & (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_36)))))));
         vcdp->chgBus(c+49,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                              ? 0U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                       ? ((0x37U == 
@@ -82,81 +82,101 @@ void Vcore_robin::traceChgThis__2(Vcore_robin__Syms* __restrict vlSymsp, Verilat
         vcdp->chgBus(c+57,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                              ? 0U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                       ? 0U : ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                               ? ((0x63U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
+                                               ? 0U
+                                               : ((3U 
+                                                   == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                                    ? 
-                                                  ((0x80000000U 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                  ((0x63U 
+                                                    == 
+                                                    (0x7fU 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
                                                     ? 
-                                                   (0xffffe000U 
-                                                    | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
-                                                    : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
-                                                   : 
-                                                  ((0x80000000U 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
-                                                    ? 
-                                                   (0xffe00000U 
-                                                    | vlTOPp->core_robin__DOT__controlStore__DOT___T_56)
-                                                    : vlTOPp->core_robin__DOT__controlStore__DOT___T_56))
-                                               : 0U)))),32);
+                                                   ((0x80000000U 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                     ? 
+                                                    (0xffffe000U 
+                                                     | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_65))
+                                                     : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_65))
+                                                    : 
+                                                   ((0x80000000U 
+                                                     & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                     ? 
+                                                    (0xffe00000U 
+                                                     | vlTOPp->core_robin__DOT__controlStore__DOT___T_66)
+                                                     : vlTOPp->core_robin__DOT__controlStore__DOT___T_66))
+                                                   : 0U))))),32);
         vcdp->chgBit(c+65,(vlTOPp->core_robin__DOT__controlStore_io_DATA_IN));
         vcdp->chgBit(c+73,(vlTOPp->core_robin__DOT__controlStore_io_STORE_ADDRESS_IN));
         vcdp->chgBus(c+81,(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT),2);
-        vcdp->chgBus(c+89,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
+        vcdp->chgBit(c+89,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                            & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                               & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+                                   ? (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_15)
+                                   : ((3U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                      & (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___GEN_15)))))));
+        vcdp->chgBus(c+97,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                              ? 0U : (((IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2) 
                                       == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RD))
                                       ? vlTOPp->core_robin__DOT__dataPath__DOT__rdData
                                       : vlTOPp->core_robin__DOT__dataPath__DOT__rs2_ALU))),32);
-        vcdp->chgBus(c+97,((vlTOPp->core_robin__DOT__PC 
-                            + ((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                ? 0U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                         ? 0U : ((2U 
-                                                  == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
-                                                  ? 
-                                                 ((0x63U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
-                                                   ? 
-                                                  ((0x80000000U 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
-                                                    ? 
-                                                   (0xffffe000U 
-                                                    | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
-                                                    : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_55))
+        vcdp->chgBus(c+105,((vlTOPp->core_robin__DOT__PC 
+                             + ((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+                                 ? 0U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+                                          ? 0U : ((2U 
+                                                   == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+                                                   ? 0U
                                                    : 
-                                                  ((0x80000000U 
-                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                  ((3U 
+                                                    == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                                     ? 
-                                                   (0xffe00000U 
-                                                    | vlTOPp->core_robin__DOT__controlStore__DOT___T_56)
-                                                    : vlTOPp->core_robin__DOT__controlStore__DOT___T_56))
-                                                  : 0U))))),32);
-        vcdp->chgBit(c+105,(((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                                   ((0x63U 
+                                                     == 
+                                                     (0x7fU 
+                                                      & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
+                                                     ? 
+                                                    ((0x80000000U 
+                                                      & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                      ? 
+                                                     (0xffffe000U 
+                                                      | (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_65))
+                                                      : (IData)(vlTOPp->core_robin__DOT__controlStore__DOT___T_65))
+                                                     : 
+                                                    ((0x80000000U 
+                                                      & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)
+                                                      ? 
+                                                     (0xffe00000U 
+                                                      | vlTOPp->core_robin__DOT__controlStore__DOT___T_66)
+                                                      : vlTOPp->core_robin__DOT__controlStore__DOT___T_66))
+                                                    : 0U)))))),32);
+        vcdp->chgBit(c+113,(((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
                               ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                               : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))));
-        vcdp->chgBit(c+113,(((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+        vcdp->chgBit(c+121,(((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
                               ? ((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
                                   ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                   : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
                               : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL))));
-        vcdp->chgBit(c+121,(((((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
-                                ? ((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
-                                    ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
-                                    : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
-                                : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 
-                              & ((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                 & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                    & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                       & ((0x63U == 
-                                           (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
-                                          & (~ (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                                >> 0xcU))))))) 
-                             & (((IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT) 
-                                 >> 1U) & (~ (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))))));
-        vcdp->chgBus(c+129,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
+        vcdp->chgBit(c+129,((1U & ((~ (((1U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                         ? ((2U & (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT))
+                                             ? (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
+                                             : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
+                                         : (IData)(vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 
+                                       ^ ((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                          & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                             & ((2U 
+                                                 != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                                & ((3U 
+                                                    == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                                   & ((0x63U 
+                                                       == 
+                                                       (0x7fU 
+                                                        & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
+                                                      & (~ 
+                                                         (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
+                                                          >> 0xcU))))))))) 
+                                   & (((IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT) 
+                                       >> 1U) | (~ (IData)(vlTOPp->core_robin__DOT__controlStore_io_BRANCH_SELECT)))))));
+        vcdp->chgBus(c+137,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                               ? 0U : ((0x1fU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                                        ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_31
                                        : ((0x1eU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
@@ -192,10 +212,10 @@ void Vcore_robin::traceChgThis__2(Vcore_robin__Syms* __restrict vlSymsp, Verilat
                                                          == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2))
                                                          ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_22
                                                          : vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT___GEN_54)))))))))))),32);
-        vcdp->chgBus(c+137,(vlTOPp->core_robin__DOT__dataPath__DOT__registerFile_io_rdData),32);
-        vcdp->chgBus(c+145,(vlTOPp->core_robin__DOT__dataPath__DOT__rdData),32);
-        vcdp->chgBus(c+153,(vlTOPp->core_robin__DOT__dataPath__DOT__rs2_ALU),32);
-        vcdp->chgBus(c+161,((((IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2) 
+        vcdp->chgBus(c+145,(vlTOPp->core_robin__DOT__dataPath__DOT__registerFile_io_rdData),32);
+        vcdp->chgBus(c+153,(vlTOPp->core_robin__DOT__dataPath__DOT__rdData),32);
+        vcdp->chgBus(c+161,(vlTOPp->core_robin__DOT__dataPath__DOT__rs2_ALU),32);
+        vcdp->chgBus(c+169,((((IData)(vlTOPp->core_robin__DOT__controlStore_io_RS2) 
                               == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RD))
                               ? vlTOPp->core_robin__DOT__dataPath__DOT__rdData
                               : vlTOPp->core_robin__DOT__dataPath__DOT__rs2_ALU)),32);
@@ -208,7 +228,7 @@ void Vcore_robin::traceChgThis__3(Vcore_robin__Syms* __restrict vlSymsp, Verilat
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+169,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
+        vcdp->chgBus(c+177,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                               ? 0U : ((0x1fU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                        ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_31
                                        : ((0x1eU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
@@ -244,7 +264,7 @@ void Vcore_robin::traceChgThis__3(Vcore_robin__Syms* __restrict vlSymsp, Verilat
                                                          == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                                          ? vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_22
                                                          : vlTOPp->core_robin__DOT__dataPath__DOT__registerFile__DOT___GEN_21)))))))))))),32);
-        vcdp->chgBus(c+177,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
+        vcdp->chgBus(c+185,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                               ? vlTOPp->core_robin__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput
                               : ((0U == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
                                   ? 0U : ((0x1fU == (IData)(vlTOPp->core_robin__DOT__controlStore_io_RS1))
@@ -293,7 +313,7 @@ void Vcore_robin::traceChgThis__4(Vcore_robin__Syms* __restrict vlSymsp, Verilat
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+185,(vlTOPp->core_robin__DOT__controlStore_io_RS1),5);
+        vcdp->chgBus(c+193,(vlTOPp->core_robin__DOT__controlStore_io_RS1),5);
     }
 }
 
@@ -303,15 +323,15 @@ void Vcore_robin::traceChgThis__5(Vcore_robin__Syms* __restrict vlSymsp, Verilat
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+193,(vlTOPp->core_robin__DOT__controlStore__DOT__RECIEVED));
-        vcdp->chgBit(c+201,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+        vcdp->chgBit(c+201,(vlTOPp->core_robin__DOT__controlStore__DOT__RECIEVED));
+        vcdp->chgBit(c+209,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                              & ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                                 & (~ ((0x33U == (0x7fU 
                                                  & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
                                       | (0x63U == (0x7fU 
                                                    & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))))))));
-        vcdp->chgBit(c+209,((1U & (~ (IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg)))));
-        vcdp->chgBus(c+217,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
+        vcdp->chgBit(c+217,((1U & (~ (IData)(vlTOPp->core_robin__DOT__storeUnit__DOT__stateReg)))));
+        vcdp->chgBus(c+225,(((0U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                               ? 1U : ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))
                                        ? ((0x23U == 
                                            (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))
@@ -323,23 +343,18 @@ void Vcore_robin::traceChgThis__5(Vcore_robin__Syms* __restrict vlSymsp, Verilat
                                                      (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
                                                       >> 0xcU))))
                                            : 1U) : 1U))),2);
-        vcdp->chgBit(c+225,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                             & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                   & ((0x63U == (0x7fU 
-                                                 & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
-                                      & (~ (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
-                                            >> 0xcU))))))));
         vcdp->chgBit(c+233,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                              & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                & ((2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                   & ((0x67U == (0x77U 
-                                                 & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
-                                      & (0x67U == (0x7fU 
-                                                   & vlTOPp->core_robin__DOT__controlStore__DOT__instruction))))))));
+                                & ((2U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                   & ((3U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                      & ((0x63U == 
+                                          (0x7fU & vlTOPp->core_robin__DOT__controlStore__DOT__instruction)) 
+                                         & (~ (vlTOPp->core_robin__DOT__controlStore__DOT__instruction 
+                                               >> 0xcU)))))))));
         vcdp->chgBit(c+241,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                              & ((1U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
-                                & (2U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg))))));
+                                & ((2U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
+                                   & (3U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)))))));
         vcdp->chgBit(c+249,(((0U != (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                              & ((1U == (IData)(vlTOPp->core_robin__DOT__controlStore__DOT__stateReg)) 
                                 & (0x17U == (0x7fU 
