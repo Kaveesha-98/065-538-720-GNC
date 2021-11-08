@@ -17,10 +17,12 @@ jal x0, LOOP4
 MULFINISH:addi x10, x10, -1
 jal x0, NEXTNUM
 //-------------------------------------------
-START:lui x1, 0xAAAAB
-addi x1, 0xAAA
-lui x2, 0x55555
-addi x2, 0x555
+//-----loading 0xAAAAAAAA to x1
+START:lui x1, 699050
+addi x1, x1, -1366
+//-----loading 0x55555555 to x2
+lui x2, 349525
+addi x2, x2, 1365
 //testing and
 and x3, x1, x2
 and x0, x1, x2
@@ -89,14 +91,14 @@ sltiu x22, x1, -2048
 slti x23, x1, -2048
 addi x24, x1, -2048
 //testing stores-----------------------------------------------
-lui x25, 0x01234
-addi x25, x25, 0x567
-lui x26, 0x89ABD
-addi x26, x26, 0xDEF
-lui x27, 0xFEDCC
-addi x27, 0xA98
-lui x28, 0x76543
-addi x28, x28, 0x210
+lui x25, 4660
+addi x25, x25, 1383
+lui x26, 563901
+addi x26, x26, -273
+lui x27, 1043916
+addi x27, x27, -1384
+lui x28, 76543
+addi x28, x28, 528
 addi x29, x0, 1024
 sw x25, 0(x29)
 sw x26, 4(x29)
