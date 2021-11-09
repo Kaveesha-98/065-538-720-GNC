@@ -31,6 +31,7 @@ VL_MODULE(Vcore_robin) {
     VL_IN8(io_rdData,7,0);
     VL_OUT8(io_mem_write,0,0);
     VL_OUT8(io_mem_write_data,7,0);
+    VL_OUT8(io_mem_read,0,0);
     VL_IN(io_INSTRUCTION,31,0);
     VL_OUT(io_PC,31,0);
     VL_OUT(io_rdAddr,31,0);
@@ -48,6 +49,8 @@ VL_MODULE(Vcore_robin) {
         CData/*0:0*/ core_robin__DOT__controlStore_io_PROCEDURE_BRANCHING;
         CData/*0:0*/ core_robin__DOT__controlStore_io_DATA_IN;
         CData/*0:0*/ core_robin__DOT__controlStore_io_STORE_ADDRESS_IN;
+        CData/*1:0*/ core_robin__DOT__controlStore_io_LOAD_SIZE;
+        CData/*0:0*/ core_robin__DOT__controlStore_io_LOAD_ADDRESS_IN;
         CData/*1:0*/ core_robin__DOT__controlStore_io_BRANCH_SELECT;
         CData/*2:0*/ core_robin__DOT__controlStore__DOT__stateReg;
         CData/*2:0*/ core_robin__DOT__controlStore__DOT__stallState;
@@ -73,6 +76,13 @@ VL_MODULE(Vcore_robin) {
         CData/*1:0*/ core_robin__DOT__storeUnit__DOT___GEN_11;
         CData/*0:0*/ core_robin__DOT__storeUnit__DOT___GEN_14;
         CData/*1:0*/ core_robin__DOT__storeUnit__DOT___T_15;
+        CData/*1:0*/ core_robin__DOT__loadUnit__DOT__load_data_size_buffer;
+        CData/*1:0*/ core_robin__DOT__loadUnit__DOT__LOAD_SIZE;
+        CData/*0:0*/ core_robin__DOT__loadUnit__DOT__EXTENSION;
+        CData/*0:0*/ core_robin__DOT__loadUnit__DOT__stateReg;
+        CData/*0:0*/ core_robin__DOT__loadUnit__DOT___T_10;
+        CData/*0:0*/ core_robin__DOT__loadUnit__DOT___GEN_0;
+        CData/*1:0*/ core_robin__DOT__loadUnit__DOT___T_18;
         SData/*11:0*/ core_robin__DOT__controlStore__DOT___T_18;
         SData/*12:0*/ core_robin__DOT__controlStore__DOT___T_65;
         IData/*31:0*/ core_robin__DOT__PC;
@@ -95,6 +105,8 @@ VL_MODULE(Vcore_robin) {
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_3;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_4;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_5;
+    };
+    struct {
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_6;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_7;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_8;
@@ -104,8 +116,6 @@ VL_MODULE(Vcore_robin) {
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_12;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_13;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_14;
-    };
-    struct {
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_15;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_16;
         IData/*31:0*/ core_robin__DOT__dataPath__DOT__registerFile__DOT__registerFile_17;
@@ -130,6 +140,10 @@ VL_MODULE(Vcore_robin) {
         IData/*31:0*/ core_robin__DOT__storeUnit__DOT___GEN_4;
         IData/*24:0*/ core_robin__DOT__storeUnit__DOT___T_10;
         IData/*31:0*/ core_robin__DOT__storeUnit__DOT___T_12;
+        IData/*31:0*/ core_robin__DOT__loadUnit__DOT__load_data_buffer;
+        IData/*31:0*/ core_robin__DOT__loadUnit__DOT__load_data_address_buffer;
+        IData/*31:0*/ core_robin__DOT__loadUnit__DOT___T_13;
+        IData/*31:0*/ core_robin__DOT__loadUnit__DOT___T_16;
         QData/*62:0*/ core_robin__DOT__dataPath__DOT__cpuALU__DOT___GEN_7;
         QData/*62:0*/ core_robin__DOT__dataPath__DOT__cpuALU__DOT___GEN_11;
     };
@@ -170,7 +184,7 @@ VL_MODULE(Vcore_robin) {
   private:
     static QData _change_request(Vcore_robin__Syms* __restrict vlSymsp);
   public:
-    static void _combo__TOP__4(Vcore_robin__Syms* __restrict vlSymsp);
+    static void _combo__TOP__3(Vcore_robin__Syms* __restrict vlSymsp);
   private:
     void _ctor_var_reset() VL_ATTR_COLD;
   public:
@@ -182,9 +196,8 @@ VL_MODULE(Vcore_robin) {
   public:
     static void _eval_initial(Vcore_robin__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _eval_settle(Vcore_robin__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _initial__TOP__1(Vcore_robin__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _sequent__TOP__2(Vcore_robin__Syms* __restrict vlSymsp);
-    static void _settle__TOP__3(Vcore_robin__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _sequent__TOP__1(Vcore_robin__Syms* __restrict vlSymsp);
+    static void _settle__TOP__2(Vcore_robin__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void traceChgThis(Vcore_robin__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__2(Vcore_robin__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__3(Vcore_robin__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);

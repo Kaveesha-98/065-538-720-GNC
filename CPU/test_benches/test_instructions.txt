@@ -18,7 +18,7 @@ MULFINISH:addi x10, x10, -1
 jal x0, NEXTNUM
 //-------------------------------------------
 //-----loading 0xAAAAAAAA to x1
-START:lui x1, 699050
+START:lui x1, 699051
 addi x1, x1, -1366
 //-----loading 0x55555555 to x2
 lui x2, 349525

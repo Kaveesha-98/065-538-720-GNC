@@ -15,6 +15,7 @@ class core_robin extends Module{
         val mem_write = Output(UInt(1.W))
         val mem_write_data = Output(SInt(8.W))
         val mem_write_address = Output(UInt(32.W))
+        val mem_read = Output(UInt(1.W))
 	})
 	
 	val controlStore = Module(new control_store())
@@ -86,16 +87,17 @@ class core_robin extends Module{
 	//connecting load unit to control store
 	controlStore.io.LOAD_READY := loadUnit.io.LOAD_READY
 	loadUnit.io.LOAD_SIZE := controlStore.io.LOAD_SIZE
-	loadUnit.io.ADDRESS_IN := controlStore.io.LOAD_ADDRESS_IN
+	loadUnit.io.LOAD_ADDRESS_IN := controlStore.io.LOAD_ADDRESS_IN
 	loadUnit.io.EXTENSION := controlStore.io.EXTENSION
 	
 	//connecting load unit to datapath
-	dataPath.io.load_data := loadUnit.io.load_data
-	loadUnit.io.load_address := dataPath.io.load_address
+	dataPath.io.load_data := loadUnit.io.load_data_out
+	loadUnit.io.load_mem_address_in := dataPath.io.load_address
 	
 	//connecting load unit to IO
-	loadUnit.io.rdData := io.rdData
-	io.rdAddr := loadUnit.io.rdAddr
+	loadUnit.io.load_data := io.rdData
+	io.rdAddr := loadUnit.io.load_mem_address_out
+	io.mem_read := loadUnit.io.mem_read
 	
 	io.PC := PC
 }
