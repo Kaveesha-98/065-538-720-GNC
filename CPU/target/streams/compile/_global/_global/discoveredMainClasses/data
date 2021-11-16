@@ -1,1 +1,1 @@
-["ALU","Load_Unit","Memory","Store_Unit","control_store","core_robin","data_path","register_file","store_memory_connect"]
+["ALU","Load_Unit","Memory","Store_Unit","control_store","core_robin","data_path","instruction_memory","register_file","robin_core_v2","store_memory_connect","test_bench_robin_core_v2"]
