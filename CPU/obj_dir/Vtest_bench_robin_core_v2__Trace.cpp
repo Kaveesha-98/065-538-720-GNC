@@ -49,87 +49,81 @@ void Vtest_bench_robin_core_v2::traceChgThis__2(Vtest_bench_robin_core_v2__Syms*
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+1,((0x3fffffffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out 
-                                          >> 2U))),32);
+        vcdp->chgBus(c+1,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out),32);
         vcdp->chgBus(c+9,(vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData),32);
-        vcdp->chgBus(c+17,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out),32);
-        vcdp->chgBus(c+25,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_data),8);
-        vcdp->chgBus(c+33,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_address),32);
-        vcdp->chgBus(c+41,((0x3fffffffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out 
-                                           >> 2U))),30);
-        vcdp->chgBus(c+49,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1),5);
-        vcdp->chgBus(c+57,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2),5);
-        vcdp->chgBus(c+65,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RD),5);
-        vcdp->chgBit(c+73,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_WRITE_EN));
-        vcdp->chgBus(c+81,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_ALU_OP),4);
-        vcdp->chgBit(c+89,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_PROCEDURE_BRANCHING));
-        vcdp->chgBit(c+97,(((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+        vcdp->chgBus(c+17,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_data),8);
+        vcdp->chgBus(c+25,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_address),32);
+        vcdp->chgBus(c+33,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1),5);
+        vcdp->chgBus(c+41,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2),5);
+        vcdp->chgBus(c+49,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RD),5);
+        vcdp->chgBit(c+57,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_WRITE_EN));
+        vcdp->chgBus(c+65,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_ALU_OP),4);
+        vcdp->chgBit(c+73,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_PROCEDURE_BRANCHING));
+        vcdp->chgBit(c+81,(((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                             & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                                & ((2U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                                   & ((3U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                                      & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___GEN_36)))))));
-        vcdp->chgBus(c+105,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
-                              ? 0U : ((1U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
-                                       ? ((0x37U == 
-                                           (0x7fU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))
-                                           ? (0xfffff000U 
-                                              & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction)
-                                           : ((0xfffff000U 
-                                               & (VL_NEGATE_I((IData)(
-                                                                      (1U 
-                                                                       & ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_18) 
-                                                                          >> 0xbU)))) 
-                                                  << 0xcU)) 
-                                              | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_18)))
-                                       : 0U))),32);
-        vcdp->chgBus(c+113,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
-                              ? 0U : ((1U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
-                                       ? 0U : ((2U 
-                                                == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
-                                                ? 0U
-                                                : (
-                                                   (3U 
-                                                    == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
+        vcdp->chgBus(c+89,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
+                             ? 0U : ((1U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
+                                      ? ((0x37U == 
+                                          (0x7fU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))
+                                          ? (0xfffff000U 
+                                             & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction)
+                                          : ((0xfffff000U 
+                                              & (VL_NEGATE_I((IData)(
+                                                                     (1U 
+                                                                      & ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_18) 
+                                                                         >> 0xbU)))) 
+                                                 << 0xcU)) 
+                                             | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_18)))
+                                      : 0U))),32);
+        vcdp->chgBus(c+97,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
+                             ? 0U : ((1U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
+                                      ? 0U : ((2U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
+                                               ? 0U
+                                               : ((3U 
+                                                   == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
+                                                   ? 
+                                                  ((0x63U 
+                                                    == 
+                                                    (0x7fU 
+                                                     & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))
                                                     ? 
-                                                   ((0x63U 
-                                                     == 
-                                                     (0x7fU 
-                                                      & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))
+                                                   ((0x80000000U 
+                                                     & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction)
                                                      ? 
-                                                    ((0x80000000U 
-                                                      & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction)
-                                                      ? 
-                                                     (0xffffe000U 
-                                                      | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_65))
-                                                      : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_65))
-                                                     : 
-                                                    ((0x80000000U 
-                                                      & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction)
-                                                      ? 
-                                                     (0xffe00000U 
-                                                      | vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66)
-                                                      : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66))
-                                                    : 0U))))),32);
-        vcdp->chgBit(c+121,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_DATA_IN));
-        vcdp->chgBit(c+129,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_STORE_ADDRESS_IN));
-        vcdp->chgBit(c+137,((1U & ((~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)) 
+                                                    (0xffffe000U 
+                                                     | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_65))
+                                                     : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_65))
+                                                    : 
+                                                   ((0x80000000U 
+                                                     & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction)
+                                                     ? 
+                                                    (0xffe00000U 
+                                                     | vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66)
+                                                     : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66))
+                                                   : 0U))))),32);
+        vcdp->chgBit(c+105,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_DATA_IN));
+        vcdp->chgBit(c+113,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_STORE_ADDRESS_IN));
+        vcdp->chgBit(c+121,((1U & ((~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)) 
                                    & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN))))));
-        vcdp->chgBus(c+145,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_SIZE),2);
-        vcdp->chgBit(c+153,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN));
-        vcdp->chgBus(c+161,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT),2);
-        vcdp->chgBit(c+169,(((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+        vcdp->chgBus(c+129,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_SIZE),2);
+        vcdp->chgBit(c+137,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN));
+        vcdp->chgBus(c+145,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT),2);
+        vcdp->chgBit(c+153,(((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                              & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                                 & ((2U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
                                     ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___GEN_15)
                                     : ((3U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                                        & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___GEN_15)))))));
-        vcdp->chgBit(c+177,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_UPDATE_PC));
-        vcdp->chgBus(c+185,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2))
+        vcdp->chgBit(c+161,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_UPDATE_PC));
+        vcdp->chgBus(c+169,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2))
                               ? 0U : (((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2) 
                                        == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RD))
                                        ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__rdData
                                        : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__rs2_ALU))),32);
-        vcdp->chgBus(c+193,((vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC 
+        vcdp->chgBus(c+177,((vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC 
                              + ((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
                                  ? 0U : ((1U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
                                           ? 0U : ((2U 
@@ -158,15 +152,15 @@ void Vtest_bench_robin_core_v2::traceChgThis__2(Vtest_bench_robin_core_v2__Syms*
                                                       | vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66)
                                                       : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66))
                                                     : 0U)))))),32);
-        vcdp->chgBit(c+201,(((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+        vcdp->chgBit(c+185,(((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                               ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                               : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))));
-        vcdp->chgBit(c+209,(((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+        vcdp->chgBit(c+193,(((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                               ? ((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                                   ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                   : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
                               : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__EQUAL))));
-        vcdp->chgBit(c+217,((1U & ((~ (((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+        vcdp->chgBit(c+201,((1U & ((~ (((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                                          ? ((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                                              ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                              : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
@@ -186,7 +180,7 @@ void Vtest_bench_robin_core_v2::traceChgThis__2(Vtest_bench_robin_core_v2__Syms*
                                                           >> 0xcU))))))))) 
                                    & (((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT) 
                                        >> 1U) | (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT)))))));
-        vcdp->chgBus(c+225,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
+        vcdp->chgBus(c+209,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
                               ? 0U : ((0x1fU == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
                                        ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_31
                                        : ((0x1eU == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
@@ -222,7 +216,7 @@ void Vtest_bench_robin_core_v2::traceChgThis__2(Vtest_bench_robin_core_v2__Syms*
                                                          == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
                                                          ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_22
                                                          : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT___GEN_21)))))))))))),32);
-        vcdp->chgBus(c+233,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2))
+        vcdp->chgBus(c+217,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2))
                               ? 0U : ((0x1fU == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2))
                                        ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_31
                                        : ((0x1eU == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2))
@@ -258,9 +252,9 @@ void Vtest_bench_robin_core_v2::traceChgThis__2(Vtest_bench_robin_core_v2__Syms*
                                                          == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2))
                                                          ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_22
                                                          : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT___GEN_54)))))))))))),32);
-        vcdp->chgBus(c+241,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile_io_rdData),32);
-        vcdp->chgBus(c+249,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__rdData),32);
-        vcdp->chgBus(c+257,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
+        vcdp->chgBus(c+225,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile_io_rdData),32);
+        vcdp->chgBus(c+233,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__rdData),32);
+        vcdp->chgBus(c+241,(((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
                               ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput
                               : ((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
                                   ? 0U : ((0x1fU == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
@@ -300,8 +294,8 @@ void Vtest_bench_robin_core_v2::traceChgThis__2(Vtest_bench_robin_core_v2__Syms*
                                                           == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
                                                           ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_22
                                                           : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT___GEN_21))))))))))))),32);
-        vcdp->chgBus(c+265,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__rs2_ALU),32);
-        vcdp->chgBus(c+273,((((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2) 
+        vcdp->chgBus(c+249,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__rs2_ALU),32);
+        vcdp->chgBus(c+257,((((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS2) 
                               == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RD))
                               ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__rdData
                               : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__rs2_ALU)),32);
@@ -314,10 +308,10 @@ void Vtest_bench_robin_core_v2::traceChgThis__3(Vtest_bench_robin_core_v2__Syms*
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+281,(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write));
-        vcdp->chgBus(c+289,(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data),8);
-        vcdp->chgBus(c+297,(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address),32);
-        vcdp->chgBus(c+305,((0x3ffU & vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address)),10);
+        vcdp->chgBit(c+265,(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write));
+        vcdp->chgBus(c+273,(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data),8);
+        vcdp->chgBus(c+281,(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address),32);
+        vcdp->chgBus(c+289,((0x3ffU & vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address)),10);
     }
 }
 
@@ -327,13 +321,17 @@ void Vtest_bench_robin_core_v2::traceChgThis__4(Vtest_bench_robin_core_v2__Syms*
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+313,(((IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__doForwardReg)
+        vcdp->chgBus(c+297,(((IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__doForwardReg)
                               ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__wrDataReg)
                               : vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__mem
                              [vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__mem_memData_addr_pipe_0])),8);
+        vcdp->chgBus(c+305,((0x3fffffffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC 
+                                            >> 2U))),32);
+        vcdp->chgBit(c+313,(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED));
         vcdp->chgBus(c+321,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC),32);
-        vcdp->chgBit(c+329,(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED));
-        vcdp->chgBit(c+337,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing));
+        vcdp->chgBit(c+329,(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing));
+        vcdp->chgBus(c+337,((0x3fffffffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC 
+                                            >> 2U))),30);
         vcdp->chgBus(c+345,(vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__mem
                             [vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__mem_memData_addr_pipe_0]),8);
         vcdp->chgBus(c+353,(vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__mem_memData_addr_pipe_0),10);
@@ -561,6 +559,8 @@ void Vtest_bench_robin_core_v2::traceChgThis__5(Vtest_bench_robin_core_v2__Syms*
         vcdp->chgBit(c+1161,(vlTOPp->io_out_mem_write));
         vcdp->chgBus(c+1169,(vlTOPp->io_out_mem_write_data),8);
         vcdp->chgBus(c+1177,(vlTOPp->io_out_mem_write_address),32);
-        vcdp->chgBus(c+1185,((0x3ffU & vlTOPp->io_mem_write_address_instruction)),10);
+        vcdp->chgBus(c+1185,(vlTOPp->io_INSTRUCTION),32);
+        vcdp->chgBus(c+1193,(vlTOPp->io_PC),32);
+        vcdp->chgBus(c+1201,((0x3ffU & vlTOPp->io_mem_write_address_instruction)),10);
     }
 }

@@ -109,8 +109,9 @@ int main(int argc, char **argv){
     tick(++tickcount, tb, tfp);
     tb-> io_START_PROGRAM = 0;
     
-    for (int i = 0; i < 20; i++){
+    while(tb-> io_PC < 106*4){
     	tick(++tickcount, tb, tfp);
+    	cout << tb->io_PC/4 << endl;
     }
 	/*
 	assm_translator translator;

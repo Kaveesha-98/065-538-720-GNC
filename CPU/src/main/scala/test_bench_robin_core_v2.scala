@@ -19,9 +19,13 @@ class test_bench_robin_core_v2 extends Module{
         //start program-----------------------------------
         val START_PROGRAM = Input(UInt(1.W))
         val outputSake = Output(UInt(1.W))
+        //reading outputs from CPU
         val out_mem_write = Output(UInt(1.W))
         val out_mem_write_data = Output(SInt(8.W))
         val out_mem_write_address = Output(UInt(32.W))
+        //seeing current instruction
+        val INSTRUCTION = Output(UInt(32.W))
+        val PC = Output(UInt(32.W))
     })
 
 	io.outputSake := 1.U
@@ -36,10 +40,10 @@ class test_bench_robin_core_v2 extends Module{
 	memoryInstruction.io.mem_write_data := io.mem_write_instruction
 	memoryInstruction.io.mem_write_address := io.mem_write_address_instruction
 	
-	memoryInstruction.io.rdAddr := robinCore.io.PC
+	memoryInstruction.io.rdAddr := Cat("b00".U, robinCore.io.PC(31, 2))
 	robinCore.io.INSTRUCTION := memoryInstruction.io.rdData
 	
-	memoryData.io.rdAddr := Cat("b00".U, robinCore.io.rdAddr(31, 2))
+	memoryData.io.rdAddr := robinCore.io.rdAddr
 	robinCore.io.rdData := memoryData.io.rdData
 	
 	memoryData.io.mem_write := 0.U
@@ -66,6 +70,9 @@ class test_bench_robin_core_v2 extends Module{
 	io.out_mem_write := robinCore.io.mem_write
 	io.out_mem_write_data := robinCore.io.mem_write_data
 	io.out_mem_write_address := robinCore.io.mem_write_address
+	
+	io.INSTRUCTION := memoryInstruction.io.rdData
+	io.PC := robinCore.io.PC
 }
 
 object test_bench_robin_core_v2 extends App{

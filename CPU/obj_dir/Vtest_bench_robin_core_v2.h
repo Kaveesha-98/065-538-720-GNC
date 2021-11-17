@@ -37,6 +37,8 @@ VL_MODULE(Vtest_bench_robin_core_v2) {
     VL_IN(io_mem_write_instruction,31,0);
     VL_IN(io_mem_write_address_instruction,31,0);
     VL_OUT(io_out_mem_write_address,31,0);
+    VL_OUT(io_INSTRUCTION,31,0);
+    VL_OUT(io_PC,31,0);
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code

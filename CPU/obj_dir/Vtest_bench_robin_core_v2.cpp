@@ -132,14 +132,13 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
     __Vdly__test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__ALU_in1 
         = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__ALU_in1;
     vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__mem_memData_addr_pipe_0 
-        = (0x3ffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out 
-                     >> 2U));
+        = (0x3ffU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out);
     vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__wrDataReg 
         = vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data;
     vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__doForwardReg 
         = ((vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address 
-            == (0x3fffffffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out 
-                               >> 2U))) & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write));
+            == vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out) 
+           & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write));
     if (vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write) {
         __Vdlyvval__test_bench_robin_core_v2__DOT__memoryData__DOT__mem__v0 
             = vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data;
@@ -495,11 +494,12 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
         }
     }
     vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction__DOT__mem_memData_addr_pipe_0 
-        = (0x3ffU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC);
+        = (0x3ffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC 
+                     >> 2U));
     vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction__DOT__doForwardReg 
         = ((vlTOPp->io_mem_write_address_instruction 
-            == vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC) 
-           & (IData)(vlTOPp->io_signal_mem_write_instruction));
+            == (0x3fffffffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC 
+                               >> 2U))) & (IData)(vlTOPp->io_signal_mem_write_instruction));
     __Vdly__test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__ALU_in1 
         = ((IData)(vlTOPp->reset) ? 0U : (((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                                            & ((1U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
@@ -734,8 +734,10 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
     }
     vlTOPp->io_out_mem_write_data = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_data;
     vlTOPp->io_out_mem_write_address = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_address;
+    vlTOPp->io_INSTRUCTION = vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData;
     vlTOPp->test_bench_robin_core_v2__DOT___T_1 = (1U 
                                                    & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)));
+    vlTOPp->io_PC = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC;
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__noBranchNextAddr 
         = ((IData)(4U) + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC);
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN 
@@ -1370,6 +1372,7 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
            [vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction__DOT__mem_memData_addr_pipe_0]);
     vlTOPp->test_bench_robin_core_v2__DOT___T_1 = (1U 
                                                    & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)));
+    vlTOPp->io_PC = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC;
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__noBranchNextAddr 
         = ((IData)(4U) + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC);
     vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write 
@@ -1565,6 +1568,7 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
             ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
                 ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_address
                 : 0U) : vlTOPp->io_mem_write_address_data);
+    vlTOPp->io_INSTRUCTION = vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData;
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1 
         = ((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
             ? 0U : ((1U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
@@ -1995,6 +1999,8 @@ void Vtest_bench_robin_core_v2::_ctor_var_reset() {
     io_out_mem_write = VL_RAND_RESET_I(1);
     io_out_mem_write_data = VL_RAND_RESET_I(8);
     io_out_mem_write_address = VL_RAND_RESET_I(32);
+    io_INSTRUCTION = VL_RAND_RESET_I(32);
+    io_PC = VL_RAND_RESET_I(32);
     test_bench_robin_core_v2__DOT__memoryData_io_mem_write = VL_RAND_RESET_I(1);
     test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data = VL_RAND_RESET_I(8);
     test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address = VL_RAND_RESET_I(32);

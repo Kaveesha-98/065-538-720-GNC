@@ -178,10 +178,10 @@ string assm_translator::translate(){
 		machine_instruction = machine_instruction + bitset<5>(RD).to_string(); 
 		machine_instruction = machine_instruction + opcode[Op];
 	} else if(opcode[Op] == jal_type){
-		machine_instruction = bitsOf_From_To_(immBranch12bit, 20,  20); 
-		machine_instruction = machine_instruction + bitsOf_From_To_(immBranch12bit, 10,  1); 
-		machine_instruction = machine_instruction + bitsOf_From_To_(immBranch12bit, 11,  11); 
-		machine_instruction = machine_instruction + bitsOf_From_To_(immBranch12bit, 19,  12); 
+		machine_instruction = bitsOf_From_To_(immBranch20bit, 20,  20); 
+		machine_instruction = machine_instruction + bitsOf_From_To_(immBranch20bit, 10,  1); 
+		machine_instruction = machine_instruction + bitsOf_From_To_(immBranch20bit, 11,  11); 
+		machine_instruction = machine_instruction + bitsOf_From_To_(immBranch20bit, 19,  12); 
 		machine_instruction = machine_instruction + bitset<5>(RD).to_string(); 
 		machine_instruction = machine_instruction + opcode[Op];
 	} else{

@@ -14,7 +14,7 @@ srli x5, x5, 1
 beq x5, x0, MULFIN
 srli x6, x6, 1
 jal x0, LOOP4
-MULFINISH:addi x10, x10, -1
+MULFIN:addi x10, x10, -1
 jal x0, NEXTNUM
 //-------------------------------------------
 //-----loading 0xAAAAAAAA to x1
