@@ -1,0 +1,19 @@
+// x5  = M
+// x6  = Q
+// x7  = Q-1
+// x8  = count
+// x9 = Q0 
+
+       addi x8, x0, 32		; count   <= 32
+       andi x6, x6, 65535	; {A,Q}   <= Ox0000XXXX
+       addi x7, x0, 0		; Q-1     <= 0
+       slli x5, x5, 16		; M       <= OxXXXX0000
+LOOP:  andi x9, x6, 1		; Q0      <= Q[0]
+       beq  x7, x9, SHIFT	; if (Q-1 == Q0), SHIFT
+       beq  x7, x0, MINUS	; if (Q-1 == 0), MINUS
+       add  x6, x5, x6		; {A,Q}   <= {A+M,Q}
+MINUS: sub  x6, x6, x5		; {A,Q}   <= {A-M,Q}
+SHIFT: add  x7, x0, x9		; Q-1     <= Q0
+       srai x6, x6, 1		; {A,Q}   >> 1
+       add  x8, x8, -1		; count--
+       bne  x8, x0, LOOP	; if (count != 0), LOOP
