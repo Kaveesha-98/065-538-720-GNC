@@ -105,14 +105,56 @@ int main(int argc, char **argv){
     	count++;
     }
     
+    ifstream dataFile; 
+    dataFile.open("test_benches/ImageDataIn.txt");
+    
+    if (!dataFile) {
+        cout << "Unable to open file";
+        exit(1); // terminate with error
+    }
+    
+    int dataSize = 0;
+    
+    
+    tb-> io_signal_mem_write_data = 1;
+    
+    while (getline (dataFile, text_line)) {
+    	tb-> io_mem_write_data = stoi(text_line);
+    	tb-> io_mem_write_address_data = dataSize;
+    	dataSize++;
+    	tick(++tickcount, tb, tfp);
+    	cout << dataSize << '\r';
+    }
+    
+    tb-> io_signal_mem_write_data = 0;
+    
+    dataFile.close();
+    
     tb-> io_START_PROGRAM = 1;
     tick(++tickcount, tb, tfp);
     tb-> io_START_PROGRAM = 0;
     
-    while(tb-> io_PC < 106*4){
+    while(tb-> io_INSTRUCTION != 0){
     	tick(++tickcount, tb, tfp);
-    	cout << tb->io_PC/4 << endl;
+    	cout << bitset<32>(tb -> test_bench_robin_core_v2__DOT__robinCore__DOT__PC).to_string() << '\r';
+    	//cout << tb->io_PC/4 << endl;
     }
+    tick(++tickcount, tb, tfp);
+    tick(++tickcount, tb, tfp);
+    tick(++tickcount, tb, tfp);
+    
+    ofstream dataOut; 
+    dataOut.open("test_benches/ImageDataOut.txt");
+    
+    for(int data_index = 0; data_index < dataSize; data_index++){
+    	tb-> io_rdAddr = data_index;
+    	tick(++tickcount, tb, tfp);
+    	dataOut << int(tb->io_rdData) << endl;
+    	cout << data_index << '\r';
+    }
+    
+    dataOut.close();
+    
 	/*
 	assm_translator translator;
 	translator.RS1 = 0;

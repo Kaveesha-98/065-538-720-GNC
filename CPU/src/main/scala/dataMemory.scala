@@ -11,7 +11,7 @@ class Memory() extends Module{
         val mem_write_address = Input(UInt(32.W))
     })
 
-    val mem = SyncReadMem(1024, SInt(8.W))
+    val mem = SyncReadMem(262144, SInt(8.W))
 
     val wrDataReg = RegNext(io.mem_write_data)
     val doForwardReg = RegNext(io.mem_write_address === io.rdAddr && io.mem_write === 1.U)

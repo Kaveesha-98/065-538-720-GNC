@@ -26,6 +26,7 @@ VL_MODULE(Vtest_bench_robin_core_v2) {
     // propagate new values into/out from the Verilated model.
     VL_IN8(clock,0,0);
     VL_IN8(reset,0,0);
+    VL_OUT8(io_rdData,7,0);
     VL_IN8(io_signal_mem_write_data,0,0);
     VL_IN8(io_mem_write_data,7,0);
     VL_IN8(io_signal_mem_write_instruction,0,0);
@@ -33,6 +34,7 @@ VL_MODULE(Vtest_bench_robin_core_v2) {
     VL_OUT8(io_outputSake,0,0);
     VL_OUT8(io_out_mem_write,0,0);
     VL_OUT8(io_out_mem_write_data,7,0);
+    VL_IN(io_rdAddr,31,0);
     VL_IN(io_mem_write_address_data,31,0);
     VL_IN(io_mem_write_instruction,31,0);
     VL_IN(io_mem_write_address_instruction,31,0);
@@ -44,6 +46,7 @@ VL_MODULE(Vtest_bench_robin_core_v2) {
     // Internals; generally not touched by application code
     // Anonymous structures to workaround compiler member-count bugs
     struct {
+        CData/*7:0*/ test_bench_robin_core_v2__DOT__memoryData_io_rdData;
         CData/*0:0*/ test_bench_robin_core_v2__DOT__memoryData_io_mem_write;
         CData/*7:0*/ test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data;
         CData/*0:0*/ test_bench_robin_core_v2__DOT__PROGRAM_LOADED;
@@ -96,20 +99,20 @@ VL_MODULE(Vtest_bench_robin_core_v2) {
         CData/*0:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_10;
         CData/*0:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_0;
         CData/*1:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_18;
-        SData/*9:0*/ test_bench_robin_core_v2__DOT__memoryData__DOT__mem_memData_addr_pipe_0;
         SData/*9:0*/ test_bench_robin_core_v2__DOT__memoryInstruction__DOT__mem_memData_addr_pipe_0;
         SData/*11:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_18;
         SData/*12:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_65;
+        IData/*31:0*/ test_bench_robin_core_v2__DOT__memoryData_io_rdAddr;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData;
+        IData/*17:0*/ test_bench_robin_core_v2__DOT__memoryData__DOT__mem_memData_addr_pipe_0;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__memoryInstruction__DOT__wrDataReg;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_address;
-        IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit_io_load_mem_address_out;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__PC;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__noBranchNextAddr;
-        IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__branchImmBranchAddr;
     };
     struct {
+        IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__branchImmBranchAddr;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction;
         IData/*20:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile_io_rdData;
@@ -166,7 +169,7 @@ VL_MODULE(Vtest_bench_robin_core_v2) {
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_16;
         QData/*62:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT___GEN_7;
         QData/*62:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT___GEN_11;
-        CData/*7:0*/ test_bench_robin_core_v2__DOT__memoryData__DOT__mem[1024];
+        CData/*7:0*/ test_bench_robin_core_v2__DOT__memoryData__DOT__mem[262144];
         IData/*31:0*/ test_bench_robin_core_v2__DOT__memoryInstruction__DOT__mem[1024];
     };
     

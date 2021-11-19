@@ -5,8 +5,8 @@ import chisel3.Driver
 class test_bench_robin_core_v2 extends Module{
     val io = IO(new Bundle{
     	//data memory-----------------------------------
-        //val rdAddr_data = Input(UInt(32.W))
-        //val rdData = Output(SInt(8.W))
+        val rdAddr = Input(UInt(32.W))
+        val rdData = Output(SInt(8.W))
         val signal_mem_write_data = Input(UInt(1.W))
         val mem_write_data = Input(SInt(8.W))
         val mem_write_address_data = Input(UInt(32.W))
@@ -43,8 +43,9 @@ class test_bench_robin_core_v2 extends Module{
 	memoryInstruction.io.rdAddr := Cat("b00".U, robinCore.io.PC(31, 2))
 	robinCore.io.INSTRUCTION := memoryInstruction.io.rdData
 	
-	memoryData.io.rdAddr := robinCore.io.rdAddr
-	robinCore.io.rdData := memoryData.io.rdData
+	memoryData.io.rdAddr := 0.U
+	robinCore.io.rdData := 0.S
+	io.rdData := 0.S
 	
 	memoryData.io.mem_write := 0.U
 	memoryData.io.mem_write_data := 0.S
@@ -57,12 +58,17 @@ class test_bench_robin_core_v2 extends Module{
 			memoryData.io.mem_write := io.signal_mem_write_data
 			memoryData.io.mem_write_data := io.mem_write_data
 			memoryData.io.mem_write_address := io.mem_write_address_data
+			memoryData.io.rdAddr := io.rdAddr
+			io.rdData := memoryData.io.rdData
 			PROGRAM_LOADED := io.START_PROGRAM
 		}
 		is(1.U){
 			memoryData.io.mem_write := robinCore.io.mem_write
 			memoryData.io.mem_write_data := robinCore.io.mem_write_data
 			memoryData.io.mem_write_address := robinCore.io.mem_write_address
+			memoryData.io.rdAddr := robinCore.io.rdAddr
+			robinCore.io.rdData := memoryData.io.rdData
+			when(memoryInstruction.io.rdData === 0.U){PROGRAM_LOADED := 0.U}
 		}
 	}
 	
