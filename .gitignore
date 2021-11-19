@@ -10,3 +10,4 @@
 *.metals
 *.vscode
 */generated/
+CPU/test_bench_robin_coretrace.vcd
