@@ -1,0 +1,8 @@
+MUL:  ........ 	
+      ........
+      jalr x0, 0(x1)
+addi x6, x0, 1
+addi x7, x0, 0
+FACT: addi x7, x7, 1
+      jal x1, MUL
+      bne x5, x7, FACT
