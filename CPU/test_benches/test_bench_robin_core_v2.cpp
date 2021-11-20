@@ -136,7 +136,12 @@ int main(int argc, char **argv){
     
     while(tb-> io_INSTRUCTION != 0){
     	tick(++tickcount, tb, tfp);
-    	cout << bitset<32>(tb -> test_bench_robin_core_v2__DOT__robinCore__DOT__PC).to_string() << '\r';
+    	cout << "executing instruction: " << instructions[(tb->io_PC)/4] << '\r';
+    	if(tb->io_out_mem_write){
+    		ofstream intensity ("test_benches/updates.txt",ios::app);
+  			intensity << tb->io_out_mem_write_address << ' ' << int(tb->io_out_mem_write_data) << endl;
+  			intensity.close();
+    	}
     	//cout << tb->io_PC/4 << endl;
     }
     tick(++tickcount, tb, tfp);

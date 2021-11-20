@@ -51,7 +51,8 @@ class Load_Unit extends Module{
 		is(ready){
 			when(io.LOAD_ADDRESS_IN === 1.U){
 				stateReg := not_ready
-				load_data_address_buffer := io.load_mem_address_in
+				load_data_address_buffer := io.load_mem_address_in + 1.U
+				io.load_mem_address_out := io.load_mem_address_in
 				load_data_size_buffer := io.LOAD_SIZE
 				loaded_data_size_buffer := io.LOAD_SIZE
 				load_data_buffer := 0.U
@@ -65,6 +66,14 @@ class Load_Unit extends Module{
 		}
 		is(not_ready){
 			load_data_buffer := Cat(load_data_buffer(23,0), io.load_data.asUInt)
+			switch(LOAD_SIZE){
+				is(0.U){
+					load_data_buffer := Cat(io.load_data.asUInt, load_data_buffer(31, 8))
+				}
+				is(2.U){
+					load_data_buffer := Cat(load_data_buffer(31, 16), Cat(io.load_data.asUInt, load_data_buffer(15, 8)))
+				}
+			}
 			io.load_mem_address_out := load_data_address_buffer
 			io.mem_read := 1.U
         	when(load_data_size_buffer === 3.U){                       

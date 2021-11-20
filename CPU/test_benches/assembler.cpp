@@ -494,6 +494,54 @@ operand_fields get_storing_type_operands(string instruction){
 	return fields;
 }
 
+operand_fields get_loading_type_operands(string instruction){
+	operand_fields fields;
+	fields.extracted = true;
+	int char_index;
+	if(instruction[2] == ' '){
+		char_index = 4;
+	}else{
+		char_index = 5;
+	}
+	
+	string RD = "";
+	
+	while(instruction[char_index] != ','){
+		RD = RD + instruction[char_index];
+		char_index++;
+	}
+	fields.RD = stoi(RD);
+	char_index += 2;
+	
+	string immediate = "";
+	
+	while(instruction[char_index] != '('){
+		immediate = immediate + instruction[char_index];
+		char_index++;
+	}
+	
+	if(immediate[0] == '-'){
+		immediate[0] = '0';
+		//cout << immediate << endl;
+		fields.immediate = 0 - stoi(immediate);
+	}else{
+		fields.immediate = stoi(immediate);
+	}
+	
+	char_index += 2;
+	
+	string RS1 = "";
+	
+	while(instruction[char_index] != ')'){
+		RS1 = RS1 + instruction[char_index];
+		char_index++;
+	}
+	
+	fields.RS1 = stoi(RS1);
+	
+	return fields;
+}
+
 //separating out label and instruction----------------------------------------
 text_line_parts isLabeled(string text_line){
 	int char_index = 0;
@@ -549,6 +597,8 @@ instruction_fields get_fields(string instruction){
 		fields.operands = get_storing_type_operands(instruction);
 	} else if(opcode[Op] == jalr_type){
 		fields.operands = get_jalr_type_operands(instruction);
+	} else if(opcode[Op] == loading_type){
+		fields.operands = get_loading_type_operands(instruction);
 	}
 	
 	return fields;
@@ -582,6 +632,7 @@ int main() {
     }
     
     while (getline (inFile, text_line)) {
+    	cout << text_line << endl;
     
     	if(text_line[0] != '/'){
     		instruction_parts = isLabeled(text_line);

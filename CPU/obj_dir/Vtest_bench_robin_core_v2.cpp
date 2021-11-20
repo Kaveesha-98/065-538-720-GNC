@@ -49,7 +49,7 @@ void Vtest_bench_robin_core_v2::eval() {
             Verilated::debug(1);
             __Vchange = _change_request(vlSymsp);
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("test_bench_robin_core_v2.v", 1776, "",
+            VL_FATAL_MT("test_bench_robin_core_v2.v", 1789, "",
                 "Verilated model didn't converge\n"
                 "- See DIDNOTCONVERGE in the Verilator manual");
         } else {
@@ -75,7 +75,7 @@ void Vtest_bench_robin_core_v2::_eval_initial_loop(Vtest_bench_robin_core_v2__Sy
             Verilated::debug(1);
             __Vchange = _change_request(vlSymsp);
             Verilated::debug(__Vsaved_debug);
-            VL_FATAL_MT("test_bench_robin_core_v2.v", 1776, "",
+            VL_FATAL_MT("test_bench_robin_core_v2.v", 1789, "",
                 "Verilated model didn't DC converge\n"
                 "- See DIDNOTCONVERGE in the Verilator manual");
         } else {
@@ -159,40 +159,9 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
         = ((vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address 
             == vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdAddr) 
            & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write));
-    if (vlTOPp->reset) {
-        vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__LOAD_SIZE = 0U;
-    } else {
-        if ((1U & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)))) {
-            if (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN) {
-                vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__LOAD_SIZE 
-                    = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_SIZE;
-            }
-        }
-    }
-    if (vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write) {
-        __Vdlyvval__test_bench_robin_core_v2__DOT__memoryData__DOT__mem__v0 
-            = vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data;
-        __Vdlyvset__test_bench_robin_core_v2__DOT__memoryData__DOT__mem__v0 = 1U;
-        __Vdlyvdim0__test_bench_robin_core_v2__DOT__memoryData__DOT__mem__v0 
-            = (0x3ffffU & vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address);
-    }
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__LOAD_READY 
         = (1U & ((~ (IData)(vlTOPp->reset)) & ((~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)) 
                                                & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN)))));
-    if (vlTOPp->reset) {
-        __Vdly__test_bench_robin_core_v2__DOT__PROGRAM_LOADED = 0U;
-    } else {
-        if (vlTOPp->test_bench_robin_core_v2__DOT___T_1) {
-            __Vdly__test_bench_robin_core_v2__DOT__PROGRAM_LOADED 
-                = vlTOPp->io_START_PROGRAM;
-        } else {
-            if (vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED) {
-                if ((0U == vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData)) {
-                    __Vdly__test_bench_robin_core_v2__DOT__PROGRAM_LOADED = 0U;
-                }
-            }
-        }
-    }
     if (((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_WRITE_EN) 
          & (0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RD)))) {
         if ((0x12U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RD))) {
@@ -347,8 +316,29 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
                 = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile_io_rdData;
         }
     }
+    if (vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write) {
+        __Vdlyvval__test_bench_robin_core_v2__DOT__memoryData__DOT__mem__v0 
+            = vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data;
+        __Vdlyvset__test_bench_robin_core_v2__DOT__memoryData__DOT__mem__v0 = 1U;
+        __Vdlyvdim0__test_bench_robin_core_v2__DOT__memoryData__DOT__mem__v0 
+            = (0x3ffffU & vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address);
+    }
     vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction__DOT__wrDataReg 
         = vlTOPp->io_mem_write_instruction;
+    if (vlTOPp->reset) {
+        __Vdly__test_bench_robin_core_v2__DOT__PROGRAM_LOADED = 0U;
+    } else {
+        if (vlTOPp->test_bench_robin_core_v2__DOT___T_1) {
+            __Vdly__test_bench_robin_core_v2__DOT__PROGRAM_LOADED 
+                = vlTOPp->io_START_PROGRAM;
+        } else {
+            if (vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED) {
+                if ((0U == vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData)) {
+                    __Vdly__test_bench_robin_core_v2__DOT__PROGRAM_LOADED = 0U;
+                }
+            }
+        }
+    }
     if (vlTOPp->io_signal_mem_write_instruction) {
         __Vdlyvval__test_bench_robin_core_v2__DOT__memoryInstruction__DOT__mem__v0 
             = vlTOPp->io_mem_write_instruction;
@@ -458,7 +448,9 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
         } else {
             if (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg) {
                 vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
-                    = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_13;
+                    = ((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__LOAD_SIZE))
+                        ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_17
+                        : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_10);
             }
         }
     }
@@ -474,7 +466,7 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
             if (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg) {
                 if ((3U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_size_buffer))) {
                     __Vdly__test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_size_buffer 
-                        = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_18;
+                        = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_24;
                 }
             }
         }
@@ -485,13 +477,13 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
         if (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_10) {
             if (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN) {
                 vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_address_buffer 
-                    = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput;
+                    = ((IData)(1U) + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput);
             }
         } else {
             if (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg) {
                 if ((3U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_size_buffer))) {
                     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_address_buffer 
-                        = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_16;
+                        = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_22;
                 }
             }
         }
@@ -597,8 +589,6 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
         = __Vdly__test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing;
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_size_buffer 
         = __Vdly__test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_size_buffer;
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg 
-        = __Vdly__test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg;
     vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdData 
         = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__doForwardReg)
             ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData__DOT__wrDataReg)
@@ -622,12 +612,20 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
         = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing)
             ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__store_data_buffer_address
             : 0U);
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_18 
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_24 
         = (3U & ((IData)(1U) + (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_size_buffer)));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_16 
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_22 
         = ((IData)(1U) + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_address_buffer);
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_10 
-        = (1U & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)));
+    if (vlTOPp->reset) {
+        vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__LOAD_SIZE = 0U;
+    } else {
+        if ((1U & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)))) {
+            if (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN) {
+                vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__LOAD_SIZE 
+                    = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_SIZE;
+            }
+        }
+    }
     vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData 
         = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction__DOT__doForwardReg)
             ? vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction__DOT__wrDataReg
@@ -741,15 +739,32 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
     }
     vlTOPp->io_rdData = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
                           ? 0U : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdData));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_13 
-        = ((0xffffff00U & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
-                           << 8U)) | ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
-                                       ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
-                                           ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdData)
-                                           : 0U) : 0U));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore_io_rdData 
+        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
+            ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
+                ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdData)
+                : 0U) : 0U);
     vlTOPp->io_out_mem_write_data = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_data;
     vlTOPp->io_out_mem_write_address = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_address;
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg 
+        = __Vdly__test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg;
     vlTOPp->io_INSTRUCTION = vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData;
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_17 
+        = (((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore_io_rdData) 
+            << 0x18U) | (0xffffffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
+                                      >> 8U)));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_10 
+        = (1U & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_10 
+        = ((2U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__LOAD_SIZE))
+            ? ((0xffff0000U & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer) 
+               | (((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore_io_rdData) 
+                   << 8U) | (0xffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
+                                      >> 8U)))) : (
+                                                   (0xffffff00U 
+                                                    & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
+                                                       << 8U)) 
+                                                   | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore_io_rdData)));
     vlTOPp->io_PC = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC;
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__noBranchNextAddr 
         = ((IData)(4U) + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC);
@@ -927,12 +942,6 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
                     ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stallState)
                     : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
                 : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stallState)));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN 
-        = ((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
-           & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
-              & ((2U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
-                 & ((3U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
-                    & (3U == (0x7fU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))))));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_PROCEDURE_BRANCHING 
         = ((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
            & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
@@ -946,6 +955,12 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
               & ((2U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                  & ((3U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                     & (0x23U == (0x7fU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))))));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN 
+        = ((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+           & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+              & ((2U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+                 & ((3U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+                    & (3U == (0x7fU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))))));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1 
         = ((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
             ? 0U : ((1U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
@@ -1007,14 +1022,14 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
                                                   | vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66)
                                                   : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66))
                                           : 0U)))));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_0 
-        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN) 
-           | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT___GEN_4 
         = (((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_STORE_ADDRESS_IN) 
             & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing)))
             ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput
             : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__store_data_buffer_address);
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_0 
+        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN) 
+           | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT___GEN_21 
         = ((0x15U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
             ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_21
@@ -1355,24 +1370,15 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
         = ((IData)(1U) + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__store_data_buffer_address);
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT___T_15 
         = (3U & ((IData)(1U) + (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__store_data_size_buffer)));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_10 
-        = (1U & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_16 
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_22 
         = ((IData)(1U) + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_address_buffer);
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_18 
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_24 
         = (3U & ((IData)(1U) + (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_size_buffer)));
     vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write 
         = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
             ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED) 
                & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing))
             : (IData)(vlTOPp->io_signal_mem_write_data));
-    vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdAddr 
-        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
-            ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
-                ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)
-                    ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)
-                        ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_address_buffer
-                        : 0U) : 0U) : 0U) : vlTOPp->io_rdAddr);
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_data 
         = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing)
             ? (0xffU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__store_data_buffer)
@@ -1394,6 +1400,8 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
     vlTOPp->io_PC = vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC;
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__noBranchNextAddr 
         = ((IData)(4U) + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC);
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_10 
+        = (1U & (~ (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT___T_3 
         = (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__ALU_in1 
            + vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__ALU_in2);
@@ -1469,12 +1477,6 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
                     ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stallState)
                     : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
                 : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stallState)));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN 
-        = ((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
-           & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
-              & ((2U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
-                 & ((3U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
-                    & (3U == (0x7fU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))))));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_PROCEDURE_BRANCHING 
         = ((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
            & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
@@ -1506,6 +1508,12 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
               & ((2U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                  & ((3U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                     & (0x23U == (0x7fU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))))));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN 
+        = ((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+           & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+              & ((2U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+                 & ((3U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
+                    & (3U == (0x7fU & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction))))));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___GEN_36 
         = ((4U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
            & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__LOAD_READY));
@@ -1584,12 +1592,11 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
                 : 0U) : vlTOPp->io_mem_write_address_data);
     vlTOPp->io_rdData = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
                           ? 0U : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdData));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_13 
-        = ((0xffffff00U & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
-                           << 8U)) | ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
-                                       ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
-                                           ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdData)
-                                           : 0U) : 0U));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore_io_rdData 
+        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
+            ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
+                ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdData)
+                : 0U) : 0U);
     vlTOPp->io_INSTRUCTION = vlTOPp->test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData;
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1 
         = ((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
@@ -1598,9 +1605,6 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
                          ? 0U : (0x1fU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction 
                                           >> 0xfU)))
                      : 0U));
-    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_0 
-        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN) 
-           | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__branchImmBranchAddr 
         = (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__PC 
            + ((0U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg))
@@ -1635,6 +1639,18 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
                    | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing))
                 : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing))
             : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_0 
+        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN) 
+           | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg));
+    vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdAddr 
+        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
+            ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
+                ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)
+                    ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)
+                        ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_address_buffer
+                        : 0U) : ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN)
+                                  ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput
+                                  : 0U)) : 0U) : vlTOPp->io_rdAddr);
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_WRITE_EN 
         = ((0U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
            & ((1U != (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
@@ -1767,6 +1783,20 @@ void Vtest_bench_robin_core_v2::_settle__TOP__3(Vtest_bench_robin_core_v2__Syms*
                                                     >> 0xcU)))
                                        : 1U) : 1U))
                       : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__store_data_size_buffer))));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_17 
+        = (((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore_io_rdData) 
+            << 0x18U) | (0xffffffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
+                                      >> 8U)));
+    vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_10 
+        = ((2U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__LOAD_SIZE))
+            ? ((0xffff0000U & vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer) 
+               | (((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore_io_rdData) 
+                   << 8U) | (0xffU & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
+                                      >> 8U)))) : (
+                                                   (0xffffff00U 
+                                                    & (vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_buffer 
+                                                       << 8U)) 
+                                                   | (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore_io_rdData)));
     vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT___GEN_21 
         = ((0x15U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_RS1))
             ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_21
@@ -1929,13 +1959,6 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_combo__TOP__4(Vtest_bench_robin_c
             ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED) 
                & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit__DOT__storing))
             : (IData)(vlTOPp->io_signal_mem_write_data));
-    vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdAddr 
-        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
-            ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
-                ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)
-                    ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)
-                        ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_address_buffer
-                        : 0U) : 0U) : 0U) : vlTOPp->io_rdAddr);
     vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data 
         = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
             ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
@@ -1946,6 +1969,15 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_combo__TOP__4(Vtest_bench_robin_c
             ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
                 ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_address
                 : 0U) : vlTOPp->io_mem_write_address_data);
+    vlTOPp->test_bench_robin_core_v2__DOT__memoryData_io_rdAddr 
+        = ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
+            ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__PROGRAM_LOADED)
+                ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)
+                    ? ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg)
+                        ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__load_data_address_buffer
+                        : 0U) : ((IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_LOAD_ADDRESS_IN)
+                                  ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput
+                                  : 0U)) : 0U) : vlTOPp->io_rdAddr);
 }
 
 void Vtest_bench_robin_core_v2::_eval(Vtest_bench_robin_core_v2__Syms* __restrict vlSymsp) {
@@ -2038,6 +2070,7 @@ void Vtest_bench_robin_core_v2::_ctor_var_reset() {
     test_bench_robin_core_v2__DOT__memoryData_io_mem_write_data = VL_RAND_RESET_I(8);
     test_bench_robin_core_v2__DOT__memoryData_io_mem_write_address = VL_RAND_RESET_I(32);
     test_bench_robin_core_v2__DOT__memoryInstruction_io_rdData = VL_RAND_RESET_I(32);
+    test_bench_robin_core_v2__DOT__robinCore_io_rdData = VL_RAND_RESET_I(8);
     test_bench_robin_core_v2__DOT__PROGRAM_LOADED = VL_RAND_RESET_I(1);
     test_bench_robin_core_v2__DOT___T_1 = VL_RAND_RESET_I(1);
     { int __Vi0=0; for (; __Vi0<262144; ++__Vi0) {
@@ -2156,8 +2189,9 @@ void Vtest_bench_robin_core_v2::_ctor_var_reset() {
     test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT__stateReg = VL_RAND_RESET_I(1);
     test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_10 = VL_RAND_RESET_I(1);
     test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_0 = VL_RAND_RESET_I(1);
-    test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_13 = VL_RAND_RESET_I(32);
-    test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_16 = VL_RAND_RESET_I(32);
-    test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_18 = VL_RAND_RESET_I(2);
+    test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_17 = VL_RAND_RESET_I(32);
+    test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___GEN_10 = VL_RAND_RESET_I(32);
+    test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_22 = VL_RAND_RESET_I(32);
+    test_bench_robin_core_v2__DOT__robinCore__DOT__loadUnit__DOT___T_24 = VL_RAND_RESET_I(2);
     __Vm_traceActivity = 0;
 }
