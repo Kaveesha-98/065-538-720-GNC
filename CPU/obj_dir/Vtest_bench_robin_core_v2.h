@@ -76,6 +76,7 @@ VL_MODULE(Vtest_bench_robin_core_v2) {
         CData/*0:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__LOAD_READY;
         CData/*0:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T;
         CData/*0:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_2;
+        CData/*1:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_32;
         CData/*2:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___GEN_4;
         CData/*0:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_34;
         CData/*0:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___GEN_15;
@@ -109,9 +110,9 @@ VL_MODULE(Vtest_bench_robin_core_v2) {
         IData/*17:0*/ test_bench_robin_core_v2__DOT__memoryData__DOT__mem_memData_addr_pipe_0;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__memoryInstruction__DOT__wrDataReg;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__storeUnit_io_mem_write_address;
-        IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__PC;
     };
     struct {
+        IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__PC;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__noBranchNextAddr;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__branchImmBranchAddr;
         IData/*31:0*/ test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__instruction;

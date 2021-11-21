@@ -176,7 +176,7 @@ class control_store extends Module{
 			
 			//--Give address to load
 			io.LOAD_ADDRESS_IN := Mux(instruction(6, 0) === "b0000011".U, 1.U, 0.U)
-			io.LOAD_SIZE := Mux(instruction(13, 12) === "b10".U, "b11".U, ~instruction(13, 12))
+			io.LOAD_SIZE := Mux(instruction(13) === 1.U, "b00".U, ~instruction(13, 12))
 			io.EXTENSION := ~instruction(14)
 			
 			//--writeback on arithmetic

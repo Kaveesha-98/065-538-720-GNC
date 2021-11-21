@@ -70,7 +70,7 @@ int main(int argc, char **argv){
     getline(inFile, text_line);
     //cout << text_line << endl;
     int n = stoi(text_line)+1;
-	cout << n << endl;
+	//cout << n << endl;
 	string instructions[n];
 	string instruction;
 	int binaries[n];
@@ -102,8 +102,11 @@ int main(int argc, char **argv){
     	tb->io_mem_write_instruction = binaries[count];
     	tb->io_signal_mem_write_instruction = 1;
     	tick(++tickcount, tb, tfp);
+    	cout << "Writing instruction address " << count << "     " << '\r';
     	count++;
     }
+    
+    cout << "Instructions written to memory.                                " << endl;
     
     ifstream dataFile; 
     dataFile.open("test_benches/ImageDataIn.txt");
@@ -123,8 +126,10 @@ int main(int argc, char **argv){
     	tb-> io_mem_write_address_data = dataSize;
     	dataSize++;
     	tick(++tickcount, tb, tfp);
-    	cout << dataSize << '\r';
+    	cout << "Writing data address " << dataSize << "     " << '\r';
     }
+    
+    cout << "Data written to memory.                                " << endl;
     
     tb-> io_signal_mem_write_data = 0;
     
@@ -134,9 +139,15 @@ int main(int argc, char **argv){
     tick(++tickcount, tb, tfp);
     tb-> io_START_PROGRAM = 0;
     
+    cout << "Starting Program" << endl;
+    
+    int cycles = 0;
     while(tb-> io_INSTRUCTION != 0){
     	tick(++tickcount, tb, tfp);
-    	cout << "executing instruction: " << instructions[(tb->io_PC)/4] << '\r';
+    	cycles++;
+    	cout << tb->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_20 << '\r';
+    	//cout << "PC:\t" << tb->io_PC << "\texecuting instruction: " << instructions[(tb->io_PC)/4] << "     " << '\r';
+    	
     	if(tb->io_out_mem_write){
     		ofstream intensity ("test_benches/updates.txt",ios::app);
   			intensity << tb->io_out_mem_write_address << ' ' << int(tb->io_out_mem_write_data) << endl;
@@ -144,6 +155,8 @@ int main(int argc, char **argv){
     	}
     	//cout << tb->io_PC/4 << endl;
     }
+    
+    cout << "Program Finished, cycles executed: " << cycles << "                             " << endl;
     tick(++tickcount, tb, tfp);
     tick(++tickcount, tb, tfp);
     tick(++tickcount, tb, tfp);
@@ -155,8 +168,10 @@ int main(int argc, char **argv){
     	tb-> io_rdAddr = data_index;
     	tick(++tickcount, tb, tfp);
     	dataOut << int(tb->io_rdData) << endl;
-    	cout << data_index << '\r';
+    	cout << "Loading data address " << data_index << "     " << '\r';
     }
+    
+    cout << "Data loaded from memory.                                " << endl;
     
     dataOut.close();
     

@@ -1,0 +1,21 @@
+jal x0, START
+MUL:beq x3, x0, RETURN
+andi x5, x3, 1
+beq x5, x0, NOTADD
+add x4, x4, x2
+NOTADD:srli x3, x3, 1
+slli x2, x2, 1
+jal x0, MUL
+RETURN:jalr x0, 0(x1)
+START:lhu x2, 0(x0)
+lhu x3, 2(x0)
+add x4, x0, x0
+jal x1, MUL
+addi x5, x0, 255
+addi x6, x0, 3
+INVERT:addi x6, x6, 1
+lbu x7, 0(x6)
+sub x7, x5, x7
+sb x7, 0(x6)
+addi x4, x4, -1
+bne x0, x4, INVERT

@@ -29,7 +29,10 @@ while(True):
 		line_no += 1
 		coordinate = int(coordinate) - 4
 		value = int(value)
-		img[coordinate//400][coordinate%400] = value
+		try:
+			img[coordinate//400][coordinate%400] = value
+		except:
+			pass
 	cv.imshow('image',img)
 	cv.waitKey(1)
 cv.destroyAllWindows()
