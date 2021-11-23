@@ -37,9 +37,9 @@ sub x13, x6, x8
 //x14 <= index + columns
 add x14, x6, x8
 //x7 <= rows - 2
-//addi x7, x7, -2
+addi x7, x7, -2
 //x8 <= columns - 2
-addi x8, x8, -2
+//addi x8, x8, -2
 //x9 <= #pixels (without margines)
 //MUL x9, x7, x8
 //Multiplying
@@ -63,20 +63,58 @@ lw x8, -16(x15)
 lw x10, -24(x15)
 lw x11, -28(x15)
 //finish multipy
-addi x8, x8, 2
+addi x7, x7, 2
 //addi x8, x8, 2
 //x20 <= counter of pixels
 addi x20, x9, 0
-//x21 <= counter of cols
+//x21 <= counter of rows
+addi x21, x7, -2
+lbu x11, 0(x6)
+sb x0, 0(x6)
+addi x13, x6, 1
+add x6, x6, x8
+lbu x10, 0(x6)
+FIRST:add x14, x6, x8
+lbu x12, 0(x14)
+slli x10, x10, 1
+add x11, x11, x12
+add x11, x10, x11
+srai x11, x11, 2
+sb x11, 0(x6)
+add x6, x6, x8
+srli x11, x10, 1
+addi x10, x12, 0
+addi x20, x20, -1
+addi x21, x21, -1
+beq x20, x0, NEXT
+bne x21, x0, FIRST
+sb x0, 0(x6)
+addi x6, x13, 0
+addi x13, x6, 1
+lbu x11, 0(x6)
+sb x0, 0(x6)
+add x6, x6, x8
+lbu x10, 0(x6)
+addi x21, x7, -2
+jal x0, FIRST
+NEXT:sb x0, 0(x6)
 addi x6, x5, 4
+add x6, x6, x8
 lbu x11, 0(x6)
 addi x6, x6, 1
 lbu x10, 0(x6)
+//x7 <= rows - 2
+addi x7, x7, -2
+sub x9, x9, x7
+sub x9, x9, x7
+addi x20, x9, 0
+addi x7, x7, 2
 addi x21, x8, -2
 SECOND:lbu x12, 1(x6)
 sub x11, x11, x12
-srai x11, x11, 1
-sb x11, 0(x6)
+bge x11, x0, STORE
+sub x11, x0, x11
+STORE:sb x11, 0(x6)
 addi x20, x20, -1
 addi x21, x21, -1
 addi x11, x10, 0
@@ -89,43 +127,4 @@ lbu x11, -1(x6)
 lbu x10, 0(x6)
 addi x21, x8, -2
 jal x0, SECOND
-END:add x0, x0, x0
-addi x6, x5, 5
-lb x11, 0(x6)
-add x6, x6, x8
-lb x10, 0(x6)
-//x8 <= cols - 2
-addi x8, x8, -2
-sub x9, x9, x8
-sub x9, x9, x8
-addi x20, x9, 0
-addi x8, x8, 2
-addi x21, x7, -2
-FIRST:add x14, x6, x8
-lb x12, 0(x14)
-slli x10, x10, 1
-add x11, x11, x12
-add x11, x10, x11
-srai x11, x11, 2
-bge x11, x0, STORE
-xori x11, x11, -1
-addi x11, x11, 1
-STORE:slli x11, x11, 1
-sb x11, 0(x6)
-add x6, x6, x8
-srai x11, x10, 1
-addi x10, x12, 0
-addi x20, x20, -1
-addi x21, x21, -1
-beq x20, x0, NEXT
-bne x21, x0, FIRST
-sb x0, 0(x6)
-addi x6, x13, 0
-addi x13, x6, 1
-lb x11, 0(x6)
-sb x0, 0(x6)
-add x6, x6, x8
-lb x10, 0(x6)
-addi x21, x7, -2
-jal x0, FIRST
-NEXT:sb x0, 0(x6)
+END: add x0, x0, x0

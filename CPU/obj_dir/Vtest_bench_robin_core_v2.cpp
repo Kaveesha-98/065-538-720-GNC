@@ -713,8 +713,8 @@ VL_INLINE_OPT void Vtest_bench_robin_core_v2::_sequent__TOP__2(Vtest_bench_robin
                            : ((3U == (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT__stateReg)) 
                               & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___GEN_15)))))
                     ? vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__ALUoutput
-                    : ((1U & (((~ (((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
-                                     ? ((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+                    : ((1U & (((~ (((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+                                     ? ((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                                          ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                          : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
                                      : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 

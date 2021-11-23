@@ -30,9 +30,9 @@ class core_robin extends Module{
 	val noBranchNextAddr = PC + 4.U
 	val branchImmBranchAddr = PC + controlStore.io.BRANCH_IMMEDIATE
 	//choosing which branch condition signed or unsigned compare
-	val lessThanGreaterThanALUResult = Mux(controlStore.io.BRANCH_SELECT(1) === 1.U, dataPath.io.LESS_THAN, dataPath.io.SIGNED_LESS_THAN)
+	val lessThanGreaterThanALUResult = Mux(controlStore.io.BRANCH_SELECT(0) === 1.U, dataPath.io.LESS_THAN, dataPath.io.SIGNED_LESS_THAN)
 	//choosing which branch condition is needed
-	val branchCheck = Mux(controlStore.io.BRANCH_SELECT(0) === 1.U, lessThanGreaterThanALUResult, dataPath.io.EQUAL)
+	val branchCheck = Mux(controlStore.io.BRANCH_SELECT(1) === 1.U, lessThanGreaterThanALUResult, dataPath.io.EQUAL)
 	//look if conditional branching
 	val conditionalBranching = ~( branchCheck ^ controlStore.io.BRANCH_CONDITION ) & (controlStore.io.BRANCH_SELECT(1) | ~controlStore.io.BRANCH_SELECT(0) )
 	//all address except jalr

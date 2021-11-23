@@ -551,16 +551,16 @@ void Vtest_bench_robin_core_v2::traceFullThis__1(Vtest_bench_robin_core_v2__Syms
                                                        | vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66)
                                                        : vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore__DOT___T_66))
                                                      : 0U)))))),32);
-        vcdp->fullBit(c+209,(((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+        vcdp->fullBit(c+209,(((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                                ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))));
-        vcdp->fullBit(c+217,(((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
-                               ? ((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+        vcdp->fullBit(c+217,(((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+                               ? ((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                                    ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                    : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
                                : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__EQUAL))));
-        vcdp->fullBit(c+225,((1U & ((~ (((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
-                                          ? ((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+        vcdp->fullBit(c+225,((1U & ((~ (((2U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
+                                          ? ((1U & (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__controlStore_io_BRANCH_SELECT))
                                               ? (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__LESS_THAN)
                                               : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__SIGNED_LESS_THAN))
                                           : (IData)(vlTOPp->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__cpuALU__DOT__EQUAL)) 

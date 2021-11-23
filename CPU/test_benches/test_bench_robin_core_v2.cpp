@@ -145,8 +145,8 @@ int main(int argc, char **argv){
     while(tb-> io_INSTRUCTION != 0){
     	tick(++tickcount, tb, tfp);
     	cycles++;
-    	cout << tb->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_20 << '\r';
-    	//cout << "PC:\t" << tb->io_PC << "\texecuting instruction: " << instructions[(tb->io_PC)/4] << "     " << '\r';
+    	//cout << tb->test_bench_robin_core_v2__DOT__robinCore__DOT__dataPath__DOT__registerFile__DOT__registerFile_20 << '\r';
+    	cout << "PC:\t" << tb->io_PC << "\texecuting instruction: " << instructions[(tb->io_PC)/4] << "     " << '\r';
     	
     	if(tb->io_out_mem_write){
     		ofstream intensity ("test_benches/updates.txt",ios::app);
