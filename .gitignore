@@ -12,3 +12,7 @@
 */generated/
 *.vcd
 CPU/obj_dir
+CPU/target
+*.v
+*.json
+*.fir
