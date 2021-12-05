@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-05T06:08:57.039Z" agent="5.0 (X11)" etag="ZyH6k9o5GJelTXueqbXD" version="15.9.1" type="github">
+<mxfile host="app.diagrams.net" modified="2021-12-05T06:11:08.547Z" agent="5.0 (X11)" etag="9ZdYeMnD0lDNp4UVoDAu" version="15.9.1" type="github">
   <diagram id="TtxQt77F0Pve0Gq8ISPb" name="L1 I-cache">
     <mxGraphModel dx="2625" dy="2870" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -352,6 +352,9 @@
         </mxCell>
         <mxCell id="AAuzFfe44RQ2FQWe9RqB-88" value="instruction" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1562" y="594" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AAuzFfe44RQ2FQWe9RqB-90" value="" style="shape=xor;whiteSpace=wrap;html=1;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="610" width="200" height="150" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
