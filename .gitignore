@@ -16,3 +16,5 @@ CPU/target
 *.v
 *.json
 *.fir
+/CPU_unified_memory/target
+/CPU_unified_memory/project
