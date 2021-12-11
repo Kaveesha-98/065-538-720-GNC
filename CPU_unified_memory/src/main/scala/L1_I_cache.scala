@@ -16,14 +16,14 @@ class L1_I_cache extends Module {
     	val instruction_loaded = Output(UInt(1.W))
     	//Connections with I-cache fetch unit-fetching
     	val cache_line_address = Output(UInt(32.W))
-    	val cache_line_absent = Output(UInt(32.W))
+    	val cache_line_absent = Output(UInt(1.W))
 		//Connections with I-cache fetch unit-wirting to cache
 		val set_new_tag = Input(UInt(1.W))
 		val write_new_cache = Input(UInt(1.W))
 		val new_cache_line = Input(UInt(1024.W))//cache line of 32 words(instructions)
     })
     
-    io.cache_line_address := Cat(io.instruction_address(31, 7), "b0000000".U)
+    io.cache_line_address := Cat(io.instruction_address(31, 7), 0.U(7.W))
     
     val tag = io.instruction_address(31, 12)
     val cache_line_index = io.instruction_address(11, 7)
@@ -47,7 +47,7 @@ class L1_I_cache extends Module {
 	
 	
     io.instruction := cache_line_instructions(word_offset)
-    val tag_match = Mux(cache_entries(cache_line_index).cache_line === tag, 1.U, 0.U)
+    val tag_match = Mux(cache_entries(cache_line_index).tag === tag, 1.U, 0.U)
     val instruction_loaded = cache_entries(cache_line_index).valid & tag_match
     io.instruction_loaded := instruction_loaded
     
@@ -61,8 +61,6 @@ class L1_I_cache extends Module {
     	cache_entries(cache_line_index).tag := tag
     	cache_entries(cache_line_index).valid := 1.U
     }
-    
-    
 }
 
 object L1_I_cache extends App{
