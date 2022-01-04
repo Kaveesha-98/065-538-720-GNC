@@ -14,17 +14,21 @@ class L1_I_cache extends Module {
     	val instruction = Output(UInt(32.W))
     	val instruction_address = Input(UInt(32.W))
     	val instruction_loaded = Output(UInt(1.W))
-    	//Connections with I-cache fetch unit-fetching
-    	val cache_line_address = Output(UInt(32.W))
-    	val cache_line_absent = Output(UInt(1.W))
-		//Connections with I-cache fetch unit-wirting to cache
-		val set_new_tag = Input(UInt(1.W))
-		val write_new_cache = Input(UInt(1.W))
-		val new_cache_line = Input(UInt(1024.W))//cache line of 32 words(instructions)
+		
+		//cache io connections
+    	val cache_line_loaded = Input(UInt(1.W))
+    	val fetched_cache_line = Input(UInt(1024.W))
+    	val fetch_cache_line_address = Output(UInt(32.W))
     })
     
-    io.cache_line_address := Cat(io.instruction_address(31, 7), 0.U(7.W))
     
+    val L1ICacheWrite = Module(new L1_I_cache_write())
+    L1ICacheWrite.io.cache_line_address := Cat(io.instruction_address(31, 7), 0.U(7.W))
+    L1ICacheWrite.io.cache_line_loaded := io.cache_line_loaded
+   	L1ICacheWrite.io.fetched_cache_line := io.fetched_cache_line
+    io.fetch_cache_line_address := L1ICacheWrite.io.fetch_cache_line_address
+    	
+    	
     val tag = io.instruction_address(31, 12)
     val cache_line_index = io.instruction_address(11, 7)
     val word_offset = io.instruction_address(6, 2)
@@ -51,13 +55,13 @@ class L1_I_cache extends Module {
     val instruction_loaded = cache_entries(cache_line_index).valid & tag_match
     io.instruction_loaded := instruction_loaded
     
-    io.cache_line_absent := ~instruction_loaded
+    L1ICacheWrite.io.cache_line_absent := ~instruction_loaded
     
-    when(io.write_new_cache === 1.U){
-    	cache_entries(cache_line_index).cache_line := io.new_cache_line
+    when(L1ICacheWrite.io.write_new_cache === 1.U){
+    	cache_entries(cache_line_index).cache_line := L1ICacheWrite.io.new_cache_line
     }
     
-    when(io.set_new_tag === 1.U){
+    when(L1ICacheWrite.io.set_new_tag === 1.U){
     	cache_entries(cache_line_index).tag := tag
     	cache_entries(cache_line_index).valid := 1.U
     }
