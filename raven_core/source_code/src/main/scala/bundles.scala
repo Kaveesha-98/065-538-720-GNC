@@ -16,8 +16,8 @@ class datapath_read() extends Bundle{
 class datapath_alu() extends Bundle{
 	//data path signals for alu stage
 	//signals to choose the correct value for alu input
-	val choose_immediate = UInt(32.W)
-	val choose_pc = UInt(32.W)
+	val choose_immediate = UInt(1.W)
+	val choose_pc = UInt(1.W)
 	val alu_op = UInt(4.W)						/*alu operation for instruction executed*/
 	//signals that the given signals are valid
 	val update = UInt(1.W)
@@ -38,7 +38,7 @@ class datapath_branch_stage1() extends Bundle{
 }
 
 class datapath_branch_stage2() extends Bundle{
-	val branch_op = UInt(5.W)					/*{Uncoditional branch type 3 bits, branching type}*/
+	val branch_op = UInt(5.W)					/*{Uncoditional branch type (func3), branching type(opcode(3, 2))}*/
 	//signals that the given signals are valid
 	val update = UInt(1.W)
 }
