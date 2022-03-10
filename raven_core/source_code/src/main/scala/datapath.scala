@@ -111,6 +111,7 @@ class datapath extends Module {
     
     io.next_PC := next_PC
     
+    //--------------memory----------------------------------
     io.store_data := rs2
     io.mem_address := alu_result
 }
