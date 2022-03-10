@@ -19,3 +19,4 @@ CPU/target
 /CPU_unified_memory/target
 /CPU_unified_memory/project
 /CPU_unified_memory/obj_dir
+*/generated/
