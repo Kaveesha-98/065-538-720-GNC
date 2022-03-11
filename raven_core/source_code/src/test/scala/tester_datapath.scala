@@ -6,7 +6,30 @@ class Tester_datapath(dut: datapath) extends PeekPokeTester(dut) {
 
     println("clk cycle: " + 0.toString())
     poke(dut.io.signals_read.rs1, 5.U)
+    poke(dut.io.signals_read.rs2, 0.U)
+    poke(dut.io.signals_read.immediate, 32.U)
+    poke(dut.io.signals_read.update, 1.U)
+    poke(dut.io.signals_read.PC, 4.U)
     
+    poke(dut.io.signals_alu.choose_pc, 0.U)
+    poke(dut.io.signals_alu.choose_immediate, 1.U)
+    poke(dut.io.signals_alu.alu_op, 0.U)
+    poke(dut.io.signals_alu.update, 1.U)
+    
+    poke(dut.io.signals_writeback.choose_data, 0.U)
+    poke(dut.io.signals_writeback.rd, 6.U)
+	poke(dut.io.signals_writeback.update, 1.U)
+	
+	poke(dut.io.signals_branch1.immediate, 0.U)
+	poke(dut.io.signals_branch1.update, 1.U)
+	
+	poke(dut.io.signals_branch2.branch_op, 2.U)
+	poke(dut.io.signals_branch2.update, 1.U)
+	
+	poke(dut.io.signals_branch3.update, 1.U)
+	
+	step(5)
+	    
     /*
     println("Output: " + peek(dut.io.ALUoutput).toString)
     println("Equal: " + peek(dut.io.EQUAL).toString)
