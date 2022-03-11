@@ -31,7 +31,11 @@ class control_unit extends Module {
         //val mem_address_valid = Output(UInt(32.W))
         val load_data_valid = Input(UInt(32.W))
         
-        val PC = Input(UInt(32.W))
+        val fetch_PC = Input(UInt(32.W))
+        val valid_PC = Output(UInt(32.W))
+        val fetch_valid = Input(UInt(1.W))
+        val ready = Output(UInt(1.W))
+        val fetch_PC_invalid = Output(UInt(1.W))
         val instruction = Input(UInt(32.W))
     })
     
@@ -111,6 +115,51 @@ class control_unit extends Module {
     io.signals_branch2.update := 1.U
     io.signals_branch3.update := 1.U
     
+    val PC = RegInit(0.U(1.W))
+    val ready :: stall :: exec :: Nil = Enum(3)
+    val stateReg = RegInit(ready)
+    val count = Reg(UInt(3.W))
+    val instruction = Reg(UInt(32.W))
+    
+    read_instruction := instruction
+    alu_instruction := instruction
+    writeback_instruction := instruction
+    branch2_instruction := instruction
+    /*
+    ready - compare with fetched PC
+    stall - wait to get correct instruction
+    exec - executing instruction*/
+    
+    io.fetch_PC_invalid := 0.U
+    io.ready := 0.U
+    
+    switch(stateReg){
+    	is(ready){
+    		io.ready := 1.U
+    		when(io.fetch_valid.asBool){
+    			io.fetch_PC_invalid := io.fetch_PC === PC
+    			stateReg := Mux(io.fetch_PC === PC, exec, stall)
+    			count := 7.U
+    			when(io.fetch_PC === PC){
+    				instruction := io.instruction
+    			}
+    		}
+    	}
+    	is(stall){
+    		when(io.fetch_valid.asBool){
+    			stateReg := ready
+    		}
+    	}
+    	is(exec){
+    		count := count - 1.U
+    		when(count === 0.U){
+    			stateReg := ready
+    		}
+    	}
+    }
+    io.valid_PC := PC
+    
+    PC := io.next_PC
 }
 
 object control_unit extends App{
