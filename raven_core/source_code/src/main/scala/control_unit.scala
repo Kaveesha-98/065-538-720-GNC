@@ -27,9 +27,18 @@ class control_unit extends Module {
 
         val next_PC = Input(UInt(32.W))
         
-        //val store_data_valid = Output(UInt(32.W))
-        //val mem_address_valid = Output(UInt(32.W))
+        //write_address channel signals
+        val write_address_valid = Output(UInt(1.W))
+        val write_address_ready = Input(UInt(1.W))
+        val write_address_size = Output(UInt(2.W))
+        
+        //write data channel signals
+        val write_data_valid = Output(UInt(1.W))
+        val write_data_ready = Input(UInt(1.W))
+        
         val load_data_valid = Input(UInt(32.W))
+        val load_address_valid = Input(UInt(32.W))
+        
         
         val fetch_PC = Input(UInt(32.W))
         val valid_PC = Output(UInt(32.W))
@@ -43,7 +52,7 @@ class control_unit extends Module {
     val read_PC = Reg(UInt(32.W))
     val read_instruction = Reg(UInt(32.W))
     io.signals_read.PC := read_PC
-    io.signals_read.rs1 := read_instruction(19, 15)
+    io.signals_read.rs1 := Mux(read_instruction(6, 0) === opcodes.lui, 0.U, read_instruction(19, 15))
     io.signals_read.rs2 := read_instruction(24, 20)
     
     /*setting immediate*/
@@ -101,11 +110,11 @@ class control_unit extends Module {
     val branch2_instruction = Reg(UInt(32.W))
     
     io.signals_branch2.branch_op := Cat(branch2_instruction(14, 12), branch2_instruction(3, 2))
-    
     //----------branch stage3----------------------------------------------------
     
     
     //--------------memory----------------------------------
+    io.write_address_size := writeback_instruction(13, 12)
     
     //------updater------------------------------------
     io.signals_read.update := 1.U
@@ -116,7 +125,7 @@ class control_unit extends Module {
     io.signals_branch3.update := 1.U
     
     val PC = RegInit(0.U(1.W))
-    val ready :: stall :: exec :: Nil = Enum(3)
+    val ready :: stall :: execStore :: execLoad :: execBranch :: execOther :: Nil = Enum(6)
     val stateReg = RegInit(ready)
     val count = Reg(UInt(3.W))
     val instruction = Reg(UInt(32.W))
@@ -131,6 +140,8 @@ class control_unit extends Module {
     exec - executing instruction*/
     
     io.fetch_PC_invalid := 0.U
+    io.write_data_valid := 0.U
+    io.write_address_valid := 0.U
     io.ready := 0.U
     
     switch(stateReg){
@@ -138,10 +149,16 @@ class control_unit extends Module {
     		io.ready := 1.U
     		when(io.fetch_valid.asBool){
     			io.fetch_PC_invalid := io.fetch_PC === PC
-    			stateReg := Mux(io.fetch_PC === PC, exec, stall)
-    			count := 7.U
+    			stateReg := stall
+    			count := 2.U
     			when(io.fetch_PC === PC){
     				instruction := io.instruction
+    				stateReg := execOther
+    				switch(io.instruction(6,0)){
+    					is(opcodes.store){ stateReg := execStore }
+    					is(opcodes.load){ stateReg := execLoad }
+    					is(opcodes.branch){ stateReg := execBranch }
+    				}
     			}
     		}
     	}
@@ -150,10 +167,18 @@ class control_unit extends Module {
     			stateReg := ready
     		}
     	}
-    	is(exec){
+    	is(execStore){
     		count := count - 1.U
-    		when(count === 0.U){
-    			stateReg := ready
+    		switch(count){
+    			is(1.U){ 
+    				io.write_data_valid := 1.U
+    				count := Mux(io.write_data_ready.asBool, 0.U, 1.U)
+    			}
+    			is(0.U){
+    				io.write_address_valid := 1.U
+    				stateReg := Mux(io.write_address_ready.asBool, ready, execStore)
+    				count := 0.U
+    			}
     		}
     	}
     }

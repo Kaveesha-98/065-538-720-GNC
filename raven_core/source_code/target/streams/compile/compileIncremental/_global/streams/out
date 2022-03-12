@@ -22,7 +22,7 @@
 [0m[[0m[0mdebug[0m] [0m[0mcompilation cycle 1[0m
 [0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /mnt/78B2CB0FB2CAD0B4/GitHub/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes ...[0m
 [0m[[0m[0mdebug[0m] [0m[0mGetting org.scala-sbt:compiler-bridge_2.12:1.5.7:compile for Scala 2.12.12[0m
-[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 3844094d for Scala compiler version 2.12.12[0m
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 2b091eca for Scala compiler version 2.12.12[0m
 [0m[[0m[0mdebug[0m] [0m[0m[zinc] The Scala compiler is invoked with:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-deprecation[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-Xsource:2.11[0m
@@ -33,8 +33,8 @@
 [0m[[0m[0mdebug[0m] [0m[0mInvalidating (transitively) by inheritance from control_unit...[0m
 [0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: control_unit[0m
 [0m[[0m[0mdebug[0m] [0m[0mInvalidated by transitive inheritance dependency: Set(control_unit)[0m
-[0m[[0m[0mdebug[0m] [0m[0mChange NamesChange(control_unit,ModifiedNames(changes = UsedName(fetch_valid,[Default]), UsedName(fetch_PC,[Default]), UsedName(ready,[Default]), UsedName(stall,[Default]), UsedName(valid_PC,[Default]), UsedName(exec,[Default]), UsedName(fetch_PC_invalid,[Default]), UsedName(instruction,[Default]), UsedName(io,[Default]), UsedName(stateReg,[Default]), UsedName(count,[Default]))) invalidates 1 classes due to The control_unit has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(fetch_valid,[Default]), UsedName(fetch_PC,[Default]), UsedName(ready,[Default]), UsedName(stall,[Default]), UsedName(valid_PC,[Default]), UsedName(exec,[Default]), UsedName(fetch_PC_invalid,[Default]), UsedName(instruction,[Default]), UsedName(io,[Default]), UsedName(stateReg,[Default]), UsedName(count,[Default]).[0m
+[0m[[0m[0mdebug[0m] [0m[0mChange NamesChange(control_unit,ModifiedNames(changes = UsedName(write_address_valid,[Default]), UsedName(write_data_ready,[Default]), UsedName(execStore,[Default]), UsedName(execBranch,[Default]), UsedName(exec,[Default]), UsedName(write_address_ready,[Default]), UsedName(load_address_valid,[Default]), UsedName(write_data_valid,[Default]), UsedName(execOther,[Default]), UsedName(execLoad,[Default]), UsedName(write_address_size,[Default]), UsedName(io,[Default]))) invalidates 1 classes due to The control_unit has the following regular definitions changed:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	UsedName(write_address_valid,[Default]), UsedName(write_data_ready,[Default]), UsedName(execStore,[Default]), UsedName(execBranch,[Default]), UsedName(exec,[Default]), UsedName(write_address_ready,[Default]), UsedName(load_address_valid,[Default]), UsedName(write_data_valid,[Default]), UsedName(execOther,[Default]), UsedName(execLoad,[Default]), UsedName(write_address_size,[Default]), UsedName(io,[Default]).[0m
 [0m[[0m[0mdebug[0m] [0m[0m  > by transitive inheritance: Set(control_unit)[0m
 [0m[[0m[0mdebug[0m] [0m[0m  > [0m
 [0m[[0m[0mdebug[0m] [0m[0m  > [0m
@@ -45,5 +45,5 @@
 [0m[[0m[0mdebug[0m] [0m[0mFinal step, transitive dependencies:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0mNo classes were invalidated.[0m
-[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 5.636889897 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 4.902014757 s[0m
 [0m[[0m[0mdebug[0m] [0m[0mdone compiling[0m
