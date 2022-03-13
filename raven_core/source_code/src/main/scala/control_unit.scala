@@ -32,13 +32,20 @@ class control_unit extends Module {
         val write_address_ready = Input(UInt(1.W))
         val write_address_size = Output(UInt(2.W))
         
-        //write data channel signals
+        //write_data channel signals
         val write_data_valid = Output(UInt(1.W))
         val write_data_ready = Input(UInt(1.W))
         
-        val load_data_valid = Input(UInt(32.W))
-        val load_address_valid = Input(UInt(32.W))
+        //load_address channel signals
+        val load_address_ready = Input(UInt(1.W))
+        val load_address_valid = Output(UInt(1.W))
+        val load_address_size = Output(UInt(2.W))
         
+        //load_data channel signals
+        val load_data_valid = Input(UInt(1.W))
+        val load_data_ready = Output(UInt(1.W))
+        
+        val load_extend_type = Output(UInt(1.W)) /*when 1 use unsigned extend*/
         
         val fetch_PC = Input(UInt(32.W))
         val valid_PC = Output(UInt(32.W))
@@ -115,6 +122,8 @@ class control_unit extends Module {
     
     //--------------memory----------------------------------
     io.write_address_size := writeback_instruction(13, 12)
+    io.load_address_size := writeback_instruction(13, 12)
+    io.load_extend_type := writeback_instruction(14)
     
     //------updater------------------------------------
     io.signals_read.update := 1.U
@@ -142,6 +151,10 @@ class control_unit extends Module {
     io.fetch_PC_invalid := 0.U
     io.write_data_valid := 0.U
     io.write_address_valid := 0.U
+    
+    io.load_address_valid := 0.U
+    io.load_data_ready := 0.U
+    
     io.ready := 0.U
     
     switch(stateReg){
@@ -156,7 +169,10 @@ class control_unit extends Module {
     				stateReg := execOther
     				switch(io.instruction(6,0)){
     					is(opcodes.store){ stateReg := execStore }
-    					is(opcodes.load){ stateReg := execLoad }
+    					is(opcodes.load){ 
+    						stateReg := execLoad
+    						count := 3.U 
+    					}
     					is(opcodes.branch){ stateReg := execBranch }
     				}
     			}
@@ -178,6 +194,36 @@ class control_unit extends Module {
     				io.write_address_valid := 1.U
     				stateReg := Mux(io.write_address_ready.asBool, ready, execStore)
     				count := 0.U
+    			}
+    		}
+    	}
+    	is(execLoad){
+    		count := count - 1.U
+    		switch(count){
+    			is(1.U){
+    				io.load_address_valid := 1.U
+    				count := Mux(io.load_address_ready.asBool, 0.U, 1.U)
+    			}
+    			is(0.U){
+    				io.load_data_ready := 1.U
+    				stateReg := Mux(io.load_data_valid.asBool, ready, execLoad)
+    				count := 0.U
+    				io.signals_writeback.update := Mux(io.load_data_valid.asBool, 1.U, 0.U)
+    			}
+    		}
+    	}
+    	is(execBranch){
+    		count := count - 1.U
+    		switch(count){
+    			is(0.U){ stateReg := ready }
+    		}
+    	}
+    	is(execOther){
+    		count := count - 1.U
+    		switch(count){
+    			is(0.U){ 
+    				stateReg := ready
+    				io.signals_writeback.update := 0.U
     			}
     		}
     	}
