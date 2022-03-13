@@ -116,7 +116,13 @@ class control_unit extends Module {
     //----------branch stage2----------------------------------------------------
     val branch2_instruction = Reg(UInt(32.W))
     
-    io.signals_branch2.branch_op := Cat(branch2_instruction(14, 12), branch2_instruction(3, 2))
+    io.signals_branch2.branch_op := Cat(branch2_instruction(14, 12), 2.U(2.W))
+    
+    switch(branch2_instruction(6, 0)){
+    	is(opcodes.jal){io.signals_branch2.branch_op := Cat(branch2_instruction(14, 12), branch2_instruction(3, 2))}
+    	is(opcodes.jalr){io.signals_branch2.branch_op := Cat(branch2_instruction(14, 12), branch2_instruction(3, 2))}
+    	is(opcodes.branch){io.signals_branch2.branch_op := Cat(branch2_instruction(14, 12), branch2_instruction(3, 2))}
+    }
     //----------branch stage3----------------------------------------------------
     
     
@@ -133,8 +139,8 @@ class control_unit extends Module {
     io.signals_branch2.update := 1.U
     io.signals_branch3.update := 1.U
     
-    val PC = RegInit(0.U(1.W))
-    val ready :: stall :: execStore :: execLoad :: execBranch :: execOther :: Nil = Enum(6)
+    val PC = RegInit(0.U(32.W))
+    val ready :: stall :: execStore :: execLoad :: execBranch :: execOther :: update_pc :: Nil = Enum(7)
     val stateReg = RegInit(ready)
     val count = Reg(UInt(3.W))
     val instruction = Reg(UInt(32.W))
@@ -161,17 +167,18 @@ class control_unit extends Module {
     	is(ready){
     		io.ready := 1.U
     		when(io.fetch_valid.asBool){
-    			io.fetch_PC_invalid := io.fetch_PC === PC
+    			io.fetch_PC_invalid := io.fetch_PC =/= PC
     			stateReg := stall
-    			count := 2.U
+    			count := 3.U
     			when(io.fetch_PC === PC){
     				instruction := io.instruction
+    				read_PC := PC
     				stateReg := execOther
     				switch(io.instruction(6,0)){
     					is(opcodes.store){ stateReg := execStore }
     					is(opcodes.load){ 
     						stateReg := execLoad
-    						count := 3.U 
+    						count := 4.U 
     					}
     					is(opcodes.branch){ stateReg := execBranch }
     				}
@@ -192,7 +199,7 @@ class control_unit extends Module {
     			}
     			is(0.U){
     				io.write_address_valid := 1.U
-    				stateReg := Mux(io.write_address_ready.asBool, ready, execStore)
+    				stateReg := Mux(io.write_address_ready.asBool, update_pc, execStore)
     				count := 0.U
     			}
     		}
@@ -206,7 +213,7 @@ class control_unit extends Module {
     			}
     			is(0.U){
     				io.load_data_ready := 1.U
-    				stateReg := Mux(io.load_data_valid.asBool, ready, execLoad)
+    				stateReg := Mux(io.load_data_valid.asBool, update_pc, execLoad)
     				count := 0.U
     				io.signals_writeback.update := Mux(io.load_data_valid.asBool, 1.U, 0.U)
     			}
@@ -215,22 +222,28 @@ class control_unit extends Module {
     	is(execBranch){
     		count := count - 1.U
     		switch(count){
-    			is(0.U){ stateReg := ready }
+    			is(0.U){ stateReg := update_pc }
     		}
     	}
     	is(execOther){
     		count := count - 1.U
     		switch(count){
     			is(0.U){ 
-    				stateReg := ready
-    				io.signals_writeback.update := 0.U
+    				stateReg := update_pc
+    				io.signals_writeback.update := 1.U
     			}
     		}
     	}
+    	is(update_pc){
+    		stateReg := ready
+    		PC := io.next_PC
+    	}
     }
-    io.valid_PC := PC
     
-    PC := io.next_PC
+    
+    
+    
+    io.valid_PC := PC
 }
 
 object control_unit extends App{
