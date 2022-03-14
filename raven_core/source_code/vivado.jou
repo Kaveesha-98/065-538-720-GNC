@@ -1,0 +1,42 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Mon Mar 14 03:21:41 2022
+# Process ID: 23166
+# Current directory: /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code
+# Command line: vivado
+# Log file: /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/vivado.log
+# Journal file: /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project test_bench /mnt/AE06F37906F3413F/University/Academic/test_bench -part xc7z020clg400-1
+set_property board_part www.digilentinc.com:pynq-z1:part0:1.0 [current_project]
+add_files -norecurse /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/practice_hart_testbench.v
+update_compile_order -fileset sources_1
+add_files -fileset constrs_1 -norecurse /home/kaveesha/Downloads/pynq-z1_c/PYNQ-Z1_C.xdc
+launch_runs synth_1 -jobs 6
+wait_on_run synth_1
+launch_runs impl_1 -jobs 6
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 6
+wait_on_run impl_1
+open_run impl_1
+open_hw
+connect_hw_server
+open_hw_target
+set_property PROGRAM.FILE {/mnt/AE06F37906F3413F/University/Academic/test_bench/test_bench.runs/impl_1/practice_hart_testbench.bit} [get_hw_devices xc7z020_1]
+current_hw_device [get_hw_devices xc7z020_1]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7z020_1] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property PROGRAM.FILE {/mnt/AE06F37906F3413F/University/Academic/test_bench/test_bench.runs/impl_1/practice_hart_testbench.bit} [get_hw_devices xc7z020_1]
+program_hw_devices [get_hw_devices xc7z020_1]
+refresh_hw_device [lindex [get_hw_devices xc7z020_1] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7z020_1]
+set_property PROGRAM.FILE {/mnt/AE06F37906F3413F/University/Academic/test_bench/test_bench.runs/impl_1/practice_hart_testbench.bit} [get_hw_devices xc7z020_1]
+program_hw_devices [get_hw_devices xc7z020_1]
+refresh_hw_device [lindex [get_hw_devices xc7z020_1] 0]
+close_hw
+close_design
