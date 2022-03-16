@@ -41,7 +41,7 @@ class practice_hart extends Module {
     io.load_address := dataPath.io.mem_address
     io.store_data := dataPath.io.store_data
     
-    val controlUnit = Module(new control_unit())
+    val controlUnit = Module(new control_unit(false))
     
     io.write_address_valid := controlUnit.io.write_address_valid
     controlUnit.io.write_address_ready := io.write_address_ready
@@ -54,8 +54,13 @@ class practice_hart extends Module {
     io.load_address_valid := controlUnit.io.load_address_valid
     io.load_address_size := controlUnit.io.load_address_size
     
-    controlUnit.io.load_data_valid := io.load_data_valid
-    io.load_data_ready := controlUnit.io.load_data_ready
+    val load_data_valid = Reg(UInt(1.W))
+    val load_data_ready = Reg(UInt(1.W))
+    load_data_valid := io.load_data_valid
+    load_data_ready := controlUnit.io.load_data_ready
+    
+    controlUnit.io.load_data_valid := load_data_valid
+    io.load_data_ready := load_data_ready
     
     val load_data = Reg(UInt(32.W))
     
