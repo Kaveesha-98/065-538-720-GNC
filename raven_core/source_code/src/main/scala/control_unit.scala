@@ -251,14 +251,16 @@ class control_unit(pipelined: Boolean) extends Module {
     	val writeback_rd_valid = RegInit(0.U(1.W))
     	val writeback_stall = Wire(UInt(1.W))
     	
-    	val read_rd_rs1_match = Mux(read_rd_valid.asBool, (read_instruction(11, 7) === io.instruction(19, 15)).asUInt, 0.U(1.W))
-    	val read_rd_rs2_match = Mux(read_rd_valid.asBool, (read_instruction(11, 7) === io.instruction(24, 20)).asUInt, 0.U(1.W))
+    	val update_instruction = Mux(ins_accept === stall, reg_instruction, io.instruction)
     	
-    	val alu_rd_rs1_match = Mux(alu_rd_valid.asBool, (alu_instruction(11, 7) === io.instruction(19, 15)).asUInt, 0.U(1.W))
-    	val alu_rd_rs2_match = Mux(alu_rd_valid.asBool, (alu_instruction(11, 7) === io.instruction(24, 20)).asUInt, 0.U(1.W))
+    	val read_rd_rs1_match = Mux(read_rd_valid.asBool, (read_instruction(11, 7) === update_instruction(19, 15)).asUInt, 0.U(1.W))
+    	val read_rd_rs2_match = Mux(read_rd_valid.asBool, (read_instruction(11, 7) === update_instruction(24, 20)).asUInt, 0.U(1.W))
     	
-    	val writeback_rd_rs1_match = Mux(writeback_rd_valid.asBool, (writeback_instruction(11, 7) === io.instruction(19, 15)).asUInt, 0.U(1.W))
-    	val writeback_rd_rs2_match = Mux(writeback_rd_valid.asBool, (writeback_instruction(11, 7) === io.instruction(24, 20)).asUInt, 0.U(1.W))
+    	val alu_rd_rs1_match = Mux(alu_rd_valid.asBool, (alu_instruction(11, 7) === update_instruction(19, 15)).asUInt, 0.U(1.W))
+    	val alu_rd_rs2_match = Mux(alu_rd_valid.asBool, (alu_instruction(11, 7) === update_instruction(24, 20)).asUInt, 0.U(1.W))
+    	
+    	val writeback_rd_rs1_match = Mux(writeback_rd_valid.asBool, (writeback_instruction(11, 7) === update_instruction(19, 15)).asUInt, 0.U(1.W))
+    	val writeback_rd_rs2_match = Mux(writeback_rd_valid.asBool, (writeback_instruction(11, 7) === update_instruction(24, 20)).asUInt, 0.U(1.W))
     	
     	val rs1_match = Cat(read_rd_rs1_match, alu_rd_rs1_match, writeback_rd_rs1_match)
     	val rs2_match = Cat(read_rd_rs2_match, alu_rd_rs2_match, writeback_rd_rs2_match)
@@ -267,7 +269,6 @@ class control_unit(pipelined: Boolean) extends Module {
     	io.ready := 0.U
 		io.fetch_PC_invalid := 0.U
     	
-    	val update_instruction = Mux(ins_accept === stall, reg_instruction, io.instruction)
     	val update_read = Wire(UInt(1.W))/*indicates that the instruction can be appended assuming no pipeline stall*/
     	val rd_valid = Wire(UInt(1.W))/*indicates that the new instruction to the pipeline has an rd field*/
     	val branching = Wire(UInt(1.W))/*indicates that the new instruction to the pipeline is a branching instruction*/
@@ -415,12 +416,14 @@ class control_unit(pipelined: Boolean) extends Module {
     			when(Cat(read_stall, alu_stall, writeback_stall).orR){
     				ins_accept := stall
     			}.otherwise{
-    				read_instruction := reg_instruction
-    				read_PC := PC
-    				read_rd_valid := rd_valid
-    				ins_accept := Mux(branching.asBool, execBranch, exec)
-					PC := PC + 4.U
-    				read_stage_updated := 1.U
+    				when(update_read.asBool){
+    					read_instruction := reg_instruction
+    					read_PC := PC
+    					read_rd_valid := rd_valid
+    					ins_accept := Mux(branching.asBool, execBranch, exec)
+						PC := PC + 4.U
+    					read_stage_updated := 1.U
+    				}
     			}
     		}
     		is(execBranch){
@@ -465,6 +468,7 @@ class control_unit(pipelined: Boolean) extends Module {
     				read_stall := 1.U
     			}.otherwise{
     				alu_instruction := read_instruction
+    				branch2_instruction := read_instruction
     				alu_rd_valid := read_rd_valid
 					alu_stage_updated := 1.U
     				when(read_stage_updated.asBool){
@@ -478,6 +482,7 @@ class control_unit(pipelined: Boolean) extends Module {
     		is(stall){
     			read_stall := 1.U
     			io.signals_read.update := 0.U
+    			io.signals_branch1.update := 0.U
     			when(alu_stall.asBool || writeback_stall.asBool){
     				fsm_read := stall
     			}.otherwise{
@@ -522,10 +527,11 @@ class control_unit(pipelined: Boolean) extends Module {
     					fsm_alu := stall
     					alu_stall := 1.U
     				}.otherwise{
-    					io.signals_writeback.update := 1.U
-    					io.signals_branch3.update := 1.U
+    					io.signals_alu.update := 1.U
+    					io.signals_branch2.update := 1.U
     					writeback_instruction := alu_instruction
     					writeback_rd_valid := alu_rd_valid
+    					writeback_stage_updated := 1.U
     					when(alu_stage_updated.asBool){
     						fsm_alu := exec
     					}.otherwise{
@@ -551,6 +557,7 @@ class control_unit(pipelined: Boolean) extends Module {
     				io.signals_branch2.update := 1.U
     				writeback_instruction := alu_instruction
     				writeback_rd_valid := alu_rd_valid
+    				writeback_stage_updated := 1.U
     				when(alu_stage_updated.asBool){
     					fsm_alu := exec
     				}.otherwise{
@@ -564,7 +571,7 @@ class control_unit(pipelined: Boolean) extends Module {
     	val fsm_writeback = RegInit(idle)
     	
 		io.signals_writeback.update := 0.U
-		io.signals_branch3.update := 1.U
+		io.signals_branch3.update := 0.U
 		io.write_address_valid := 0.U
 		
 		io.load_address_valid := 0.U
@@ -573,9 +580,7 @@ class control_unit(pipelined: Boolean) extends Module {
     	switch(fsm_writeback){
     		is(idle){
     			when(writeback_stage_updated.asBool){
-    				when(writeback_rd_valid.asBool){
-    					fsm_writeback := exec
-    				}
+    				fsm_writeback := exec
     			}
     		}
     		is(exec){

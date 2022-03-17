@@ -8,6 +8,8 @@ class tester_practice_hart(dut: practice_hart) extends PeekPokeTester(dut) {
     
     val reg_ins = "b0000000_00101_00001_000_00110_0110011"
     val reg_imm_ins = "b0000000_00101_00110_000_00110_0010011"
+    val reg_imm_ins1 = "b0000000_00101_00110_000_00111_0010011"
+    val reg_imm_ins2 = "b0000000_00101_00101_000_00111_0010011"
 	
 	poke(dut.io.write_address_ready, 0.U)
 	poke(dut.io.write_data_ready, 0.U)
@@ -19,8 +21,12 @@ class tester_practice_hart(dut: practice_hart) extends PeekPokeTester(dut) {
 	poke(dut.io.fetch_PC, 0.U)
 	
 	step(1)
-	
+	poke(dut.io.instruction, reg_imm_ins1.U)
 	poke(dut.io.fetch_PC, 4.U)
+	
+	step(1)
+	poke(dut.io.instruction, reg_imm_ins2.U)
+	poke(dut.io.fetch_PC, 8.U)
 	
 	step(20)
 	    
