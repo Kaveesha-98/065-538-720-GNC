@@ -1,6 +1,8 @@
 import chisel3._
 import chisel3.iotesters.PeekPokeTester
 import org.scalatest._
+import java.io._
+import scala.io.Source
 
 class tester_practice_hart(dut: practice_hart) extends PeekPokeTester(dut) {
 
@@ -29,7 +31,39 @@ class tester_practice_hart(dut: practice_hart) extends PeekPokeTester(dut) {
 	poke(dut.io.fetch_PC, 8.U)
 	
 	step(20)
-	    
+
+	val testInstructionsFile = Source.fromFile("test_instructions.txt")
+
+	val instructions = testInstructionsFile.getLines.toArray
+	
+	testInstructionsFile.close
+	
+	poke(dut.io.instruction, instructions(0).U)
+	poke(dut.io.fetch_valid, 1.U)
+	poke(dut.io.fetch_PC, 0.U)
+	
+	var i: Int = 1
+	var cycles: Int = 0
+	
+	while(i < 33){
+		step(1)
+		cycles = cycles + 1
+		while(peek(dut.io.ready).toString == "0"){
+			step(1)
+			cycles = cycles + 1
+		}
+		poke(dut.io.instruction, instructions(i).U)
+		poke(dut.io.fetch_PC, (4*i).U)
+		i = i + 1
+	}
+	
+	while(peek(dut.io.write_data_valid).toString == "0"){
+		step(1)
+		cycles = cycles + 1
+	}
+
+	println("Total no of cycles: " + cycles.toString)
+
     /*
     println("Output: " + peek(dut.io.ALUoutput).toString)
     println("Equal: " + peek(dut.io.EQUAL).toString)
