@@ -18,19 +18,6 @@ class tester_practice_hart(dut: practice_hart) extends PeekPokeTester(dut) {
 	poke(dut.io.load_address_ready, 0.U)
 	poke(dut.io.load_data_valid, 0.U)
 	poke(dut.io.load_data, 0.U)
-	poke(dut.io.fetch_valid, 1.U)
-	poke(dut.io.instruction, reg_imm_ins.U)
-	poke(dut.io.fetch_PC, 0.U)
-	
-	step(1)
-	poke(dut.io.instruction, reg_imm_ins1.U)
-	poke(dut.io.fetch_PC, 4.U)
-	
-	step(1)
-	poke(dut.io.instruction, reg_imm_ins2.U)
-	poke(dut.io.fetch_PC, 8.U)
-	
-	step(20)
 
 	val testInstructionsFile = Source.fromFile("test_instructions.txt")
 
