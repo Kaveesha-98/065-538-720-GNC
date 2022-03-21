@@ -1,0 +1,21 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Sat Mar 19 23:20:02 2022
+# Process ID: 79499
+# Current directory: /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/generated/tester_practice_hart1278138289
+# Command line: vivado
+# Log file: /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/generated/tester_practice_hart1278138289/vivado.log
+# Journal file: /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/generated/tester_practice_hart1278138289/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project led_test /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test -part xc7z020clg400-1
+set_property board_part www.digilentinc.com:pynq-z1:part0:1.0 [current_project]
+import_files -norecurse /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/practice_hart.v
+update_compile_order -fileset sources_1
+file mkdir /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test/led_test.srcs/sources_1/new
+close [ open /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test/led_test.srcs/sources_1/new/led_test.v w ]
+add_files /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test/led_test.srcs/sources_1/new/led_test.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1

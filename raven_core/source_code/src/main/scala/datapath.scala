@@ -29,7 +29,7 @@ class datapath extends Module {
     when(io.signals_read.update.asBool){ 
     	//register x0 is hardwired to be zero
     	rs1 := Mux(io.signals_read.rs1.orR, registerFile(io.signals_read.rs1), 0.U(32.W))
-    	rs2 := Mux(io.signals_read.rs1.orR, registerFile(io.signals_read.rs2), 0.U(32.W))
+    	rs2 := Mux(io.signals_read.rs2.orR, registerFile(io.signals_read.rs2), 0.U(32.W))
     	read_immediate := io.signals_read.immediate
     	PC := io.signals_read.PC
     }

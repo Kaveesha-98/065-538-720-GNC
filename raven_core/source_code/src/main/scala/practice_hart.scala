@@ -41,7 +41,7 @@ class practice_hart extends Module {
     io.load_address := dataPath.io.mem_address
     io.store_data := dataPath.io.store_data
     
-    val controlUnit = Module(new control_unit(false))
+    val controlUnit = Module(new control_unit(true))
     
     io.write_address_valid := controlUnit.io.write_address_valid
     controlUnit.io.write_address_ready := io.write_address_ready
