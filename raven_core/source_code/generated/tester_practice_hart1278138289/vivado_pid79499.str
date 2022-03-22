@@ -1,0 +1,711 @@
+/*
+
+Xilinx Vivado v2018.2 (64-bit) [Major: 2018, Minor: 2]
+SW Build: 2258646 on Thu Jun 14 20:02:38 MDT 2018
+IP Build: 2256618 on Thu Jun 14 22:10:49 MDT 2018
+
+Process ID: 79499
+License: Customer
+
+Current time: 	Sat Mar 19 23:20:14 IST 2022
+Time zone: 	India Standard Time (Asia/Colombo)
+
+OS: Ubuntu
+OS Version: 5.13.0-35-generic
+OS Architecture: amd64
+Available processors (cores): 12
+
+Display: :0
+Screen size: 1280x1024
+Screen resolution (DPI): 96
+Available screens: 1
+Available disk space: 281 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	/opt/Xilinx/Vivado/2018.2/tps/lnx64/jre
+Java executable location: 	/opt/Xilinx/Vivado/2018.2/tps/lnx64/jre/bin/java
+Java initial memory (-Xms): 	128 MB
+Java maximum memory (-Xmx):	 2 GB
+
+
+User name: 	kaveesha
+User home directory: /home/kaveesha
+User working directory: /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/generated/tester_practice_hart1278138289
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /opt/Xilinx/Vivado
+HDI_APPROOT: /opt/Xilinx/Vivado/2018.2
+RDI_DATADIR: /opt/Xilinx/Vivado/2018.2/data
+RDI_BINDIR: /opt/Xilinx/Vivado/2018.2/bin
+
+Vivado preferences file location: /home/kaveesha/.Xilinx/Vivado/2018.2/vivado.xml
+Vivado preferences directory: /home/kaveesha/.Xilinx/Vivado/2018.2/
+Vivado layouts directory: /home/kaveesha/.Xilinx/Vivado/2018.2/layouts
+PlanAhead jar file location: 	/opt/Xilinx/Vivado/2018.2/lib/classes/planAhead.jar
+Vivado log file location: 	/mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/generated/tester_practice_hart1278138289/vivado.log
+Vivado journal file location: 	/mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/generated/tester_practice_hart1278138289/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-79499-kaveesha-desktop
+
+Xilinx Environment Variables
+----------------------------
+XILINX: /opt/Xilinx/Vivado/2018.2/ids_lite/ISE
+XILINX_DSP: /opt/Xilinx/Vivado/2018.2/ids_lite/ISE
+XILINX_PLANAHEAD: /opt/Xilinx/Vivado/2018.2
+XILINX_SDK: /opt/Xilinx/SDK/2018.2
+XILINX_VIVADO: /opt/Xilinx/Vivado/2018.2
+XILINX_VIVADO_HLS: /opt/Xilinx/Vivado/2018.2
+
+
+GUI allocated memory:	157 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 885 MB
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// [GUI Memory]: 63 MB (+63837kb) [00:00:04]
+// [Engine Memory]: 885 MB (+776051kb) [00:00:04]
+// HMemoryUtils.trashcanNow. Engine heap size: 885 MB. GUI used memory: 34 MB. Current time: 3/19/22 11:20:16 PM IST
+selectButton(PAResourceEtoH.GettingStartedView_CREATE_NEW_PROJECT, "Create Project"); // x (w, ck)
+// Run Command: PAResourceCommand.PACommandNames_NEW_PROJECT
+// [Engine Memory]: 934 MB (+5239kb) [00:00:42]
+// f (ck): New Project: addNotify
+// HMemoryUtils.trashcanNow. Engine heap size: 945 MB. GUI used memory: 36 MB. Current time: 3/19/22 11:20:51 PM IST
+selectButton("NEXT", "Next >"); // JButton (j, f)
+// Elapsed time: 58 seconds
+selectButton(PAResourceOtoP.ProjectNameChooser_CHOOSE_PROJECT_LOCATION, (String) null); // q (ak, f)
+// Elapsed time: 11 seconds
+setFolderChooser("/mnt/AE06F37906F3413F/University/Academic/Verilog");
+// Elapsed time: 14 seconds
+setText(PAResourceOtoP.ProjectNameChooser_PROJECT_NAME, "led_test", true); // X (Q, f)
+selectButton("NEXT", "Next >"); // JButton (j, f)
+selectButton("NEXT", "Next >"); // JButton (j, f)
+selectTab(PAResourceOtoP.PartChooser_TABBED_PANE, (HResource) null, "Boards", 1); // i (T, f)
+selectTable(PAResourceAtoD.BoardChooser_BOARD_TABLE, "PYNQ-Z1 ; PYNQ-Z1 ; www.digilentinc.com ; 1.0 ; xc7z020clg400-1 ; 400 ; 1.0 ; 125 ; 53200 ; 106400 ; 140 ; 0 ; 220 ; 0 ; 0 ; 0 ; 0 ; 0 ; 0 ; 0 ; 0 ; 0 ; 0 ; 4 ;  ;  ;  ;  ; 0.95 ; 0.95 ; 1.05", 2, "PYNQ-Z1", 0); // d (O, f)
+selectButton("NEXT", "Next >"); // JButton (j, f)
+// bx (f):  Create Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_ADD
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 94 MB (+28718kb) [00:02:18]
+// Tcl Message: create_project led_test /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test -part xc7z020clg400-1 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2018.2/data/ip'. 
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 99 MB (+213kb) [00:02:19]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 107 MB (+3000kb) [00:02:20]
+// [Engine Memory]: 983 MB (+2260kb) [00:02:20]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 114 MB (+1779kb) [00:02:20]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// TclEventType: BOARD_MODIFIED
+// Tcl Message: set_property board_part www.digilentinc.com:pynq-z1:part0:1.0 [current_project] 
+selectButton("FINISH", "Finish"); // JButton (j, f)
+// 'g' command handler elapsed time: 98 seconds
+dismissDialog("Create Project"); // bx (f)
+dismissDialog("New Project"); // f (ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_GENERATED
+// HMemoryUtils.trashcanNow. Engine heap size: 1,014 MB. GUI used memory: 44 MB. Current time: 3/19/22 11:22:31 PM IST
+// Elapsed time: 10 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager, Add Sources]", 2, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+// c (ck): Add Sources: addNotify
+selectButton("NEXT", "Next >"); // JButton (j, c)
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files"); // a (C, c)
+// Elapsed time: 25 seconds
+setFileChooser("/mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/practice_hart.v");
+selectCheckBox(PAResourceQtoS.SrcChooserPanel_MAKE_LOCAL_COPY_OF_THESE_FILES_INTO, "Copy sources into project", true); // g (bm, c): TRUE
+selectButton("FINISH", "Finish"); // JButton (j, c)
+// 'h' command handler elapsed time: 41 seconds
+dismissDialog("Add Sources"); // c (ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: import_files -norecurse /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/practice_hart.v 
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// [Engine Memory]: 1,034 MB (+2299kb) [00:03:13]
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: update_compile_order -fileset sources_1 
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// HMemoryUtils.trashcanNow. Engine heap size: 1,050 MB. GUI used memory: 44 MB. Current time: 3/19/22 11:23:26 PM IST
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true); // B (D, ck) - Node
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true, false, false, false, false, true); // B (D, ck) - Double Click - Node
+// Elapsed time: 22 seconds
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1); // B (D, ck)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager, Add Sources]", 2, false); // u (O, ck)
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+// c (ck): Add Sources: addNotify
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_OR_CREATE_CONSTRAINT_FILES, "Add or create constraints"); // a (o, c)
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_HDL_NETLIST_BLOCK_DESIGN, "Add or create design sources"); // a (o, c)
+selectButton("NEXT", "Next >"); // JButton (j, c)
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files"); // a (C, c)
+dismissFileChooser();
+// HMemoryUtils.trashcanNow. Engine heap size: 1,075 MB. GUI used memory: 49 MB. Current time: 3/19/22 11:24:11 PM IST
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_OR_CREATE_SOURCE_FILE, "Add"); // B (f, c)
+selectMenuItem(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files..."); // ad (aj, c)
+dismissFileChooser();
+selectButton("BACK", "< Back"); // JButton (j, c)
+// Elapsed time: 11 seconds
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_OR_CREATE_CONSTRAINT_FILES, "Add or create constraints"); // a (o, c)
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_HDL_NETLIST_BLOCK_DESIGN, "Add or create design sources"); // a (o, c)
+selectButton("NEXT", "Next >"); // JButton (j, c)
+selectButton(PAResourceQtoS.SrcChooserPanel_CREATE_FILE, "Create File"); // a (C, c)
+// F (c): Create Source File: addNotify
+// Elapsed time: 28 seconds
+setText(PAResourceAtoD.CreateSrcFileDialog_FILE_NAME, "led_test"); // X (Q, F)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (F)
+// Tcl Command: 'file mkdir /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test/led_test.srcs/sources_1/new'
+dismissDialog("Create Source File"); // F (c)
+// Tcl Message: file mkdir /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test/led_test.srcs/sources_1/new 
+selectButton("FINISH", "Finish"); // JButton (j, c)
+// 'h' command handler elapsed time: 76 seconds
+dismissDialog("Add Sources"); // c (ck)
+// Tcl Message: close [ open /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test/led_test.srcs/sources_1/new/led_test.v w ] 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files /mnt/AE06F37906F3413F/University/Academic/Verilog/led_test/led_test.srcs/sources_1/new/led_test.v 
+// I (ck): Define Module: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (I)
+// TclEventType: FILE_SET_CHANGE
+selectButton("PAResourceAtoD.DefineModulesDialog_YOU_HAVE_MADE_CHANGES_TO_MODULE_Yes", "Yes"); // JButton (A, H)
+dismissDialog("Define Module"); // I (ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// [Engine Memory]: 1,093 MB (+8073kb) [00:05:13]
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// HMemoryUtils.trashcanNow. Engine heap size: 1,110 MB. GUI used memory: 47 MB. Current time: 3/19/22 11:25:26 PM IST
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 16 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, led_test (led_test.v)]", 2, false); // B (D, ck)
+// Elapsed time: 116 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, led_test (led_test.v)]", 2, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, led_test (led_test.v)]", 2, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, led_test (led_test.v)]", 2, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectCodeEditor("led_test.v", 106, 356); // ce (w, ck)
+selectCodeEditor("led_test.v", 87, 354); // ce (w, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true, false, false, false, false, true); // B (D, ck) - Double Click - Node
+selectCodeEditor("practice_hart.v", 160, 186); // ce (w, ck)
+selectCodeEditor("practice_hart.v", 160, 164, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, led_test (led_test.v)]", 4, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, led_test (led_test.v)]", 4, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectCodeEditor("led_test.v", 138, 340); // ce (w, ck)
+selectCodeEditor("led_test.v", 138, 340, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectCodeEditor("led_test.v", 96, 352); // ce (w, ck)
+selectCodeEditor("led_test.v", 132, 335); // ce (w, ck)
+selectCodeEditor("led_test.v", 132, 335, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 60, 400); // ce (w, ck)
+selectCodeEditor("led_test.v", 29, 373); // ce (w, ck)
+selectCodeEditor("led_test.v", 31, 387); // ce (w, ck)
+// Elapsed time: 178 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+// Elapsed time: 13 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+// Elapsed time: 93 seconds
+selectCodeEditor("led_test.v", 144, 414); // ce (w, ck)
+// Elapsed time: 70 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+selectCodeEditor("led_test.v", 69, 414); // ce (w, ck)
+selectCodeEditor("led_test.v", 140, 433); // ce (w, ck)
+// Elapsed time: 140 seconds
+selectCodeEditor("led_test.v", 110, 426); // ce (w, ck)
+selectCodeEditor("led_test.v", 97, 422); // ce (w, ck)
+selectCodeEditor("led_test.v", 97, 422, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("led_test.v", 110, 443); // ce (w, ck)
+selectCodeEditor("led_test.v", 103, 433); // ce (w, ck)
+selectCodeEditor("led_test.v", 111, 438); // ce (w, ck)
+// Elapsed time: 52 seconds
+selectCodeEditor("led_test.v", 96, 416); // ce (w, ck)
+selectCodeEditor("led_test.v", 118, 427); // ce (w, ck)
+// Elapsed time: 15 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+// Elapsed time: 14 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+selectCodeEditor("led_test.v", 110, 438); // ce (w, ck)
+selectCodeEditor("led_test.v", 106, 444); // ce (w, ck)
+// Elapsed time: 31 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+// Elapsed time: 11 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v), controlUnit : control_unit (practice_hart.v)]", 3, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v), controlUnit : control_unit (practice_hart.v)]", 3, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v), controlUnit : control_unit (practice_hart.v)]", 3, false, false, false, false, false, true); // B (D, ck) - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+// Elapsed time: 137 seconds
+selectCodeEditor("led_test.v", 118, 426); // ce (w, ck)
+// Elapsed time: 37 seconds
+selectCodeEditor("led_test.v", 106, 396); // ce (w, ck)
+// Elapsed time: 14 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+// Elapsed time: 75 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+// Elapsed time: 31 seconds
+selectCodeEditor("led_test.v", 196, 412); // ce (w, ck)
+selectCodeEditor("led_test.v", 109, 396); // ce (w, ck)
+selectCodeEditor("led_test.v", 108, 394); // ce (w, ck)
+selectCodeEditor("led_test.v", 109, 427); // ce (w, ck)
+// Elapsed time: 33 seconds
+selectCodeEditor("led_test.v", 197, 395); // ce (w, ck)
+selectCodeEditor("led_test.v", 152, 436); // ce (w, ck)
+selectCodeEditor("led_test.v", 130, 432); // ce (w, ck)
+selectCodeEditor("led_test.v", 118, 430); // ce (w, ck)
+// Elapsed time: 137 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true, false, false, false, false, true); // B (D, ck) - Double Click - Node
+// Elapsed time: 31 seconds
+selectCodeEditor("practice_hart.v", 106, 48); // ce (w, ck)
+selectCodeEditor("practice_hart.v", 40, 337); // ce (w, ck)
+selectCodeEditor("practice_hart.v", 34, 335); // ce (w, ck)
+selectCodeEditor("practice_hart.v", 41, 112); // ce (w, ck)
+// Elapsed time: 10 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1); // B (D, ck)
+// Elapsed time: 23 seconds
+selectCodeEditor("practice_hart.v", 158, 340); // ce (w, ck)
+selectCodeEditor("practice_hart.v", 114, 385); // ce (w, ck)
+// Elapsed time: 100 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+selectCodeEditor("led_test.v", 141, 315); // ce (w, ck)
+selectCodeEditor("led_test.v", 131, 311); // ce (w, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+// Elapsed time: 27 seconds
+selectCodeEditor("practice_hart.v", 43, 177); // ce (w, ck)
+selectCodeEditor("practice_hart.v", 131, 181); // ce (w, ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,119 MB. GUI used memory: 48 MB. Current time: 3/19/22 11:55:26 PM IST
+// Elapsed time: 336 seconds
+selectCodeEditor("practice_hart.v", 18, 365); // ce (w, ck)
+selectCodeEditor("practice_hart.v", 33, 93, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+selectCodeEditor("led_test.v", 174, 249); // ce (w, ck)
+selectCodeEditor("led_test.v", 108, 266); // ce (w, ck)
+selectCodeEditor("led_test.v", 140, 313); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v), dataPath : datapath (practice_hart.v)]", 2, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v), dataPath : datapath (practice_hart.v)]", 2, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v), dataPath : datapath (practice_hart.v)]", 2, true, false, false, false, false, true); // B (D, ck) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, practice_hart (practice_hart.v)]", 1, true, false, false, false, false, true); // B (D, ck) - Double Click - Node
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+selectCodeEditor("led_test.v", 79, 100); // ce (w, ck)
+// Elapsed time: 11 seconds
+selectCodeEditor("led_test.v", 140, 114); // ce (w, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+// Elapsed time: 86 seconds
+selectCodeEditor("led_test.v", 136, 116); // ce (w, ck)
+// Elapsed time: 109 seconds
+selectCodeEditor("led_test.v", 219, 201); // ce (w, ck)
+// Elapsed time: 62 seconds
+selectCodeEditor("led_test.v", 235, 127); // ce (w, ck)
+// Elapsed time: 62 seconds
+selectCodeEditor("led_test.v", 92, 396); // ce (w, ck)
+selectCodeEditor("led_test.v", 82, 399); // ce (w, ck)
+// Elapsed time: 10 seconds
+selectCodeEditor("led_test.v", 65, 145); // ce (w, ck)
+selectCodeEditor("led_test.v", 181, 141, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 77, 400); // ce (w, ck)
+selectCodeEditor("led_test.v", 77, 400, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 227, 399); // ce (w, ck)
+// Elapsed time: 25 seconds
+selectCodeEditor("led_test.v", 57, 185); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 257, 386); // ce (w, ck)
+// Elapsed time: 15 seconds
+selectCodeEditor("led_test.v", 140, 320); // ce (w, ck)
+// Elapsed time: 18 seconds
+selectCodeEditor("led_test.v", 253, 386); // ce (w, ck)
+// Elapsed time: 14 seconds
+selectCodeEditor("led_test.v", 139, 403); // ce (w, ck)
+// Elapsed time: 25 seconds
+selectCodeEditor("led_test.v", 213, 143); // ce (w, ck)
+// Elapsed time: 20 seconds
+selectCodeEditor("led_test.v", 166, 354); // ce (w, ck)
+// Elapsed time: 64 seconds
+selectCodeEditor("led_test.v", 194, 88); // ce (w, ck)
+// Elapsed time: 30 seconds
+selectCodeEditor("led_test.v", 214, 185); // ce (w, ck)
+selectCodeEditor("led_test.v", 212, 185); // ce (w, ck)
+// Elapsed time: 22 seconds
+selectCodeEditor("led_test.v", 81, 370); // ce (w, ck)
+selectCodeEditor("led_test.v", 81, 373); // ce (w, ck)
+selectCodeEditor("led_test.v", 76, 365); // ce (w, ck)
+selectCodeEditor("led_test.v", 80, 370); // ce (w, ck)
+selectCodeEditor("led_test.v", 229, 323); // ce (w, ck)
+selectCodeEditor("led_test.v", 85, 325, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 274, 158); // ce (w, ck)
+selectCodeEditor("led_test.v", 274, 158, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 142, 160); // ce (w, ck)
+// Elapsed time: 16 seconds
+selectCodeEditor("led_test.v", 65, 56); // ce (w, ck)
+// Elapsed time: 14 seconds
+selectCodeEditor("led_test.v", 233, 50); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 296, 152); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 27 seconds
+selectCodeEditor("led_test.v", 295, 50); // ce (w, ck)
+// Elapsed time: 20 seconds
+selectCodeEditor("led_test.v", 139, 188); // ce (w, ck)
+selectCodeEditor("led_test.v", 131, 73); // ce (w, ck)
+// Elapsed time: 11 seconds
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+// Elapsed time: 20 seconds
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 286, 187); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 11 seconds
+selectCodeEditor("led_test.v", 283, 68); // ce (w, ck)
+// Elapsed time: 10 seconds
+selectCodeEditor("led_test.v", 26, 27); // ce (w, ck)
+selectCodeEditor("led_test.v", 52, 26, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 40, 44); // ce (w, ck)
+selectCodeEditor("led_test.v", 41, 31, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 139, 27); // ce (w, ck)
+selectCodeEditor("led_test.v", 114, 27, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 143, 159); // ce (w, ck)
+selectCodeEditor("led_test.v", 250, 158); // ce (w, ck)
+selectCodeEditor("led_test.v", 103, 156, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 68, 43); // ce (w, ck)
+selectCodeEditor("led_test.v", 86, 40, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 142, 27); // ce (w, ck)
+selectCodeEditor("led_test.v", 118, 24, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 131, 38); // ce (w, ck)
+selectCodeEditor("led_test.v", 127, 41, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 244, 40); // ce (w, ck)
+selectCodeEditor("led_test.v", 141, 155); // ce (w, ck)
+selectCodeEditor("led_test.v", 163, 158); // ce (w, ck)
+selectCodeEditor("led_test.v", 236, 38); // ce (w, ck)
+selectCodeEditor("led_test.v", 130, 38, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 163, 146); // ce (w, ck)
+selectCodeEditor("led_test.v", 158, 163); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 70 seconds
+selectCodeEditor("led_test.v", 261, 42); // ce (w, ck)
+// Elapsed time: 28 seconds
+selectCodeEditor("led_test.v", 175, 55); // ce (w, ck)
+selectCodeEditor("led_test.v", 87, 56, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 272, 200); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 22 seconds
+selectCodeEditor("led_test.v", 134, 60); // ce (w, ck)
+selectCodeEditor("led_test.v", 133, 55); // ce (w, ck)
+selectCodeEditor("led_test.v", 258, 197); // ce (w, ck)
+// Elapsed time: 17 seconds
+selectCodeEditor("led_test.v", 269, 57); // ce (w, ck)
+selectCodeEditor("led_test.v", 34, 52, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 288, 55); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 164, 249); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 99, 71); // ce (w, ck)
+selectCodeEditor("led_test.v", 206, 62); // ce (w, ck)
+selectCodeEditor("led_test.v", 208, 64); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 222, 65); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 287, 245); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 140, 252); // ce (w, ck)
+// Elapsed time: 19 seconds
+selectCodeEditor("led_test.v", 283, 69); // ce (w, ck)
+// Elapsed time: 22 seconds
+selectCodeEditor("led_test.v", 66, 81); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 287, 273); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 32 seconds
+selectCodeEditor("led_test.v", 119, 310); // ce (w, ck)
+// Elapsed time: 29 seconds
+selectCodeEditor("led_test.v", 204, 37); // ce (w, ck)
+selectCodeEditor("led_test.v", 356, 41, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 105, 356); // ce (w, ck)
+selectCodeEditor("led_test.v", 105, 356, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 288, 359); // ce (w, ck)
+selectCodeEditor("led_test.v", 281, 353); // ce (w, ck)
+// Elapsed time: 87 seconds
+selectCodeEditor("led_test.v", 260, 107); // ce (w, ck)
+// Elapsed time: 23 seconds
+selectCodeEditor("led_test.v", 313, 221); // ce (w, ck)
+// Elapsed time: 35 seconds
+selectCodeEditor("led_test.v", 252, 157); // ce (w, ck)
+// Elapsed time: 27 seconds
+selectCodeEditor("led_test.v", 103, 173); // ce (w, ck)
+selectCodeEditor("led_test.v", 266, 172); // ce (w, ck)
+selectCodeEditor("led_test.v", 262, 174); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 280, 379); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 12 seconds
+selectCodeEditor("led_test.v", 284, 39); // ce (w, ck)
+// Elapsed time: 20 seconds
+selectCodeEditor("led_test.v", 138, 278); // ce (w, ck)
+selectCodeEditor("led_test.v", 154, 278); // ce (w, ck)
+selectCodeEditor("led_test.v", 111, 60); // ce (w, ck)
+selectCodeEditor("led_test.v", 123, 53); // ce (w, ck)
+selectCodeEditor("led_test.v", 114, 52); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 164, 272); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 143, 300); // ce (w, ck)
+selectCodeEditor("led_test.v", 142, 303); // ce (w, ck)
+selectCodeEditor("led_test.v", 141, 300); // ce (w, ck)
+selectCodeEditor("led_test.v", 145, 290); // ce (w, ck)
+selectCodeEditor("led_test.v", 143, 291, false, false, false, false, true); // ce (w, ck) - Double Click
+selectCodeEditor("led_test.v", 142, 296); // ce (w, ck)
+selectCodeEditor("led_test.v", 142, 295); // ce (w, ck)
+selectCodeEditor("led_test.v", 256, 48); // ce (w, ck)
+// Elapsed time: 26 seconds
+selectCodeEditor("led_test.v", 202, 64); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 268, 308); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 10 seconds
+selectCodeEditor("led_test.v", 265, 65); // ce (w, ck)
+// Elapsed time: 20 seconds
+selectCodeEditor("led_test.v", 204, 83); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 269, 339); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 20 seconds
+selectCodeEditor("led_test.v", 216, 85); // ce (w, ck)
+// Elapsed time: 33 seconds
+selectCodeEditor("led_test.v", 161, 97); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 225, 367); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 142, 369); // ce (w, ck)
+// Elapsed time: 24 seconds
+selectCodeEditor("led_test.v", 149, 157); // ce (w, ck)
+// Elapsed time: 19 seconds
+selectCodeEditor("led_test.v", 139, 411); // ce (w, ck)
+selectCodeEditor("led_test.v", 159, 119); // ce (w, ck)
+selectCodeEditor("led_test.v", 318, 122); // ce (w, ck)
+// Elapsed time: 10 seconds
+selectCodeEditor("led_test.v", 61, 145); // ce (w, ck)
+// Elapsed time: 15 seconds
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 214, 430); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,121 MB. GUI used memory: 45 MB. Current time: 3/20/22 12:25:27 AM IST
+// Elapsed time: 49 seconds
+selectCodeEditor("led_test.v", 288, 54); // ce (w, ck)
+// Elapsed time: 25 seconds
+selectCodeEditor("led_test.v", 217, 370); // ce (w, ck)
+selectCodeEditor("led_test.v", 111, 69); // ce (w, ck)
+selectCodeEditor("led_test.v", 166, 71, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 222, 365); // ce (w, ck)
+selectCodeEditor("led_test.v", 224, 365, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 139, 367); // ce (w, ck)
+// Elapsed time: 10 seconds
+selectCodeEditor("led_test.v", 215, 70); // ce (w, ck)
+// Elapsed time: 14 seconds
+selectCodeEditor("led_test.v", 64, 86); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 240, 399); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 12 seconds
+selectCodeEditor("led_test.v", 173, 439); // ce (w, ck)
+selectCodeEditor("led_test.v", 160, 426); // ce (w, ck)
+selectCodeEditor("led_test.v", 173, 409); // ce (w, ck)
+selectCodeEditor("led_test.v", 185, 435); // ce (w, ck)
+selectCodeEditor("led_test.v", 176, 429); // ce (w, ck)
+// Elapsed time: 14 seconds
+selectCodeEditor("led_test.v", 185, 91); // ce (w, ck)
+selectCodeEditor("led_test.v", 189, 87); // ce (w, ck)
+// Elapsed time: 13 seconds
+selectCodeEditor("led_test.v", 195, 341); // ce (w, ck)
+// Elapsed time: 14 seconds
+selectCodeEditor("led_test.v", 150, 142); // ce (w, ck)
+// Elapsed time: 25 seconds
+selectCodeEditor("led_test.v", 275, 325); // ce (w, ck)
+// Elapsed time: 19 seconds
+selectCodeEditor("led_test.v", 228, 75); // ce (w, ck)
+selectCodeEditor("led_test.v", 228, 75); // ce (w, ck)
+selectCodeEditor("led_test.v", 233, 64); // ce (w, ck)
+// Elapsed time: 12 seconds
+selectCodeEditor("led_test.v", 140, 308); // ce (w, ck)
+selectCodeEditor("led_test.v", 66, 83); // ce (w, ck)
+selectCodeEditor("led_test.v", 176, 439); // ce (w, ck)
+// Elapsed time: 25 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "practice_hart.v", 1); // k (j, ck)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "led_test.v", 2); // k (j, ck)
+selectButton(RDIResourceCommand.RDICommands_SAVE_FILE, (String) null); // B (f, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// HMemoryUtils.trashcanNow. Engine heap size: 1,137 MB. GUI used memory: 45 MB. Current time: 3/20/22 12:29:32 AM IST
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_GENERATED
+// [Engine Memory]: 1,153 MB (+5117kb) [01:09:26]
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 176 seconds
+selectCodeEditor("led_test.v", 47, 78); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 80, 125); // ce (w, ck)
+selectCodeEditor("led_test.v", 82, 125); // ce (w, ck)
+selectCodeEditor("led_test.v", 226, 129); // ce (w, ck)
+// Elapsed time: 38 seconds
+selectCodeEditor("led_test.v", 87, 201); // ce (w, ck)
+// Elapsed time: 23 seconds
+selectCodeEditor("led_test.v", 175, 188); // ce (w, ck)
+// Elapsed time: 23 seconds
+selectCodeEditor("led_test.v", 273, 234); // ce (w, ck)
+selectCodeEditor("led_test.v", 215, 231); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 245, 227); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 246, 231); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 301, 235); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+selectCodeEditor("led_test.v", 303, 236); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 316, 238); // ce (w, ck)
+selectCodeEditor("led_test.v", 412, 226); // ce (w, ck)
+// Elapsed time: 15 seconds
+typeControlKey(null, null, 'z');
+selectCodeEditor("led_test.v", 174, 96); // ce (w, ck)
+// Elapsed time: 373 seconds
+selectCodeEditor("led_test.v", 420, 229); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 196, 234); // ce (w, ck)
+// Elapsed time: 14 seconds
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 22 seconds
+selectCodeEditor("led_test.v", 419, 245); // ce (w, ck)
+selectCodeEditor("led_test.v", 208, 240, false, false, false, true, false); // ce (w, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ad (aj, ck)
+selectCodeEditor("led_test.v", 197, 251); // ce (w, ck)
+// Elapsed time: 18 seconds
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 10 seconds
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey(null, null, 'z');
+typeControlKey((HResource) null, "led_test.v", 'c'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 32 seconds
+selectCodeEditor("led_test.v", 421, 246); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 196, 248); // ce (w, ck)
+// Elapsed time: 28 seconds
+selectCodeEditor("led_test.v", 418, 263); // ce (w, ck)
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+// Elapsed time: 18 seconds
+typeControlKey((HResource) null, "led_test.v", 'v'); // ce (w, ck)
+selectCodeEditor("led_test.v", 198, 266); // ce (w, ck)

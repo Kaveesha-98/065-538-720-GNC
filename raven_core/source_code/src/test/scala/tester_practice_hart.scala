@@ -13,12 +13,22 @@ class tester_practice_hart(dut: practice_hart) extends PeekPokeTester(dut) {
     val reg_imm_ins1 = "b0000000_00101_00110_000_00111_0010011"
     val reg_imm_ins2 = "b0000000_00101_00101_000_00111_0010011"
 	
-	poke(dut.io.write_address_ready, 0.U)
-	poke(dut.io.write_data_ready, 0.U)
-	poke(dut.io.load_address_ready, 0.U)
-	poke(dut.io.load_data_valid, 0.U)
-	poke(dut.io.load_data, 0.U)
-
+	poke(dut.io.write_address_ready, 1.U)
+	poke(dut.io.write_data_ready, 1.U)
+	poke(dut.io.load_address_ready, 1.U)
+	poke(dut.io.load_data_valid, 1.U)
+	poke(dut.io.load_data, 1.U)
+	/*
+	poke(dut.io.instruction, "b00000000010000000000000010010011".U)
+	poke(dut.io.fetch_valid, 1.U)
+	poke(dut.io.fetch_PC, 0.U)
+	step(1)
+	poke(dut.io.instruction, "b00000000000100000000000000100011".U)
+	poke(dut.io.fetch_valid, 1.U)
+	poke(dut.io.fetch_PC, 4.U)
+	step(20)
+	*/
+	
 	val testInstructionsFile = Source.fromFile("test_instructions.txt")
 
 	val instructions = testInstructionsFile.getLines.toArray
@@ -32,25 +42,34 @@ class tester_practice_hart(dut: practice_hart) extends PeekPokeTester(dut) {
 	var i: Int = 1
 	var cycles: Int = 0
 	
-	while(i < 33){
+	while(i < 100){
 		step(1)
 		cycles = cycles + 1
-		while(peek(dut.io.ready).toString == "0"){
+		while(peek(dut.io.ready).toString == "0" & i < 33){
 			step(1)
 			cycles = cycles + 1
+			i = i + 1
 		}
-		poke(dut.io.instruction, instructions(i).U)
-		poke(dut.io.fetch_PC, (4*i).U)
-		i = i + 1
+		if(peek(dut.io.valid_PC).toString.toInt/4 > 6){
+			i = i + 1
+			poke(dut.io.fetch_valid, 0.U)
+			step(1)
+		}else{
+			poke(dut.io.instruction, instructions(peek(dut.io.valid_PC).toString.toInt/4).U)
+			poke(dut.io.fetch_PC, peek(dut.io.valid_PC))
+			poke(dut.io.fetch_valid, 1.U)
+			i = i + 1
+		}
+		println(i.toString)
 	}
-	
+	/*
 	while(peek(dut.io.write_data_valid).toString == "0"){
 		step(1)
 		cycles = cycles + 1
 	}
-
+	*/
 	println("Total no of cycles: " + cycles.toString)
-
+	
     /*
     println("Output: " + peek(dut.io.ALUoutput).toString)
     println("Equal: " + peek(dut.io.EQUAL).toString)

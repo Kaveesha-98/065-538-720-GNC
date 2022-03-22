@@ -81,7 +81,7 @@ class control_unit(pipelined: Boolean) extends Module {
     io.signals_alu.choose_pc := (alu_instruction === opcodes.jalr || alu_instruction === opcodes.auipc).asUInt /*PC chosen as alu input only in jalr and auipc*/
     
     /*immediate is not an input only in register-register instructions*/
-    io.signals_alu.choose_immediate := (alu_instruction =/= opcodes.register).asUInt
+    io.signals_alu.choose_immediate := (alu_instruction(6,0) =/= opcodes.register && alu_instruction(6,0) =/= opcodes.branch).asUInt
     
     //----------writeback stage---------------------------------------------------
     val writeback_instruction = Reg(UInt(32.W))
@@ -335,7 +335,7 @@ class control_unit(pipelined: Boolean) extends Module {
     			}
     		}
     		is(opcodes.jal){
-    			branching := 0.U
+    			branching := 1.U
     			rd_valid := 1.U
     			update_read := 1.U
     		}
@@ -610,7 +610,7 @@ class control_unit(pipelined: Boolean) extends Module {
     					writeback_rd_valid := 0.U
     				}
     			}.elsewhen(writeback_instruction(6, 0) === opcodes.branch || writeback_instruction(6, 0) === opcodes.jal || writeback_instruction(6, 0) === opcodes.jalr){
-    				io.signals_writeback.update := Mux(writeback_instruction(6, 0) === opcodes.branch, 1.U, 0.U)
+    				io.signals_writeback.update := Mux(writeback_instruction(6, 0) === opcodes.branch, 0.U, 1.U)
     				io.signals_branch3.update := 1.U
     				branchFinished := 1.U
     				when(~writeback_stage_updated.asBool){
