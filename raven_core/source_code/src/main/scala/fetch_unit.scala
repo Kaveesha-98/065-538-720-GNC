@@ -65,6 +65,7 @@ class instruction_fetch_unit(depth: Int) extends Module {
 		val control_unit_channel = Flipped(new instruction_channel())
 		
 		val PC_invalid = Input(Bool())
+		//signals that the fetched PC is invalid
 		val valid_PC = Input(UInt(32.W))
 	})
 	
