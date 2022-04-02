@@ -1,3 +1,7 @@
+import chisel3._
+import chisel3.util._
+import chisel3.Driver
+
 class instruction_channel extends Bundle {
 	val instruction = Input(UInt(32.W))
 	val address = Input(UInt(32.W))
@@ -21,8 +25,8 @@ class instruction_read_data_channel extends Bundle {
 
 class instruction_buffer extends Module {
 	val io = IO(new Bundle{
-		data_in = new instruction_channel()
-		data_out = Flipped(new instruction_channel())
+		val data_in = new instruction_channel()
+		val data_out = Flipped(new instruction_channel())
 		val reset = Input(Bool())
 	})
 	
@@ -35,13 +39,13 @@ class instruction_buffer extends Module {
 	io.data_in.ready := stateReg === empty
 	io.data_out.valid := stateReg === full
 	
-	when(reset){
+	when(io.reset){
 		stateReg := empty
 	}.otherwise{
 		when(stateReg === empty){
 			when(io.data_in.valid){
 				regInstruction := io.data_in.instruction
-				redAddress := io.data_in.address
+				regAddress := io.data_in.address
 				stateReg := full
 			}
 		}.otherwise{
@@ -56,21 +60,22 @@ class instruction_buffer extends Module {
 
 class instruction_fetch_unit(depth: Int) extends Module {
 	val io = IO(new Bundle{
-		cache_address_channel = new instruction_read_address_channel()
-		cache_data_channel = new instruction_read_data_channel()
-		control_unit_channel = Flipped(new instruction_channel())
+		val cache_address_channel = new instruction_read_address_channel()
+		val cache_data_channel = new instruction_read_data_channel()
+		val control_unit_channel = Flipped(new instruction_channel())
 		
 		val PC_invalid = Input(Bool())
 		val valid_PC = Input(UInt(32.W))
 	})
 	
-	val reset :: request :: valid_wait :: invalid_wait :: Nil = Enum(4)
-	val stateReg = RegInit(reset)
+	val reset_buffer :: request :: valid_wait :: invalid_wait :: Nil = Enum(4)
+	val stateReg = RegInit(reset_buffer)
 	val resetBuffer = Wire(Bool())
 	
 	//creating buffers
-	val buffers = Array.fill(depth{Module(new insturction_buffer)})
+	val buffers = Array.fill(depth){Module(new instruction_buffer)}
 	
+	val PC = Reg(UInt(32.W))
 	
 	//connecting buffers
 	for(i <- 0 until depth - 1){
@@ -79,24 +84,26 @@ class instruction_fetch_unit(depth: Int) extends Module {
 		buffers(i).io.reset := resetBuffer
 	}
 	
-	buffers(0).io.data_in.instruction := io.cache_data_channel.RDATA
-	buffers(0).io.data_in.instruction := PC
+	buffers(depth - 1).io.reset := resetBuffer
 	
-	val PC = Reg(UInt(32.W))
+	buffers(0).io.data_in.instruction := io.cache_data_channel.RDATA
+	buffers(0).io.data_in.address := PC
+	buffers(0).io.data_in.valid := false.B
 	
 	io.control_unit_channel <> buffers(depth-1).io.data_out
 	
 	//when control unit rejects instruction due invalid PC
-	val controlUnitReject = buffers(depth - 1).io.data_out.valid && control_unit_channel.io.ready && io.PC_invalid
+	val controlUnitReject = buffers(depth - 1).io.data_out.valid && io.control_unit_channel.ready && io.PC_invalid
 	
 	io.cache_address_channel.ARVALID := false.B
+	io.cache_address_channel.ARADDR := PC
 	
-	io.cache_data_channel.ready := false.B
+	io.cache_data_channel.RREADY := false.B
 	
 	resetBuffer := false.B
 	
 	switch(stateReg){
-		is(reset){
+		is(reset_buffer){
 			PC := io.valid_PC
 			stateReg := request
 			resetBuffer := true.B
@@ -110,7 +117,7 @@ class instruction_fetch_unit(depth: Int) extends Module {
 					stateReg := valid_wait
 				}
 			}.elsewhen(controlUnitReject){
-				stateReg := reset
+				stateReg := reset_buffer
 			}
 		}
 		is(valid_wait){
@@ -118,7 +125,7 @@ class instruction_fetch_unit(depth: Int) extends Module {
 			when(io.cache_data_channel.RVALID){
 				//when new instruction available in the data channel
 				when(controlUnitReject){
-					stateReg := reset
+					stateReg := reset_buffer
 				}.otherwise{
 					when(buffers(0).io.data_in.ready){
 						//buffers cannot accept new instruction
@@ -127,7 +134,7 @@ class instruction_fetch_unit(depth: Int) extends Module {
 						buffers(0).io.data_in.valid := 1.U
 					}
 				}
-			}.eslewhen(controlUnitReject){
+			}.elsewhen(controlUnitReject){
 				//before new instruction available in the data channel
 				stateReg := invalid_wait
 			}
@@ -144,18 +151,6 @@ class instruction_fetch_unit(depth: Int) extends Module {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+object instruction_fetch_unit extends App{
+    (new chisel3.stage.ChiselStage).emitVerilog(new instruction_fetch_unit(1))
+}
