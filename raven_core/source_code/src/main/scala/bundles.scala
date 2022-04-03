@@ -46,3 +46,37 @@ class datapath_branch_stage2() extends Bundle{
 class datapath_branch_stage3() extends Bundle{
 	val update = UInt(1.W)
 }
+
+/*
+TileLink per-link channel parameters
+w - Width of the data bus in bytes, Must be a power of two
+a - Width of each address field in bits. Must be atleast 32
+z - Width of each size in bits. Must be at least 4
+o - Number of bits needed to disambiguate per-link master sources
+i - Number of bits needed to disambiguate per-link slave sinks
+*/
+class channel_a(z: Int, o: Int, a: Int, w: Int) extends Bundle{
+	//signal direction from master to slave
+	val opcode 	= Output(UInt(3.W))
+	val param 	= Output(UInt(3.W))
+	val size 	= Output(UInt(z.W))
+	val source 	= Output(UInt(o.W))
+	val address = Output(UInt(a.W))
+	val mask 	= Output(UInt(w.W))
+	val data 	= Output(UInt((8*w).W))
+	val valid 	= Output(Bool())
+	val ready 	= Input(Bool())
+}
+
+class channel_d(z: Int, o: Int, i: Int, w: Int) extends Bundle{
+	//signals direction from slave to master
+	val opcode 	= Output(UInt(3.W))
+	val param 	= Output(UInt(2.W))
+	val size 	= Output(UInt(z.W))
+	val source 	= Output(UInt(o.W))
+	val sink	= Output(UInt(i.W))
+	val data	= Output(UInt((8*w).W))
+	val error	= Output(Bool())
+	val valid	= Output(Bool())
+	val ready	= Input(Bool())
+}

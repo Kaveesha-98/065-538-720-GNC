@@ -1,2 +1,7 @@
-[0m[[0m[33mwarn[0m] [0m[0mthere were 103 feature warnings; re-run with -feature for details[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0m/mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/src/main/scala/bundles.scala:78:20: overloaded method value apply with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (range: chisel3.internal.firrtl.IntervalRange)chisel3.UInt <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (width: chisel3.internal.firrtl.Width)chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (chisel3.UInt)[0m
+[0m[[0m[31merror[0m] [0m[0m	val data	= Output(Bits((8*w).U))[0m
+[0m[[0m[31merror[0m] [0m[0m	        	         ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
