@@ -61,7 +61,7 @@ class channel_a(z: Int, o: Int, a: Int, w: Int) extends Bundle{
 	val param 	= Output(UInt(3.W))
 	val size 	= Output(UInt(z.W))
 	val source 	= Output(UInt(o.W))
-	val address = Output(UInt(a.W))
+	val address	= Output(UInt(a.W))
 	val mask 	= Output(UInt(w.W))
 	val data 	= Output(UInt((8*w).W))
 	val valid 	= Output(Bool())
