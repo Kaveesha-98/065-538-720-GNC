@@ -3,23 +3,40 @@
 [0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage3.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage2.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	datapath_alu.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_writeback.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_read.class[0m
-[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage3.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage2.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_alu.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_writeback.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_read.class[0m
-[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage3.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage2.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	datapath_alu.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	channel_a.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	opcodes.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	channel_d.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	datapath_writeback.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage1.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	datapath_read.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	opcodes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage3.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_alu.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	opcodes.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_d.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_writeback.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_read.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	opcodes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage3.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a_opcodes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a_buffer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_alu.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sw_testbench_memory_interface.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	opcodes.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sw_testbench_memory_controller.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a_opcodes.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_d.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_writeback.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sw_testbench_memory_controller$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a_buffer$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_branch_stage1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	datapath_read.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	opcodes$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes.bak[0m

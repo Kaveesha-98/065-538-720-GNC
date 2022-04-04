@@ -12,6 +12,14 @@
 [0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/ALU.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	channel_a.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/channel_a.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a_buffer$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/channel_a_buffer$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a_buffer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/channel_a_buffer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a_opcodes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/channel_a_opcodes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	channel_a_opcodes.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/channel_a_opcodes.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	channel_d.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/channel_d.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	constants$.class[0m
@@ -90,4 +98,10 @@
 [0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/raven_core_hart$delayedInit$body.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	raven_core_hart.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/raven_core_hart.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sw_testbench_memory_controller$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/sw_testbench_memory_controller$$anon$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sw_testbench_memory_controller.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/sw_testbench_memory_controller.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sw_testbench_memory_interface.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /mnt/AE06F37906F3413F/University/Academic/065-538-720-GNC/raven_core/source_code/target/scala-2.12/classes/sw_testbench_memory_interface.class[0m
 [0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m

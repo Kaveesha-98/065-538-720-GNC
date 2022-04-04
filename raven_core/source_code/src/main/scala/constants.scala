@@ -15,3 +15,9 @@ object opcodes {
   val auipc = "b0010111".U(7.W)
   val lui = "b0110111".U(7.W)
 }
+
+object channel_a_opcodes {
+  val GET = 4.U(3.W)
+  val PUTFULLDATA = 0.U(3.W)
+  val PUTPARTIALDATA = 1.U(3.W)
+}
