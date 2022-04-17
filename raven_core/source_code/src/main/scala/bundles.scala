@@ -55,21 +55,19 @@ z - Width of each size in bits. Must be at least 4
 o - Number of bits needed to disambiguate per-link master sources
 i - Number of bits needed to disambiguate per-link slave sinks
 */
-class channel_a(z: Int, o: Int, a: Int, w: Int) extends Bundle{
-	//signal direction from master to slave
-	val opcode 	= Output(UInt(3.W))
-	val param 	= Output(UInt(3.W))
-	val size 	= Output(UInt(z.W))
-	val source 	= Output(UInt(o.W))
-	val address	= Output(UInt(a.W))
-	val mask 	= Output(UInt(w.W))
-	val data 	= Output(UInt((8*w).W))
-	val valid 	= Output(Bool())
-	val ready 	= Input(Bool())
+
+class channel_a_signals(z: Int, o: Int, a: Int, w: Int) extends Bundle{
+	val opcode 	= Wire(UInt(3.W))
+	val param 	= Wire(UInt(3.W))
+	val size 	= Wire(UInt(z.W))
+	val source 	= Wire(UInt(o.W))
+	val address	= Wire(UInt(a.W))
+	val mask 	= Wire(UInt(w.W))
+	val data 	= Wire(UInt((8*w).W))
+	val valid 	= Wire(Bool())
 }
 
-class channel_d(z: Int, o: Int, i: Int, w: Int) extends Bundle{
-	//signals direction from slave to master
+class channel_d_signals(z: Int, o: Int, i: Int, w: Int) extends Bundle{
 	val opcode 	= Output(UInt(3.W))
 	val param 	= Output(UInt(2.W))
 	val size 	= Output(UInt(z.W))
@@ -77,6 +75,19 @@ class channel_d(z: Int, o: Int, i: Int, w: Int) extends Bundle{
 	val sink	= Output(UInt(i.W))
 	val data	= Output(UInt((8*w).W))
 	val error	= Output(Bool())
+	val valid	= Output(Bool())
+}
+
+class channel_a(z: Int, o: Int, a: Int, w: Int) extends Bundle{
+	//signal direction from master to slave
+	val signals	= Output(new channel_a_signals(z, o, a, w))
+	val valid 	= Output(Bool())
+	val ready 	= Input(Bool())
+}
+
+class channel_d(z: Int, o: Int, i: Int, w: Int) extends Bundle{
+	//signals direction from slave to master
+	val signals = Output(new channel_d_signals(z, o, i, w))
 	val valid	= Output(Bool())
 	val ready	= Input(Bool())
 }
