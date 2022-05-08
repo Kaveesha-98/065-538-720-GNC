@@ -152,5 +152,63 @@ class s_type_32i(assm_instruction):
         assert type(self.rs1) == type(1) and 0 <= self.rs1 <= 31
         assert type(self.rs2) == type(1) and 0 <= self.rs2 <= 31
         assert type(self.imm) == type(-1) and -2048 <= self.imm <= 2047
+
+    def print_assm(self):
+        return self.op + " x" + str(self.rs2) + ", " + str(self.imm) + "(x" + str(self.rs1) + ")"
+
+    def assemble(self):
+        if self.imm < 0:
+            mod_imm = self.imm + 2**12
+        else:
+            mod_imm = self.imm
         
-    
+        imm_string = "{0:012b}".format(mod_imm)
+        imm_string = imm_string[::-1]
+
+        return (imm_string[5:12])[::-1] + "{0:05b}".format(self.rs2) + "{0:05b}".format(self.rs1) + self.funct3[self.op] + (imm_string[0:5])[::-1] + "0100011" 
+
+class b_type_32i(assm_instruction):
+
+    funct3 = {
+        "beq" : "000",
+        "bne" : "001",
+        "blt" : "100",
+        "bge" : "101",
+        "bltu": "110",
+        "bgeu": "111"
+    }
+
+    def __init__(self, operands):
+        self.op = operands[0]
+        self.rs1 = operands[1]
+        self.rs2 = operands[2]
+        self.jump_label = operands[3]
+        self.resolved = False
+        assert self.op in self.consts.b_type_ops_32i
+        assert type(self.rs1) == type(1) and 0 <= self.rs1 <= 31
+        assert type(self.rs2) == type(1) and 0 <= self.rs2 <= 31
+
+    def resolve_label(self, jump):
+        assert -2**12 <= jump < 2**12
+        assert jump%2 == 0
+        self.imm = jump
+        self.resolved = True
+
+    def print_assm(self):
+        if self.resolved:
+            return self.op + " x" + str(self.rs1) + ", x" + str(self.rs2) + ", " + str(self.imm)
+        else:
+            return self.op + " x" + str(self.rs1) + ", x" + str(self.rs2) + ", " + self.jump_label
+
+    def assemble(self):
+        if self.resolved:
+            if self.imm < 0:
+                mod_imm = self.imm + 2**13
+            else:
+                mod_imm = self.imm
+        
+            imm_string = "{0:013b}".format(mod_imm)
+            imm_string = imm_string[::-1]
+            return imm_string[12] + (imm_string[5:11])[::-1] + "{0:05b}".format(self.rs2) + "{0:05b}".format(self.rs1) + self.funct3[self.op] + (imm_string[1:5])[::-1] + imm_string[11] + "1100011" 
+        else:
+            return "----jump label not resolved-----"
