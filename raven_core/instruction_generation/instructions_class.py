@@ -134,3 +134,23 @@ class u_type_32i(assm_instruction):
             return "{0:020b}".format(self.imm) + "{0:05b}".format(self.rd) + "0110111"
         else:
             return "{0:020b}".format(self.imm) + "{0:05b}".format(self.rd) + "0010111"
+
+class s_type_32i(assm_instruction):
+
+    funct3 = {
+        "sb" : "000",
+        "sh" : "001",
+        "sw" : "010"
+    }
+
+    def __init__(self, operands):
+        self.op = operands[0]
+        self.rs1 = operands[2]
+        self.rs2 = operands[1]
+        self.imm = operands[3]
+        assert self.op in self.consts.s_type_ops_32i
+        assert type(self.rs1) == type(1) and 0 <= self.rs1 <= 31
+        assert type(self.rs2) == type(1) and 0 <= self.rs2 <= 31
+        assert type(self.imm) == type(-1) and -2048 <= self.imm <= 2047
+        
+    
