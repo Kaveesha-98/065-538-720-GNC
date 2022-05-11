@@ -23,6 +23,8 @@ class assm_program:
             self.instructions.append(s_type_32i(operands))
         elif operands[0] in self.consts.b_type_ops_32i:
             self.instructions.append(b_type_32i(operands))
+        elif operands[0] in self.consts.j_type_ops_32i:
+            self.instructions.append(j_type_32i(operands))
         else:
             print("wrong operands")
             assert 1==2

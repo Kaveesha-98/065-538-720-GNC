@@ -7,3 +7,4 @@ class prog_constants:
     i_type_ops_32i = set().union(*[i_type_alu_imm_ops_32i, i_type_loads_32i, i_type_jalr_32i])
     s_type_ops_32i = {"sb", "sh", "sw"}
     b_type_ops_32i = {"beq", "bne", "blt", "bge", "bltu", "bgeu"}
+    j_type_ops_32i = {"jal"}

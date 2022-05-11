@@ -17,6 +17,8 @@ newProgram.next_instruction(['auipc', 1, 976])
 newProgram.next_instruction(['sh', 1, 2, -2])
 newProgram.next_instruction(['bne', 1, 2, 'luck'])
 newProgram.instructions[-1].resolve_label(-2)
+newProgram.next_instruction(['jal', 1, 'note'])
+newProgram.instructions[-1].resolve_label(-2)
 
 for i in range(len(newProgram.instructions)):
     print(newProgram.instructions[i].assemble(), end = " ")
