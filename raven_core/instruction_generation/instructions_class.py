@@ -38,17 +38,17 @@ class r_type_32i(assm_instruction):
     }
 
     def __init__(self, operands):
-        self.alu_op = operands[0]
+        self.op = operands[0]
         self.rd = operands[1]
         self.rs1 = operands[2]
         self.rs2 = operands[3]
-        assert self.alu_op in self.consts.r_type_ops_32i
+        assert self.op in self.consts.r_type_ops_32i
         assert type(self.rs1) == type(1) and 0 <= self.rs1 <= 31
         assert type(self.rs2) == type(1) and 0 <= self.rs2 <= 31
         assert type(self.rd) == type(1) and 0 <= self.rd <= 31
 
     def print_assm(self):
-        return self.alu_op + " x" + str(self.rd) + ", x" + str(self.rs1) + ", x" + str(self.rs2)
+        return self.op + " x" + str(self.rd) + ", x" + str(self.rs1) + ", x" + str(self.rs2)
 
     def assemble(self):
         return (self.funct7[self.alu_op] + 
@@ -143,7 +143,7 @@ class u_type_32i(assm_instruction):
         self.imm = operands[2]
         assert self.op in self.consts.u_type_ops_32i
         assert type(self.rd) == type(1) and 0 <= self.rd <= 31
-        assert 0 <= self.imm < 2**19
+        assert 0 <= self.imm < 2**20
 
     def print_assm(self):
         if self.op == "lui":
