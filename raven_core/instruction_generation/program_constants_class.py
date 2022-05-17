@@ -8,3 +8,4 @@ class prog_constants:
     s_type_ops_32i = {"sb", "sh", "sw"}
     b_type_ops_32i = {"beq", "bne", "blt", "bge", "bltu", "bgeu"}
     j_type_ops_32i = {"jal"}
+    i_type_branchops = set().union(*[b_type_ops_32i, j_type_ops_32i])
