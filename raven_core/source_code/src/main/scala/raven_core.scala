@@ -50,23 +50,19 @@ class raven_core_hart extends Module {
     io.load_address_valid := controlUnit.io.load_address_valid
     io.load_address_size := controlUnit.io.load_address_size
     
-    val load_data_valid = Reg(UInt(1.W))
-    val load_data_ready = Reg(UInt(1.W))
-    load_data_valid := io.load_data_valid
-    load_data_ready := controlUnit.io.load_data_ready
-    
-    controlUnit.io.load_data_valid := load_data_valid
-    io.load_data_ready := load_data_ready
+    controlUnit.io.load_data_valid := io.load_data_valid
+    io.load_data_ready := controlUnit.io.load_data_ready
     
     val load_data = Reg(UInt(32.W))
     
     when(controlUnit.io.load_data_ready.asBool){
-    	load_data := io.load_data
+        //to change how io.load_data is interpretted(for different load types) change here
+    	load_data := io.load_data//lw
     	switch(Cat(controlUnit.io.load_extend_type, controlUnit.io.load_address_size)){
-    		is(0.U){ load_data := Cat(Fill(24, io.load_data(7)), io.load_data(7, 0)) }
-    		is(1.U){ load_data := Cat(Fill(16, io.load_data(15)), io.load_data(7, 0)) }
-    		is(4.U){ load_data := Cat(0.U(24.W), io.load_data(7, 0)) }
-    		is(5.U){ load_data := Cat(0.U(16.W), io.load_data(7, 0)) }
+    		is(0.U){ load_data := Cat(Fill(24, io.load_data(7)), io.load_data(7, 0)) }//lb
+    		is(1.U){ load_data := Cat(Fill(16, io.load_data(15)), io.load_data(7, 0)) }//lh
+    		is(4.U){ load_data := Cat(0.U(24.W), io.load_data(7, 0)) }//lbu
+    		is(5.U){ load_data := Cat(0.U(16.W), io.load_data(7, 0)) }//lhu
     	}
     }
     
