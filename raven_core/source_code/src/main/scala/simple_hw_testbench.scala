@@ -11,12 +11,15 @@ class simple_hw_testBench(uartFrequency: Int, uartBaudRate: Int, instructionCoun
     val io = IO(new Bundle{
         val rxd = Input(UInt(1.W))
         val txd = Output(UInt(1.W))
+        val startProgram = Input(Bool())
     })
 
     val instructionMemory = Reg(Vec(instructionCount, UInt(32.W)))
     
     //Release a byte at a time
     val uartRecieveInstructions = Module(new Rx(uartFrequency, uartBaudRate))
+
+    uartRecieveInstructions.io.rxd := io.rxd
     
     //Bytes will be buffered to form one instruction
     val newInstruction = RegInit(0.U(32.W))
@@ -39,7 +42,7 @@ class simple_hw_testBench(uartFrequency: Int, uartBaudRate: Int, instructionCoun
         newInstructionAddress   := newInstructionAddress + 1.U
     }
 
-    val tx = Module(new BufferedTx(frequency, baudRate))
+    val tx = Module(new BufferedTx(uartFrequency, uartBaudRate))
     io.txd := tx.io.txd
 
     val ravenHartCore = Module(new raven_core_hart())
@@ -59,5 +62,17 @@ class simple_hw_testBench(uartFrequency: Int, uartBaudRate: Int, instructionCoun
 
     ravenHartCore.io.cache_address_channel.ARREADY := true.B
     
+    ravenHartCore.io.cache_data_channel.RDATA := instructionMemory(ravenHartCore.io.cache_address_channel.ARADDR)
 
+    ravenHartCore.io.cache_data_channel.RVALID := io.startProgram
+
+}
+
+object simple_hw_testBench extends App{
+
+    val uartFrequency: Int = 100000000
+    val uartBaudRate: Int = 115200
+    val instructionCount: Int = 4
+
+    (new chisel3.stage.ChiselStage).emitVerilog(new simple_hw_testBench(uartFrequency, uartBaudRate, instructionCount))
 }
