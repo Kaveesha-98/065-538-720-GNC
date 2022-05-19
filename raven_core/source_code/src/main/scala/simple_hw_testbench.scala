@@ -44,4 +44,20 @@ class simple_hw_testBench(uartFrequency: Int, uartBaudRate: Int, instructionCoun
 
     val ravenHartCore = Module(new raven_core_hart())
 
+    //connecting transmitter to hart write channel
+    tx.io.channel.bits := ravenHartCore.io.store_data(7,0)
+    tx.io.channel.valid := ravenHartCore.io.write_data_valid.asBool
+    ravenHartCore.io.write_data_ready := tx.io.channel.ready.asUInt
+
+    //write address channel does not matter, as write port is only connected to tx
+    ravenHartCore.io.write_address_ready := 1.U
+
+    ravenHartCore.io.load_address_ready := 1.U
+
+    ravenHartCore.io.load_data_valid := 1.U
+    ravenHartCore.io.load_data := 0.U 
+
+    ravenHartCore.io.cache_address_channel.ARREADY := true.B
+    
+
 }
