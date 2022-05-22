@@ -27,8 +27,12 @@ class raven_core_hart extends Module {
         val load_data_ready = Output(UInt(1.W))
         val load_data = Input(UInt(32.W))
         
-		val cache_address_channel = new instruction_read_address_channel()
-		val cache_data_channel = new instruction_read_data_channel()
+		val fetch_PC = Input(UInt(32.W))
+        val valid_PC = Output(UInt(32.W))
+        val fetch_valid = Input(UInt(1.W))
+        val ready = Output(UInt(1.W))
+        val fetch_PC_invalid = Output(UInt(1.W))
+        val instruction = Input(UInt(32.W))
     })
     
     val dataPath = Module(new datapath())
@@ -77,17 +81,12 @@ class raven_core_hart extends Module {
     
     controlUnit.io.next_PC := dataPath.io.next_PC
     
-    val fetchUnit = Module(new instruction_fetch_unit(1))
-    
-    controlUnit.io.fetch_PC := fetchUnit.io.control_unit_channel.address
-    fetchUnit.io.valid_PC := controlUnit.io.valid_PC
-    controlUnit.io.fetch_valid := fetchUnit.io.control_unit_channel.valid
-    fetchUnit.io.control_unit_channel.ready := controlUnit.io.ready
-    fetchUnit.io.PC_invalid := controlUnit.io.fetch_PC_invalid
-    controlUnit.io.instruction := fetchUnit.io.control_unit_channel.instruction
-    
-    io.cache_address_channel <> fetchUnit.io.cache_address_channel
-	io.cache_data_channel <> fetchUnit.io.cache_data_channel
+    controlUnit.io.fetch_PC := io.fetch_PC
+    io.valid_PC := controlUnit.io.valid_PC
+    controlUnit.io.fetch_valid := io.fetch_valid
+    io.ready := controlUnit.io.ready
+    io.fetch_PC_invalid := controlUnit.io.fetch_PC_invalid
+    controlUnit.io.instruction := io.instruction
 }
 
 object raven_core_hart extends App{
