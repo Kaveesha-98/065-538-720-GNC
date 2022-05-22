@@ -98,3 +98,21 @@ class assm_program:
             label = self.instructions[address//4].jump_label
             jump = label_addresses[label] - address
             self.instructions[address//4].resolve_label(jump)
+
+    def assemble(self):
+
+        assembly = []
+
+        for instruction in self.instructions:
+            assembly.append(instruction.assemble())
+
+        return '\n'.join(assembly)
+
+    def assembledBitStream(self, binaryString):
+        instructionsString = binaryString.split('\n')
+        bitStream = ''
+
+        for line in instructionsString:
+            bitStream = bitStream + line[::-1]
+
+        return bitStream
