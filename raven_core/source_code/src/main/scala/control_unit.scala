@@ -62,7 +62,7 @@ class control_unit(pipelined: Boolean) extends Module {
     io.signals_read.immediate := immItype/*loads, jalr*/
     
     switch(read_instruction(6,0)){
-    	is(opcodes.immediate){ io.signals_read.immediate := Mux(read_instruction(30).asBool, immItype_shift, immItype) }
+    	is(opcodes.immediate){ io.signals_read.immediate := Mux(read_instruction(13, 12) === "b01".U, immItype_shift, immItype) }
     	is(opcodes.store)    { io.signals_read.immediate := immStype }
     	is(opcodes.branch)   { io.signals_read.immediate := immBtype }
     	is(opcodes.jal)      { io.signals_read.immediate := immJtype }
@@ -73,10 +73,12 @@ class control_unit(pipelined: Boolean) extends Module {
     //----------alu stage--------------------------------------------------------
     val alu_instruction = Reg(UInt(32.W))
     val alu_func3 = alu_instruction(14, 12)
+
+	val isShamtsrai = (alu_instruction(6,0) === opcodes.immediate && alu_instruction(13,12) === "b01".U).asUInt & alu_instruction(30)
     
     /*except register-register and register-immediate all instructions use addition always*/
     io.signals_alu.alu_op := Mux(alu_instruction(6,0) === opcodes.register || alu_instruction(6,0) === opcodes.immediate,
-    	Cat(alu_instruction(30), alu_func3), constants.add)
+    	Cat(isShamtsrai, alu_func3), constants.add)
     	
     io.signals_alu.choose_pc := (alu_instruction === opcodes.jalr || alu_instruction === opcodes.auipc).asUInt /*PC chosen as alu input only in jalr and auipc*/
     
