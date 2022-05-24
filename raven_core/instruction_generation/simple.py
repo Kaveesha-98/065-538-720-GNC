@@ -6,10 +6,10 @@ from instructions_class import *
 from assm_program_class import *
 
 newProgram = assm_program()
-#newProgram.next_instruction(['li', 2, 0*ord('c')*2**24 + 0*ord('c')*2**16 + 0*ord('u')*2**8 + ord('s')], True, 'start')
-#newProgram.next_instruction(['li', 3, 0*ord('\n')*2**24 + 0*ord('s')*2**16 + 0*ord('s')*2**8 + ord('e')], False, '')
-newProgram.next_instruction(['li', 2,  ord('s')], True, 'start')
-newProgram.next_instruction(['li', 3,  ord('e')], False, '')
+newProgram.next_instruction(['li', 2, ord('c')*2**24 + ord('c')*2**16 + ord('u')*2**8 + ord('s')], True, 'start')
+newProgram.next_instruction(['li', 3, ord('\n')*2**24 + ord('s')*2**16 + ord('s')*2**8 + ord('e')], False, '')
+#newProgram.next_instruction(['li', 2,  ord('s')], True, 'start')
+#newProgram.next_instruction(['li', 3,  ord('e')], False, '')
 newProgram.next_instruction(['li', 4, 4], False, '')
 newProgram.next_instruction(['sb', 2, 0, 0], True, 'l1')
 newProgram.next_instruction(['srai', 2, 2, 8], False, '')
@@ -26,7 +26,11 @@ print(newProgram.print_assembly())
 
 newProgram.resolve_branches()
 
-print(newProgram.assemble())
+machineCode = newProgram.assemble()
+
+machineFile = open("raven_core/source_code/test_instructions.txt", "w")
+machineFile.write(machineCode)
+machineFile.close()
 
 program = newProgram.assembledBitStream(newProgram.assemble())
 
