@@ -25,7 +25,7 @@ class write_translation_address_channel(addressWidth: Int, sizeWidth: Int) exten
 class write_translation_data_channel(dataWidth: Int) extends Bundle{
     //input to write translation module
 
-    val hart_data_out = Input(UInt(dataWidth))
+    val hart_data_out = Input(UInt(dataWidth.W))
 
     //handshake signals
     val valid = Input(Bool())
@@ -56,10 +56,10 @@ class write_translation_intra_handshake() extends Bundle{
 
 class write_translation_mem_write_interface_data(dataWidth: Int) extends Bundle{
     //address width must be divisible by 8 for correct mask length
-    assert (addressWidth % 8 == 0)
+    assert (dataWidth % 8 == 0)
 
-    val data = UInt(addressWidth.W)
-    val mask = UInt((addressWidth/8).W)
+    val data = UInt(dataWidth.W)
+    val mask = UInt((dataWidth/8).W)
     val en = Bool()
 
 }
@@ -68,10 +68,10 @@ class write_translation_mem_write_interface_data(dataWidth: Int) extends Bundle{
 
 class xilinx6_mig_write_data_access_signals(dataWidth: Int) extends Bundle{
     //address width must be divisible by 8 for correct mask length
-    assert (addressWidth % 8 == 0)
+    assert (dataWidth % 8 == 0)
 
-    val data = UInt(addressWidth.W)
-    val mask = UInt((addressWidth/8).W)
+    val data = UInt(dataWidth.W)
+    val mask = UInt((dataWidth/8).W)
 
 }
 
@@ -79,7 +79,7 @@ class xilinx6_mig_write_data_access_signals(dataWidth: Int) extends Bundle{
 
 class xilinx6_mig_write_data_port_hart_signals(dataWidth:Int) extends Bundle{
 
-    val access_signals = Input(new xilinx_mig_write_data_access_signals(dataWidth))
+    val access_signals = Input(new xilinx6_mig_write_data_access_signals(dataWidth))
 
     val en = Input(Bool())
     val full = Output(Bool())
@@ -109,7 +109,7 @@ class xilinx6_mig_command_data_port_hart_signals() extends Bundle{
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * Module * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-class write_translation_write_buffer(addressWidth:Int, sizeWidth: Int, dataWidth) extends Module{
+class write_translation_write_buffer(addressWidth:Int, sizeWidth: Int, dataWidth: Int) extends Module{
     //stores the write issue from hart, then forwards it to memory or io
     val io = IO(new Bundle{
         val writeAddressChannel = new write_translation_address_channel(addressWidth, sizeWidth)
@@ -134,9 +134,9 @@ class write_translation_write_buffer(addressWidth:Int, sizeWidth: Int, dataWidth
 
     switch(bufferState){
         is(waitingData){
-            writeIssueBuffer.hart_data_out := writeDataChannel.hart_data_out
+            writeIssueBuffer.hart_data_out := io.writeDataChannel.hart_data_out
 
-            when(writeDataChannel.valid){
+            when(io.writeDataChannel.valid){
                 bufferState := waitingInstruction
             }
         }
@@ -144,13 +144,13 @@ class write_translation_write_buffer(addressWidth:Int, sizeWidth: Int, dataWidth
             writeIssueBuffer.address := io.writeAddressChannel.address
             writeIssueBuffer.size := io.writeAddressChannel.size
 
-            when(writeAddressChannel.valid){
+            when(io.writeAddressChannel.valid){
                 bufferState := bufferFull
             }
         }
         is(bufferFull){
             //wait for issue to be translated
-            when(mainControlHandShake.ready){
+            when(io.mainControlHandShake.ready){
                 bufferState := waitingData
             }
         }
@@ -165,7 +165,7 @@ class write_translation_write_buffer(addressWidth:Int, sizeWidth: Int, dataWidth
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * Module * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-Class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth: Int) extends Module{
+class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth: Int) extends Module{
     //performs mem write access
     val io = IO(new Bundle{
         val writeInstructionIn = Input(new write_translation_write_instruction(addressWidth, sizeWidth, dataWidth))
@@ -177,12 +177,12 @@ Class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
         val memWriteInterfaceCmd = Flipped(new xilinx6_mig_command_data_port_hart_signals())
     })
 
-    def checkMemAlignment(writeInput: write_translation_write_instruction): Chisel3.Bool = {
+    def isRequiringTwoBursts(writeInput: write_translation_write_instruction): chisel3.Bool = {
 
-        val ret := WireInit(Bool(false.B))
+        val ret = WireInit(false.B)
         switch(writeInput.size(1, 0)){
             is("b01".U){
-                ret := writeInput.address(0) =/= "b0".U
+                ret := writeInput.address(1, 0) === "b11".U
             }
             is("b10".U){
                 ret := writeInput.address(1, 0) =/= "b00".U
@@ -192,11 +192,11 @@ Class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
 
     }
 
-    def decodeDataIssue[T <: Data](writeInput: write_translation_write_instruction): T = {
+    def decodeDataIssue[T <: Data](writeInput: write_translation_write_instruction): chisel3.Vec[xilinx6_mig_write_data_access_signals] = {
 
-        val ret = Wire(Vec(2, xilinx6_mig_write_data_access_signals(dataWidth)))
+        val ret = Wire(Vec(2, new xilinx6_mig_write_data_access_signals(dataWidth)))
 
-        ret(0).data := writeInput.data
+        ret(0).data := writeInput.hart_data_out
         ret(1).data := 0.U
 
         ret(0).mask := "b0001".U
@@ -215,10 +215,10 @@ Class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
 
         switch(writeInput.address(1, 0)){
             is("b01".U){
-                ret(0).data := Cat(writeInput.data(23, 0), "h00".U)
-                ret(0).data := Cat("h000000".U, writeInput.data(31, 24))
+                ret(0).data := Cat(writeInput.hart_data_out(23, 0), "h00".U)
+                ret(0).data := Cat("h000000".U, writeInput.hart_data_out(31, 24))
 
-                ret(0).mask := "b0001".U
+                ret(0).mask := "b0010".U
                 ret(1).mask := "b0000".U
 
                 switch(writeInput.size){
@@ -234,8 +234,11 @@ Class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
 
             }
             is("b10".U){
-                ret(0).data := Cat(writeInput.data(15, 0), "h0000".U)
-                ret(0).data := Cat("h0000".U, writeInput.data(31, 16))
+                ret(0).data := Cat(writeInput.hart_data_out(15, 0), "h0000".U)
+                ret(0).data := Cat("h0000".U, writeInput.hart_data_out(31, 16))
+
+                ret(0).mask := "b0100".U
+                ret(1).mask := "b0000".U
 
                 switch(writeInput.size){
                     is("b01".U){
@@ -243,24 +246,47 @@ Class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
                         ret(1).mask := "b0000".U
                     }
                     is("b10".U){
-                        ret(0).mask := "b1110".U
-                        ret(1).mask := "b0001".U
+                        ret(0).mask := "b1100".U
+                        ret(1).mask := "b0011".U
                     }
                 }
 
             }
             is("b11".U){
-                ret(0).data := Cat(writeInput.data(7, 0), "h000000".U)
-                ret(0).data := Cat("h00".U, writeInput.data(31, 8))
+                ret(0).data := Cat(writeInput.hart_data_out(7, 0), "h000000".U)
+                ret(0).data := Cat("h00".U, writeInput.hart_data_out(31, 8))
+
+                ret(0).mask := "b1000".U
+                ret(1).mask := "b0000".U
+
+                switch(writeInput.size){
+                    is("b01".U){
+                        ret(0).mask := "b1000".U
+                        ret(1).mask := "b0001".U
+                    }
+                    is("b10".U){
+                        ret(0).mask := "b1000".U
+                        ret(1).mask := "b0111".U
+                    }
+                }
+
             }
         }
-        ret(0).mask := 0.U
-        ret(1).mask := 0.U
-
+        ret
 
     }
 
-    val dataPortAccessSignalsBuffer = Reg(Vec(2, xilinx6_mig_write_data_access_signals(dataWidth)))
+    def decodeCmdIssue[T <: Data](writeInput: write_translation_write_instruction): xilinx6_mig_command_access_signals = {
+
+        val ret = Wire(new xilinx6_mig_command_access_signals())
+        ret.addr := Cat(writeInput.address(29, 2), "b00".U)
+        ret.bl := Mux(isRequiringTwoBursts(writeInput), "b000001".U, "b000000".U)
+        ret.instr := "b000".U
+        ret
+
+    }
+
+    val dataPortAccessSignalsBuffer = Reg(Vec(2, new xilinx6_mig_write_data_access_signals(dataWidth)))
     val commandPortAccessSignalBuffer = Reg(new xilinx6_mig_command_access_signals())
 
     //states of the module
@@ -275,16 +301,19 @@ Class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
         is(idle){
             when(io.mainControlHandShake.valid){
                 //only supported for 32bit ports
-                commandPortAccessSignalBuffer.addr := Cat(io.writeInstructionForward.address(29, 2), "b00")
-                commandPortAccessSignalBuffer.instr := "b000".U
-                //setting burst length - misaligned access "b001".U else "b000000".U
-                commandPortAccessSignalBuffer.bl := "b000000".U
-                switch(io.writeInstructionIn.size(1, 0)){
-                    is("b01".U){
-                        commandPortAccessSignalBuffer.bl := Mux()
-                    }
-                }
+                dataPortAccessSignalsBuffer := decodeDataIssue(io.writeInstructionIn)
+                commandPortAccessSignalBuffer := decodeCmdIssue(io.writeInstructionIn)
+                
             }
         }
     }
 }
+
+/* object write_translation_mem_access extends App{
+
+    val addressWidth: Int = 32
+    val sizeWidth: Int = 2
+    val dataWidth: Int = 32
+
+    (new chisel3.stage.ChiselStage).emitVerilog(new write_translation_mem_access(addressWidth, sizeWidth, dataWidth))
+} */
