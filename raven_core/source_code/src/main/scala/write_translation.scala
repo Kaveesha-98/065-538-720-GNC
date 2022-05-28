@@ -177,7 +177,88 @@ Class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
         val memWriteInterfaceCmd = Flipped(new xilinx6_mig_command_data_port_hart_signals())
     })
 
-    def checkMemAlignment[T <: Data]
+    def checkMemAlignment(writeInput: write_translation_write_instruction): Chisel3.Bool = {
+
+        val ret := WireInit(Bool(false.B))
+        switch(writeInput.size(1, 0)){
+            is("b01".U){
+                ret := writeInput.address(0) =/= "b0".U
+            }
+            is("b10".U){
+                ret := writeInput.address(1, 0) =/= "b00".U
+            }
+        }
+        ret
+
+    }
+
+    def decodeDataIssue[T <: Data](writeInput: write_translation_write_instruction): T = {
+
+        val ret = Wire(Vec(2, xilinx6_mig_write_data_access_signals(dataWidth)))
+
+        ret(0).data := writeInput.data
+        ret(1).data := 0.U
+
+        ret(0).mask := "b0001".U
+        ret(1).mask := "b0000".U
+
+        switch(writeInput.size){
+            is("b01".U){
+                ret(0).mask := "b0011".U
+                ret(1).mask := "b0000".U
+            }
+            is("b10".U){
+                ret(0).mask := "b1111".U
+                ret(1).mask := "b0000".U
+            }
+        }
+
+        switch(writeInput.address(1, 0)){
+            is("b01".U){
+                ret(0).data := Cat(writeInput.data(23, 0), "h00".U)
+                ret(0).data := Cat("h000000".U, writeInput.data(31, 24))
+
+                ret(0).mask := "b0001".U
+                ret(1).mask := "b0000".U
+
+                switch(writeInput.size){
+                    is("b01".U){
+                        ret(0).mask := "b0110".U
+                        ret(1).mask := "b0000".U
+                    }
+                    is("b10".U){
+                        ret(0).mask := "b1110".U
+                        ret(1).mask := "b0001".U
+                    }
+                }
+
+            }
+            is("b10".U){
+                ret(0).data := Cat(writeInput.data(15, 0), "h0000".U)
+                ret(0).data := Cat("h0000".U, writeInput.data(31, 16))
+
+                switch(writeInput.size){
+                    is("b01".U){
+                        ret(0).mask := "b1100".U
+                        ret(1).mask := "b0000".U
+                    }
+                    is("b10".U){
+                        ret(0).mask := "b1110".U
+                        ret(1).mask := "b0001".U
+                    }
+                }
+
+            }
+            is("b11".U){
+                ret(0).data := Cat(writeInput.data(7, 0), "h000000".U)
+                ret(0).data := Cat("h00".U, writeInput.data(31, 8))
+            }
+        }
+        ret(0).mask := 0.U
+        ret(1).mask := 0.U
+
+
+    }
 
     val dataPortAccessSignalsBuffer = Reg(Vec(2, xilinx6_mig_write_data_access_signals(dataWidth)))
     val commandPortAccessSignalBuffer = Reg(new xilinx6_mig_command_access_signals())
