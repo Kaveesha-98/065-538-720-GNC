@@ -77,7 +77,7 @@ class xilinx6_mig_write_data_access_signals(dataWidth: Int) extends Bundle{
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-class xilinx6_mig_write_data_port_hart_signals(dataWidth:Int) extends Bundle{
+class xilinx6_mig_write_data_port_with_handshake(dataWidth:Int) extends Bundle{
 
     val access_signals = Input(new xilinx6_mig_write_data_access_signals(dataWidth))
 
@@ -172,7 +172,7 @@ class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
         
         val mainControlHandShake = new write_translation_intra_handshake()
 
-        val memWriteInterfaceData = Flipped(new xilinx6_mig_write_data_port_hart_signals(dataWidth))
+        val memWriteInterfaceData = Flipped(new xilinx6_mig_write_data_port_with_handshake(dataWidth))
 
         val memWriteInterfaceCmd = Flipped(new xilinx6_mig_command_data_port_hart_signals())
     })
@@ -290,20 +290,46 @@ class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth:
     val commandPortAccessSignalBuffer = Reg(new xilinx6_mig_command_access_signals())
 
     //states of the module
-    val idle :: issuingData :: issuingCommand :: Nil = Enum(3)
+    val idle :: issuingDataBurst1 :: issuingDataBurst2 :: issuingCommand :: Nil = Enum(4)
     val stateReg = RegInit(idle)
 
     io.mainControlHandShake.ready := stateReg === idle
+    io.memWriteInterfaceData.en := stateReg === issuingDataBurst1 || stateReg === issuingDataBurst2
+    io.memWriteInterfaceCmd.en := stateReg === issuingCommand
 
-    val accessMisaligned = RegInit(Bool())
+    val accessMisaligned = RegInit(false.B)
 
     switch(stateReg){
         is(idle){
+            dataPortAccessSignalsBuffer := decodeDataIssue(io.writeInstructionIn)
+            commandPortAccessSignalBuffer := decodeCmdIssue(io.writeInstructionIn)
+            
             when(io.mainControlHandShake.valid){
                 //only supported for 32bit ports
-                dataPortAccessSignalsBuffer := decodeDataIssue(io.writeInstructionIn)
-                commandPortAccessSignalBuffer := decodeCmdIssue(io.writeInstructionIn)
-                
+                stateReg := issuingDataBurst1               
+            }
+        }
+        is(issuingDataBurst1){
+            
+            when(~io.memWriteInterfaceData.full){
+                dataPortAccessSignalsBuffer(0) := dataPortAccessSignalsBuffer(1)
+                when(commandPortAccessSignalBuffer.bl === "b000001".U){
+                    stateReg := issuingDataBurst2
+                }.otherwise{
+                    stateReg := issuingCommand
+                }
+            }
+        }
+        is(issuingDataBurst2){
+
+            when(~io.memWriteInterfaceData.full){
+                stateReg := issuingCommand
+            }
+
+        }
+        is(issuingCommand){
+            when(~io.memWriteInterfaceCmd.full){
+                stateReg := idle
             }
         }
     }
