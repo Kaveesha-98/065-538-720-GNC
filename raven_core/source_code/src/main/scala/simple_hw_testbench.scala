@@ -74,6 +74,12 @@ class simple_hw_testBench(uartFrequency: Int, uartBaudRate: Int, instructionCoun
 
     val ravenHartCore = Module(new raven_core_hart())
 
+    
+    val PC = Reg(UInt(32.W))
+
+    when(ravenHartCore.io.instructionAddressIssueChannel.ARVALID){
+        PC := ravenHartCore.io.instructionAddressIssueChannel.ARADDR
+    }
 
     //write address channel does not matter, as write port is only connected to tx
     ravenHartCore.io.write_address_ready := 1.U
@@ -83,9 +89,9 @@ class simple_hw_testBench(uartFrequency: Int, uartBaudRate: Int, instructionCoun
     ravenHartCore.io.load_data_valid := 1.U
     ravenHartCore.io.load_data := 0.U 
 
-    ravenHartCore.io.fetch_PC := ravenHartCore.io.valid_PC
-    ravenHartCore.io.fetch_valid := ravenHartCore.io.ready & io.startProgram.asUInt
-    ravenHartCore.io.instruction := instructionMemory(ravenHartCore.io.valid_PC(31, 2))
+    ravenHartCore.io.instructionAddressIssueChannel.ARREADY := true.B
+    ravenHartCore.io.instructionFetchChannel.RVALID := io.startProgram
+    ravenHartCore.io.instructionFetchChannel.RDATA := instructionMemory(PC(31, 2))
 
     if(uartOut){
         val tx = Module(new BufferedTx(uartFrequency, uartBaudRate))
