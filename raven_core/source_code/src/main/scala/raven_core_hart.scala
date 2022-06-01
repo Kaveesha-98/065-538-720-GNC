@@ -27,12 +27,20 @@ class raven_core_hart extends Module {
         val load_data_ready = Output(UInt(1.W))
         val load_data = Input(UInt(32.W))
         
-		val fetch_PC = Input(UInt(32.W))
+		/* 
+        //Used for when fetch buffer not present
+        
+        val fetch_PC = Input(UInt(32.W))
         val valid_PC = Output(UInt(32.W))
         val fetch_valid = Input(UInt(1.W))
         val ready = Output(UInt(1.W))
         val fetch_PC_invalid = Output(UInt(1.W))
-        val instruction = Input(UInt(32.W))
+        val instruction = Input(UInt(32.W)) 
+        
+        */
+
+        val instructionFetchChannel = new instruction_read_data_channel()
+        val instructionAddressIssueChannel = new instruction_read_address_channel()
     })
     
     val dataPath = Module(new datapath())
@@ -80,13 +88,34 @@ class raven_core_hart extends Module {
     dataPath.io.signals_branch3 <> controlUnit.io.signals_branch3
     
     controlUnit.io.next_PC := dataPath.io.next_PC
-    
+
+
+    /* 
+    //Used for connecting when fetch buffer not present
+
     controlUnit.io.fetch_PC := io.fetch_PC
     io.valid_PC := controlUnit.io.valid_PC
     controlUnit.io.fetch_valid := io.fetch_valid
     io.ready := controlUnit.io.ready
     io.fetch_PC_invalid := controlUnit.io.fetch_PC_invalid
-    controlUnit.io.instruction := io.instruction
+    controlUnit.io.instruction := io.instruction 
+    
+    */
+
+    val instructionFetchUnit = Module(new instruction_fetch_unit(2))
+
+    controlUnit.io.fetch_PC := instructionFetchUnit.io.control_unit_channel.address
+    controlUnit.io.fetch_valid := instructionFetchUnit.io.control_unit_channel.valid.asUInt
+    instructionFetchUnit.io.control_unit_channel.ready := controlUnit.io.ready
+    controlUnit.io.instruction := instructionFetchUnit.io.control_unit_channel.instruction
+
+    instructionFetchUnit.io.valid_PC := controlUnit.io.valid_PC
+    instructionFetchUnit.io.PC_invalid := controlUnit.io.fetch_PC_invalid.asBool
+
+    //connecting with io of top module - names of io of instructionFetch Unit need to be changed in the future 1/6/2022
+    io.instructionFetchChannel <> instructionFetchUnit.io.cache_data_channel
+    io.instructionAddressIssueChannel <> instructionFetchUnit.io.cache_address_channel
+
 }
 
 object raven_core_hart extends App{
