@@ -58,17 +58,54 @@ class testBench_with_memory_read_datapath_path_signals(dataWidth: Int) extends B
 
 }
 
-class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, instructionCount: Int, fpgaTesting: Boolean, uartOut: Boolean) extends Module{
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+class testBench_with_memory_memory_port(dataWidth: Int, portConfig: String) extends Bundle{
+
+    assert(portConfig == "read-write" || portConfig == "read-only" || portConfig == "write-only")
+
+    val cmd = new testBench_with_memory_command_path_signals()
+
+    if(portConfig == "read-write"){
+        val rd = new testBench_with_memory_read_datapath_path_signals(dataWidth)
+        val wr = new testBench_with_memory_write_datapath_path_signals(dataWidth)
+    }else if(portConfig == "read-only"){
+        val rd = new testBench_with_memory_read_datapath_path_signals(dataWidth)
+    }else if(portConfig == "write-only"){
+        val wr = new testBench_with_memory_write_datapath_path_signals(dataWidth)
+    }
+
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+class testBench_with_memory_uart_Tx(testingPlatform: String) extends Bundle{
+
+    if (testingPlatform == "chiselTest"){
+        val valid = Output(Bool())
+        val channelByte = Output(Bool())
+        val ready = Input(Bool())
+    } else {
+        val txd = Output(UInt(1.W))
+    }
+
+}
+
+class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: Boolean) extends Module{
+
+    val testingPlatform: String = if (fpgaTesting) "fpga" else "chiselTest"
+
     val io = IO(new Bundle{
         val rxd = Input(UInt(1.W))//programing hart on a fpga implementation
         
         val startProgram = Input(Bool())
 
-        val p0_cmd = Flipped(new testBench_with_memory_command_path_signals())
-        val p0_wr = Flipped(new testBench_with_memory_read_datapath_path_signals())
-        val p0_rd = Flipped(new testBench_with_memory_read_datapath_path_signals())
+        val dataWrite   = Flipped(new testBench_with_memory_memory_port(32, "write-only"))
+        val dataRead    = Flipped(new testBench_with_memory_memory_port(32, "read-only"))
+        val instructionRead = Flipped(new testBench_with_memory_memory_port(32, "read-only"))
+        val instructionWrite = Flipped(new testBench_with_memory_memory_port(32, "write-only"))
 
-        val txd = Output(UInt(1.W))
+        val txd = new testBench_with_memory_uart_Tx(testingPlatform)
         //fpga debugging
         val Led = Output(UInt(8.W))
         
