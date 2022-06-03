@@ -29,7 +29,7 @@ class simple_hw_testBench(uartFrequency: Int, uartBaudRate: Int, instructionCoun
     if (fpgaTesting){
         //val instructionMemory = Reg(Vec(instructionCount, UInt(32.W)))
         
-        //Release a byte at a time
+        //Release a bit at a time(ascii value of bit is released at a time '1' = 49, '0' = 48)
         val uartRecieveInstructions = Module(new Rx(uartFrequency, uartBaudRate))
 
         uartRecieveInstructions.io.rxd := io.rxd
