@@ -93,6 +93,37 @@ class testBench_with_memory_memory_port() extends Bundle{
 
 } */
 
+class chiselTest_uart_tx() extends Module{
+
+    val io = IO(new Bundle {
+        val ready = Input(Bool())
+        val valid = Output(Bool())
+        val txd = Output(UInt(8.W))
+        val channel = Flipped(new UartIO())
+    })
+
+    val ready :: transmitting :: Nil = Enum(2)
+
+    val stateReg = RegInit(ready)
+
+    io.valid := stateReg === transmitting
+    io.channel.ready := stateReg === ready
+
+    switch(stateReg){
+        is(ready){
+            when(io.channel.valid){
+                stateReg := transmitting
+            }
+        }
+        is(transmitting){
+            when(io.ready){
+                stateReg := ready
+            }
+        }
+    }
+
+}
+
 class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: Boolean) extends Module{
 
     val testingPlatform: String = if (fpgaTesting) "fpga" else "chiselTest"
@@ -100,144 +131,51 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
     val io = IO(new Bundle{
         val rxd = Input(UInt(1.W))//programing hart on a fpga implementation
 
-        //val txd = new testBench_with_memory_uart_Tx(testingPlatform)
-        val txd = Output(UInt(1.W))
-
-        val startProgram = Input(Bool())
-
         //val dataWrite   = Flipped(new testBench_with_memory_memory_port(32, "write-only"))
         //val dataRead    = Flipped(new testBench_with_memory_memory_port(32, "read-only"))
-        val instructionRead = Flipped(new testBench_with_memory_memory_port())
-        val instructionWrite = Flipped(new testBench_with_memory_memory_port())
-
-        //fpga debugging
-        val Led = Output(UInt(8.W))
-        
-        //fpga debugging
-        //val sw = Input(UInt(8.W))
+        //val instructionRead = Flipped(new testBench_with_memory_memory_port())
+        //val instructionWrite = Flipped(new testBench_with_memory_memory_port())
     })
 
-    //Release a bit at a time(ascii value of bit is released at a time '1' = 49, '0' = 48)
-    val uartRecieveInstructions = Module(new Rx(uartFrequency, uartBaudRate))
+    def gettingInstruction[T <: Data](uartChannel: UartIO, 
+        recievedInstructionOut: chisel3.UInt, 
+        recievedAddress: chisel3.UInt, 
+        ramReady: chisel3.Bool): chisel3.Bool = {
 
-    uartRecieveInstructions.io.rxd := io.rxd
+        val bitCount = RegInit(0.U(6.W))
+        val recievingIncomplete = bitCount =/= 32.U
         
-    //Bytes will be buffered to form one instruction
-    val newInstruction = RegInit(0.U(32.W))
-    //For waiting 32 bits before storing recieved instruction
-    val instructionBitCount = RegInit(0.U(6.W))
+        uartChannel.ready := ~recievingIncomplete
 
-    //cannot recive instruction byte until fully formed instruction is stored
-    val instructionIncomplete = instructionBitCount =/= 32.U
-    uartRecieveInstructions.io.channel.ready := instructionIncomplete
-
-    val newInstructionAddress = RegInit(0.U(32.W))
-
-    val instrNotReadyToStore :: instrReadyToStore :: instrInBuffer :: Nil = Enum(3)
-
-    val progInstrState = RegInit(instrNotReadyToStore)
-
-    io.Led := 0.U
-
-    io.instructionWrite.cmd.addr := newInstructionAddress(29, 0)
-    io.instructionWrite.cmd.bl := 0.U
-    io.instructionWrite.cmd.instr := "b000".U
-
-    io.instructionWrite.wr.data := newInstruction
-    io.instructionWrite.wr.mask := "b0000".U
-
-    io.instructionRead.wr.data := 0.U
-    io.instructionRead.wr.mask := "b0000".U
-    io.instructionRead.wr.en := false.B
-
-    when(uartRecieveInstructions.io.channel.valid && instructionIncomplete){
-        instructionBitCount    := instructionBitCount + 1.U 
-        newInstruction          := Cat((uartRecieveInstructions.io.channel.bits === '1'.U).asUInt, newInstruction(31, 1))
-    }.elsewhen(~instructionIncomplete){
-        when(progInstrState === instrNotReadyToStore){
-            progInstrState := instrReadyToStore
-            //for next instruction
-            instructionBitCount    := 0.U
-            newInstructionAddress   := newInstructionAddress + 4.U
+        when(recievingIncomplete && uartChannel.valid){
+            bitCount := bitCount + 1.U
+            recievedInstructionOut := Cat((uartChannel.bits === '1'.U).asUInt, recievedInstructionOut(31, 1))
+        }. elsewhen(~recievingIncomplete){
+            when(ramReady){
+                recievedAddress := recievedAddress + 4.U
+                bitCount := 0.U 
+            }
         }
-        io.Led := 1.U
+        
+        return ~recievingIncomplete
+
     }
 
-    io.instructionWrite.wr.en := false.B
-    io.instructionWrite.cmd.en := false.B
+    /*===== Getting instruction from uart =====*/
 
-    switch(progInstrState){
-        is(instrReadyToStore){
-            when(~io.instructionWrite.wr.full){
-                io.instructionWrite.wr.en := true.B
-                progInstrState := instrInBuffer
-            }
-        }
-        is(instrInBuffer){
-            when(~io.instructionWrite.cmd.full){
-                io.instructionWrite.cmd.en := true.B
-                progInstrState := instrNotReadyToStore
-            }
-        }
-    }
+    val uartRx = Module(new Rx(uartFrequency, uartBaudRate))
 
-    val instructionAddress = RegInit(0.U(32.W))
+    uartRx.io.rxd := io.rxd
 
-    val idle :: tx_Character :: issueReadCmd :: getData :: Nil = Enum(4)
-    val readBackState = RegInit(idle)
+    val recievedInstructionOut = Reg(UInt(32.W))
+    val recievedAddress = RegInit(0.U(32.W))
 
-    val tx = Module(new Tx(78125000, 115200))
+    val ramReady = WireInit(true.B)
 
-    io.txd := tx.io.txd
-    tx.io.channel.valid := false.B
+    //val o = Mux(uartRx.io, 1.U, 0.U)
 
-    io.instructionRead.cmd.en := false.B
-    io.instructionRead.rd.en := false.B
+    val CanStartWritingIntructionToRam = gettingInstruction(uartRx.io.channel, recievedInstructionOut, recievedAddress, ramReady)
 
-    when(io.startProgram && readBackState === idle){
-        readBackState := issueReadCmd
-    }
-
-    val regBitCountDown = RegInit(0.U(6.W))
-
-    val tx_word = Reg(UInt(32.W))
-
-    tx.io.channel.bits := Mux(tx_word(31).asBool, '1'.U, '0'.U)
-
-    io.instructionRead.cmd.addr := instructionAddress(29, 0)
-    io.instructionRead.cmd.bl := 0.U
-    io.instructionRead.cmd.instr := "b001".U
-
-    io.instructionWrite.rd.en := false.B
-
-    switch(readBackState){
-        is(issueReadCmd){
-            when(~io.instructionRead.cmd.full){
-                io.instructionRead.cmd.en := true.B
-                readBackState := issueReadCmd
-            }
-        }
-        is(getData){
-            when(~io.instructionRead.rd.empty){
-                io.instructionRead.rd.en := true.B
-                tx_word := io.instructionRead.rd.data
-                readBackState := tx_Character
-                regBitCountDown := 32.U
-            }
-        }
-        is(tx_Character){
-            when(tx.io.channel.ready && regBitCountDown =/= 0.U){
-                tx.io.channel.valid := true.B
-                regBitCountDown := regBitCountDown - 1.U
-                tx_word := Cat(tx_word(30, 0), 0.U(1.W))
-            }.elsewhen(regBitCountDown === 0.U && tx.io.channel.ready){
-                tx.io.channel.valid := true.B
-                tx.io.channel.bits := '\n'.U
-                instructionAddress := instructionAddress + 4.U
-                readBackState := issueReadCmd
-            }
-        }
-    }
 }
 
 object testBench_with_memory extends App{
