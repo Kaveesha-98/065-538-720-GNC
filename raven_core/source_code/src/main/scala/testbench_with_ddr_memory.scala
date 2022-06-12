@@ -134,7 +134,7 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
         //val dataWrite   = Flipped(new testBench_with_memory_memory_port(32, "write-only"))
         //val dataRead    = Flipped(new testBench_with_memory_memory_port(32, "read-only"))
         //val instructionRead = Flipped(new testBench_with_memory_memory_port())
-        //val instructionWrite = Flipped(new testBench_with_memory_memory_port())
+        val instructionWrite = Flipped(new testBench_with_memory_memory_port())
     })
 
     def gettingInstruction[T <: Data](uartChannel: UartIO, 
@@ -161,6 +161,40 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
     }
 
+    def wrtieToMemory(recievedAddress: chisel3.UInt, 
+    recievedInstructionOut: chisel3.UInt, 
+    instructionWritePort: testBench_with_memory_memory_port,
+    commenceWrite: chisel3.Bool): Unit = {
+        
+        val recievedAddressBuffer = Reg(UInt(32.W))
+        val recievedInstruntionBuffer = Reg(UInt(32.W)) 
+
+        val idle :: pushToWriteBuffer :: pushtoCmdBuffer :: Nil = Enum(3)
+
+        val stateReg = RegInit(idle)
+
+        instructionWritePort.wr.mask    := "b0000".U
+        instructionWritePort.wr.data    := recievedInstruntionBuffer
+        instructionWritePort.wr.en      := stateReg === pushToWriteBuffer
+
+        switch(stateReg){
+            is(idle){
+                when(commenceWrite){
+                    recievedAddressBuffer       := recievedAddress
+                    recievedInstruntionBuffer   := recievedInstructionOut
+
+                    stateReg := pushToWriteBuffer
+                }
+            }
+            is(pushToWriteBuffer){
+                when(~instructionWritePort.wr.full){
+                    
+                }
+            }
+        }
+
+    }
+
     /*===== Getting instruction from uart =====*/
 
     val uartRx = Module(new Rx(uartFrequency, uartBaudRate))
@@ -174,8 +208,11 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
     //val o = Mux(uartRx.io, 1.U, 0.U)
 
-    val CanStartWritingIntructionToRam = gettingInstruction(uartRx.io.channel, recievedInstructionOut, recievedAddress, ramReady)
+    val commenceWrite = gettingInstruction(uartRx.io.channel, recievedInstructionOut, recievedAddress, ramReady)
 
+    wrtieToMemory(recievedAddress, recievedInstructionOut, io.instructionWrite, commenceWrite)
+
+    val stateReg = Reg(UInt(32.W))
 }
 
 object testBench_with_memory extends App{
