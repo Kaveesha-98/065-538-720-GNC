@@ -124,17 +124,25 @@ class chiselTest_uart_tx() extends Module{
 
 }
 
-class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: Boolean) extends Module{
+class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: Boolean) extends Module {
 
     val testingPlatform: String = if (fpgaTesting) "fpga" else "chiselTest"
 
     val io = IO(new Bundle{
-        val rxd = Input(UInt(1.W))//programing hart on a fpga implementation
+        //val rxd = Input(UInt(1.W))//programing hart on a fpga implementation
+
+        val rxd = Flipped(new UartIO())
 
         //val dataWrite   = Flipped(new testBench_with_memory_memory_port(32, "write-only"))
         //val dataRead    = Flipped(new testBench_with_memory_memory_port(32, "read-only"))
         //val instructionRead = Flipped(new testBench_with_memory_memory_port())
-        val instructionWrite = Flipped(new testBench_with_memory_memory_port())
+        val instructionMemPort = Flipped(new testBench_with_memory_memory_port())
+
+        val txd = new UartIO()
+
+        val startRead = Input(Bool())
+
+        val writingToMemory = Input(Bool())
     })
 
     def gettingInstruction[T <: Data](uartChannel: UartIO, 
@@ -161,10 +169,11 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
     }
 
-    def wrtieToMemory(recievedAddress: chisel3.UInt, 
+    def instructionWrtieToMemory(recievedAddress: chisel3.UInt, 
     recievedInstructionOut: chisel3.UInt, 
     instructionWritePort: testBench_with_memory_memory_port,
-    commenceWrite: chisel3.Bool): Unit = {
+    commenceWrite: chisel3.Bool,
+    ramWrite: chisel3.Bool): Unit = {
         
         val recievedAddressBuffer = Reg(UInt(32.W))
         val recievedInstruntionBuffer = Reg(UInt(32.W)) 
@@ -177,6 +186,14 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
         instructionWritePort.wr.data    := recievedInstruntionBuffer
         instructionWritePort.wr.en      := stateReg === pushToWriteBuffer
 
+        instructionWritePort.cmd.instr  := "b000".U
+        instructionWritePort.cmd.bl     := "b000000".U
+        instructionWritePort.cmd.en     := stateReg === pushtoCmdBuffer
+
+        instructionWritePort.cmd.addr   := recievedAddress
+
+        ramReady := stateReg === idle
+
         switch(stateReg){
             is(idle){
                 when(commenceWrite){
@@ -188,7 +205,78 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
             }
             is(pushToWriteBuffer){
                 when(~instructionWritePort.wr.full){
-                    
+                    stateReg := pushtoCmdBuffer
+                }
+            }
+            is(pushtoCmdBuffer){
+                when(~instructionWritePort.cmd.full){
+                    stateReg := idle
+                }
+            }
+        }
+
+    }
+
+    def fullMemRead(recievedAddress: chisel3.UInt, instructionReadPort: testBench_with_memory_memory_port,
+    startRead: chisel3.Bool, uartTxIn: UartIO): Unit = {
+
+        val readAddress = RegInit(0.U(32.W))
+
+        val dataBuffer = Reg(UInt(32.W))
+
+        val idle :: issueRead :: getDataToUart :: readData :: finishRead :: Nil = Enum(5)
+
+        val stateReg = RegInit(idle)
+
+        val uartCount = RegInit(32.U(6.W))
+
+        uartTxIn.valid := uartCount =/= 33.U
+
+        instructionReadPort.rd.en      := stateReg === readData
+
+        instructionReadPort.cmd.instr  := "b001".U
+        instructionReadPort.cmd.bl     := "b000000".U
+        instructionReadPort.cmd.en     := stateReg === issueRead
+
+        instructionReadPort.cmd.addr := readAddress
+
+        uartTxIn.bits := '\n'.U
+
+        when(uartCount <= 32.U){
+            when(uartTxIn.ready){
+                uartTxIn.bits := Mux(dataBuffer(31).asBool, '1'.U, '0'.U)
+                uartCount := uartCount + 1.U
+                dataBuffer := Cat(dataBuffer(30, 0), dataBuffer(31))
+            }
+        }.elsewhen(uartCount === 32.U){
+            when(uartTxIn.ready){
+                uartCount := uartCount + 1.U
+            }
+        }
+
+        switch(stateReg){
+            is(idle){
+                when(startRead){
+                    stateReg := issueRead
+                }
+            }
+            is(issueRead){
+                when(~instructionReadPort.cmd.full){
+                    stateReg := readData
+                }
+            }
+            is(readData){
+                dataBuffer := instructionReadPort.rd.data
+                when(~instructionReadPort.rd.empty){
+                    stateReg := getDataToUart
+                    uartCount := 0.U
+                    readAddress := readAddress + 1.U 
+                }
+            }
+            is(getDataToUart){
+                when(uartCount === 33.U){
+                    stateReg := Mux(readAddress === recievedAddress, finishRead, issueRead)
+                    readAddress := readAddress + 1.U
                 }
             }
         }
@@ -197,20 +285,38 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
     /*===== Getting instruction from uart =====*/
 
-    val uartRx = Module(new Rx(uartFrequency, uartBaudRate))
+    /* val uartRx = Module(new Rx(uartFrequency, uartBaudRate))
 
-    uartRx.io.rxd := io.rxd
+    uartRx.io.rxd := io.rxd */
 
-    val recievedInstructionOut = Reg(UInt(32.W))
-    val recievedAddress = RegInit(0.U(32.W))
+    val recievedInstructionOut = Reg(UInt(32.W))// buffers the instruction from uart to write to memory
+    val recievedAddress = RegInit(0.U(32.W))// gives the target address of the instruction
 
-    val ramReady = WireInit(true.B)
+    val ramReady = WireInit(true.B)// to indicate whether writing to Memory can occur
 
     //val o = Mux(uartRx.io, 1.U, 0.U)
 
-    val commenceWrite = gettingInstruction(uartRx.io.channel, recievedInstructionOut, recievedAddress, ramReady)
+    //notifies when a instruction has been recieved
+    val commenceWrite = gettingInstruction(io.rxd, recievedInstructionOut, recievedAddress, ramReady)
 
-    wrtieToMemory(recievedAddress, recievedInstructionOut, io.instructionWrite, commenceWrite)
+    
+
+    //val instructionBitOut = Wire(Flipped(new UartIO()))
+
+    io.txd.bits := 0.U
+    io.txd.valid := false.B
+    io.instructionMemPort.wr.mask   := "b0000".U 
+    io.instructionMemPort.wr.data   := recievedInstructionOut
+    io.instructionMemPort.wr.en     := false.B 
+
+    io.instructionMemPort.rd.en     := false.B
+
+    when(io.writingToMemory){
+        // commenses write when a instruction has been recieved and assembled on uart
+        instructionWrtieToMemory(recievedAddress, recievedInstructionOut, io.instructionMemPort, commenceWrite, ramReady)
+    }otherwise{
+        fullMemRead(recievedAddress, io.instructionMemPort, io.startRead, io.txd)
+    }
 
     val stateReg = Reg(UInt(32.W))
 }
