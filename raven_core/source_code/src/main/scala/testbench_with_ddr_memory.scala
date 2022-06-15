@@ -153,7 +153,7 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
         val bitCount = RegInit(0.U(6.W))
         val recievingIncomplete = bitCount =/= 32.U
         
-        uartChannel.ready := ~recievingIncomplete
+        uartChannel.ready := recievingIncomplete
 
         when(recievingIncomplete && uartChannel.valid){
             bitCount := bitCount + 1.U
@@ -190,7 +190,7 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
         instructionWritePort.cmd.bl     := "b000000".U
         instructionWritePort.cmd.en     := stateReg === pushtoCmdBuffer
 
-        instructionWritePort.cmd.addr   := recievedAddress
+        instructionWritePort.cmd.addr   := recievedAddressBuffer
 
         ramReady := stateReg === idle
 
