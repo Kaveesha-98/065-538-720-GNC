@@ -4,8 +4,11 @@ import org.scalatest._
 
 import scala.io.Source 
 
-class testing_testBench_with_memory(dut: testBench_with_memory) extends PeekPokeTester(dut){
+import scala.math.pow
+
+class testing_testBench_with_memory(dut: chiseltestBench_with_ddr_memory) extends PeekPokeTester(dut){
     //poke(dut.reset, true.B)
+
     reset()
     
     step(1)
@@ -16,6 +19,7 @@ class testing_testBench_with_memory(dut: testBench_with_memory) extends PeekPoke
     val fname = "test_instructions.txt"
     val fSource = Source.fromFile(fname) 
     var textInstruction: String = "12"
+
     for(line<-fSource.getLines)
     { 
         poke(dut.io.rxd.valid, true.B)
@@ -31,17 +35,34 @@ class testing_testBench_with_memory(dut: testBench_with_memory) extends PeekPoke
 
             poke(dut.io.rxd.valid, true.B)
             step(1)
+            
             while(peek(dut.io.rxd.ready).toString == "0"){
                 step(1)
+                
             }
             
         }
+        
         /* instructionMemory(i) := ("b" + line).U 
         i += 1 */
     } 
     fSource.close()
     poke(dut.io.rxd.valid, false.B)
     step(1)
+
+    poke(dut.io.writingToMemory, false.B)
+    poke(dut.io.startRead, true.B)
+
+    step(1)
+
+    poke(dut.io.txd.ready, true.B)
+
+    for(i <- 0 to 600){
+        if(peek(dut.io.txd.valid) == 1){
+            print(peek(dut.io.txd.bits).toChar)
+        }
+        step(1)
+    }
 } 
 
 object testing_testBench_with_memory extends App {
@@ -53,7 +74,7 @@ object testing_testBench_with_memory extends App {
     val uartOut: Boolean = false
 
   iotesters.Driver.execute(Array("--target-dir", "generated", "--generate-vcd-output", "on"),
-   () => new testBench_with_memory(uartFrequency, uartBaudRate, fpgaTesting)) {
+   () => new chiseltestBench_with_ddr_memory) {
     c => new testing_testBench_with_memory(c)
   }
 }
