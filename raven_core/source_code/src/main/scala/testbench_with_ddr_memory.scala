@@ -228,7 +228,7 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
         val stateReg = RegInit(idle)
 
-        val uartCount = RegInit(32.U(6.W))
+        val uartCount = RegInit(33.U(6.W))
 
         uartTxIn.valid := uartCount =/= 33.U
 
@@ -242,13 +242,14 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
         uartTxIn.bits := '\n'.U
 
-        when(uartCount <= 32.U){
+        when(uartCount < 32.U){
             when(uartTxIn.ready){
                 uartTxIn.bits := Mux(dataBuffer(31).asBool, '1'.U, '0'.U)
                 uartCount := uartCount + 1.U
                 dataBuffer := Cat(dataBuffer(30, 0), dataBuffer(31))
             }
         }.elsewhen(uartCount === 32.U){
+            uartTxIn.bits := '\n'.U
             when(uartTxIn.ready){
                 uartCount := uartCount + 1.U
             }
@@ -270,13 +271,12 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
                 when(~instructionReadPort.rd.empty){
                     stateReg := getDataToUart
                     uartCount := 0.U
-                    readAddress := readAddress + 1.U 
                 }
             }
             is(getDataToUart){
                 when(uartCount === 33.U){
                     stateReg := Mux(readAddress === recievedAddress, finishRead, issueRead)
-                    readAddress := readAddress + 1.U
+                    readAddress := readAddress + 4.U
                 }
             }
         }
@@ -321,6 +321,77 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
     val stateReg = Reg(UInt(32.W))
 }
 
+class chiseltestBench_with_ddr_memory extends Module{
+    val io = IO(new Bundle{
+        val rxd = Flipped(new UartIO())
+        val txd = new UartIO()
+
+        val writingToMemory = Input(Bool())
+
+        val startRead = Input(Bool())
+    })
+
+    def getDataAfterMask(data: chisel3.UInt, orginalData: chisel3.UInt, mask: chisel3.UInt): chisel3.UInt = {
+
+        val bytesAfterMask = Wire(Vec(4, UInt(8.W)))
+        for(i <- 0 to 3){
+            bytesAfterMask(i) := Mux(mask(i).asBool, orginalData(8*(i+1) - 1, 8*i), data(8*(i+1) - 1, 8*i))
+        }
+        Cat(bytesAfterMask.reverse)
+
+    }
+
+    val mem = SyncReadMem (4096 , UInt(32.W))
+
+    val testBenchWithMemory = Module(new testBench_with_memory(78125000, 115200, false))
+
+    testBenchWithMemory.io.rxd <> io.rxd
+    testBenchWithMemory.io.txd <> io.txd
+
+    testBenchWithMemory.io.writingToMemory := io.writingToMemory
+
+    testBenchWithMemory.io.startRead := io.startRead
+
+    val dataBufferFull = RegInit(false.B)
+
+    val data = Reg(UInt(32.W))
+    val mask = Reg(UInt(4.W))
+
+    when(testBenchWithMemory.io.instructionMemPort.wr.en){
+        dataBufferFull := true.B 
+        data := testBenchWithMemory.io.instructionMemPort.wr.data
+        mask := testBenchWithMemory.io.instructionMemPort.wr.mask
+    }
+
+    val cmdAddress = testBenchWithMemory.io.instructionMemPort.cmd.addr
+
+    val writeData = getDataAfterMask(data, mem(cmdAddress >> 2.U), mask)
+
+    when(testBenchWithMemory.io.instructionMemPort.cmd.en && testBenchWithMemory.io.instructionMemPort.cmd.instr === "b000".U){
+        dataBufferFull := false.B 
+        mem.write(testBenchWithMemory.io.instructionMemPort.cmd.addr >> 2, writeData)
+    }
+
+    testBenchWithMemory.io.instructionMemPort.rd.data := mem(testBenchWithMemory.io.instructionMemPort.cmd.addr >> 2.U)
+
+    testBenchWithMemory.io.instructionMemPort.cmd.empty := false.B
+    testBenchWithMemory.io.instructionMemPort.cmd.error := false.B
+    testBenchWithMemory.io.instructionMemPort.cmd.full  := false.B 
+
+    testBenchWithMemory.io.instructionMemPort.wr.count  := 0.U 
+    testBenchWithMemory.io.instructionMemPort.wr.empty  := false.B
+    testBenchWithMemory.io.instructionMemPort.wr.error  := false.B 
+    testBenchWithMemory.io.instructionMemPort.wr.full   := false.B 
+    testBenchWithMemory.io.instructionMemPort.wr.underrun := false.B 
+
+    testBenchWithMemory.io.instructionMemPort.rd.full     := false.B
+    testBenchWithMemory.io.instructionMemPort.rd.empty    := false.B
+    testBenchWithMemory.io.instructionMemPort.rd.count    := 0.U 
+    testBenchWithMemory.io.instructionMemPort.rd.overflow := false.B 
+    testBenchWithMemory.io.instructionMemPort.rd.error    := false.B
+
+}
+
 object testBench_with_memory extends App{
 
     val uartFrequency: Int = 78125000
@@ -331,4 +402,15 @@ object testBench_with_memory extends App{
 
     (new chisel3.stage.ChiselStage).emitVerilog(new testBench_with_memory(uartFrequency, 
     uartBaudRate, fpgaTesting))
+}
+
+object chiseltestBench_with_ddr_memory extends App{
+
+    val uartFrequency: Int = 78125000
+    val uartBaudRate: Int = 115200
+    val instructionCount: Int = 16
+    val fpgaTesting: Boolean = false
+    val uartOut: Boolean = true
+
+    (new chisel3.stage.ChiselStage).emitVerilog(new chiseltestBench_with_ddr_memory)
 }
