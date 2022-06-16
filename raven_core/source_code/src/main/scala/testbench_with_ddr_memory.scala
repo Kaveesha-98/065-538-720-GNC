@@ -131,14 +131,14 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
     val io = IO(new Bundle{
         //val rxd = Input(UInt(1.W))//programing hart on a fpga implementation
 
-        val rxd = Flipped(new UartIO())
+        val rxd = if (testingPlatform == "chiselTest") Flipped(new UartIO()) else Input(UInt(1.W))
 
         //val dataWrite   = Flipped(new testBench_with_memory_memory_port(32, "write-only"))
         //val dataRead    = Flipped(new testBench_with_memory_memory_port(32, "read-only"))
         //val instructionRead = Flipped(new testBench_with_memory_memory_port())
         val instructionMemPort = Flipped(new testBench_with_memory_memory_port())
 
-        val txd = new UartIO()
+        val txd = if (testingPlatform == "chiselTest") (new UartIO()) else Input(UInt(1.W))
 
         val startRead = Input(Bool())
 
