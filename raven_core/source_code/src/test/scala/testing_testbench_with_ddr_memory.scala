@@ -57,7 +57,7 @@ class testing_testBench_with_memory(dut: chiseltestBench_with_ddr_memory) extend
 
     poke(dut.io.txd.ready, true.B)
 
-    for(i <- 0 to 600){
+    for(i <- 0 to 574){
         if(peek(dut.io.txd.valid) == 1){
             print(peek(dut.io.txd.bits).toChar)
         }
@@ -73,7 +73,7 @@ object testing_testBench_with_memory extends App {
     val fpgaTesting: Boolean = false
     val uartOut: Boolean = false
 
-  iotesters.Driver.execute(Array("--target-dir", "generated", "--generate-vcd-output", "on"),
+  iotesters.Driver.execute(Array("--target-dir", "generated", "--generate-vcd-output", "off"),
    () => new chiseltestBench_with_ddr_memory) {
     c => new testing_testBench_with_memory(c)
   }
