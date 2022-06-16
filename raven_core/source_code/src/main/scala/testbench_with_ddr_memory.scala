@@ -230,7 +230,7 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
         val uartCount = RegInit(33.U(6.W))
 
-        uartTxIn.valid := uartCount =/= 33.U
+        uartTxIn.valid := (uartCount =/= 33.U) & (stateReg =/= finishRead)
 
         instructionReadPort.rd.en      := stateReg === readData
 
