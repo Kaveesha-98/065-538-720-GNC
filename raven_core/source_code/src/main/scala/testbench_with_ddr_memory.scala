@@ -131,14 +131,18 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
     val io = IO(new Bundle{
         //val rxd = Input(UInt(1.W))//programing hart on a fpga implementation
 
-        val rxd = if (testingPlatform == "chiselTest") Flipped(new UartIO()) else Input(UInt(1.W))
+        val rxd = Input(UInt(1.W))
+
+        val chiselRxd = Flipped(new UartIO())
 
         //val dataWrite   = Flipped(new testBench_with_memory_memory_port(32, "write-only"))
         //val dataRead    = Flipped(new testBench_with_memory_memory_port(32, "read-only"))
         //val instructionRead = Flipped(new testBench_with_memory_memory_port())
         val instructionMemPort = Flipped(new testBench_with_memory_memory_port())
 
-        val txd = if (testingPlatform == "chiselTest") (new UartIO()) else Input(UInt(1.W))
+        val txd = Output(UInt(1.W))
+
+        val chiselTxd = new UartIO()
 
         val startRead = Input(Bool())
 
@@ -296,15 +300,30 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
     //val o = Mux(uartRx.io, 1.U, 0.U)
 
+    val commenceWrite = WireInit(false.B)
+
+    if(!fpgaTesting){
+
+        commenceWrite := gettingInstruction(io.chiselRxd, recievedInstructionOut, recievedAddress, ramReady)
+
+    } else {
+
+        val uartRx = Module(new Rx(uartFrequency, uartBaudRate))
+        uartRx.io.rxd := io.rxd
+        commenceWrite := gettingInstruction(uartRx.io.channel, recievedInstructionOut, recievedAddress, ramReady)
+        io.chiselRxd.ready := 0.U
+
+    }
+
     //notifies when a instruction has been recieved
-    val commenceWrite = gettingInstruction(io.rxd, recievedInstructionOut, recievedAddress, ramReady)
+    //val commenceWrite = gettingInstruction(io.rxd, recievedInstructionOut, recievedAddress, ramReady)
 
     
 
     //val instructionBitOut = Wire(Flipped(new UartIO()))
 
-    io.txd.bits := 0.U
-    io.txd.valid := false.B
+    io.chiselTxd.bits := 0.U
+    io.chiselTxd.valid := false.B
     io.instructionMemPort.wr.mask   := "b0000".U 
     io.instructionMemPort.wr.data   := recievedInstructionOut
     io.instructionMemPort.wr.en     := false.B 
@@ -314,8 +333,19 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
     when(io.writingToMemory){
         // commenses write when a instruction has been recieved and assembled on uart
         instructionWrtieToMemory(recievedAddress, recievedInstructionOut, io.instructionMemPort, commenceWrite, ramReady)
+        io.txd := 1.U
+
     }otherwise{
-        fullMemRead(recievedAddress, io.instructionMemPort, io.startRead, io.txd)
+
+        if(!fpgaTesting){
+            fullMemRead(recievedAddress, io.instructionMemPort, io.startRead, io.chiselTxd)
+            io.txd := 0.U
+        } else {
+            val uartTx = Module(new Tx(uartFrequency, uartBaudRate))
+            io.txd := uartTx.io.txd
+            fullMemRead(recievedAddress, io.instructionMemPort, io.startRead, uartTx.io.channel)
+        }
+
     }
 
     val stateReg = Reg(UInt(32.W))
@@ -345,8 +375,10 @@ class chiseltestBench_with_ddr_memory extends Module{
 
     val testBenchWithMemory = Module(new testBench_with_memory(78125000, 115200, false))
 
-    testBenchWithMemory.io.rxd <> io.rxd
-    testBenchWithMemory.io.txd <> io.txd
+    testBenchWithMemory.io.chiselRxd <> io.rxd
+    testBenchWithMemory.io.chiselTxd <> io.txd
+
+    testBenchWithMemory.io.rxd := 0.U
 
     testBenchWithMemory.io.writingToMemory := io.writingToMemory
 
@@ -397,7 +429,7 @@ object testBench_with_memory extends App{
     val uartFrequency: Int = 78125000
     val uartBaudRate: Int = 115200
     val instructionCount: Int = 16
-    val fpgaTesting: Boolean = false
+    val fpgaTesting: Boolean = true
     val uartOut: Boolean = true
 
     (new chisel3.stage.ChiselStage).emitVerilog(new testBench_with_memory(uartFrequency, 
