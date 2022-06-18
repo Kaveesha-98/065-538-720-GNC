@@ -8,336 +8,274 @@ import chisel3.Driver
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-class write_translation_address_channel(addressWidth: Int, sizeWidth: Int) extends Bundle{
-    //input to write translation module
-
-    val address = Input(UInt(addressWidth.W))
-    val size    = Input(UInt(sizeWidth.W))//
-
-    //handshake signals
-    val valid   = Input(Bool())
-    val ready   = Output(Bool())
-
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-class write_translation_data_channel(dataWidth: Int) extends Bundle{
-    //input to write translation module
-
-    val hart_data_out = Input(UInt(dataWidth.W))
-
-    //handshake signals
-    val valid = Input(Bool())
-    val ready = Output(Bool())
-
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-class write_translation_write_instruction(addressWidth:Int, sizeWidth: Int, dataWidth:Int) extends Bundle{
-    //Stores data needed to carry memory write access
-    //Used to create buffers for memory access issue
-    //Used to forward write issues to memory or io
-
-    val address = UInt(addressWidth.W)
-    val size    = UInt(sizeWidth.W)
-    val hart_data_out = UInt(dataWidth.W)
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-class write_translation_intra_handshake() extends Bundle{
-    val valid = Input(Bool())
-    val ready = Output(Bool())
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-class write_translation_mem_write_interface_data(dataWidth: Int) extends Bundle{
+class write_translation_write_forward_channel extends Bundle{
     //address width must be divisible by 8 for correct mask length
-    assert (dataWidth % 8 == 0)
 
-    val data = UInt(dataWidth.W)
-    val mask = UInt((dataWidth/8).W)
-    val en = Bool()
+    val address = UInt(32.W)
+    val data    = UInt(32.W)
+    val size    = UInt(2.W)
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+class xilinx6_mig_write_access_signals extends Bundle{
+    
+    val count       = Output(UInt(7.W))
+    val data        = Input(UInt(32.W))
+    val empty       = Output(Bool())
+    val en          = Input(Bool())
+    val error       = Output(Bool())
+    val full        = Output(Bool())
+    val mask        = Input(UInt(4.W))
+    val underrun    = Output(Bool())
 
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-class xilinx6_mig_write_data_access_signals(dataWidth: Int) extends Bundle{
-    //address width must be divisible by 8 for correct mask length
-    assert (dataWidth % 8 == 0)
+class xilinx6_mig_read_access_signals extends Bundle{
 
-    val data = UInt(dataWidth.W)
-    val mask = UInt((dataWidth/8).W)
-
-}
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-class xilinx6_mig_write_data_port_with_handshake(dataWidth:Int) extends Bundle{
-
-    val access_signals = Input(new xilinx6_mig_write_data_access_signals(dataWidth))
-
-    val en = Input(Bool())
-    val full = Output(Bool())
+    val en          = Input(Bool())
+    val data        = Output(UInt(32.W))
+    val full        = Output(Bool())
+    val empty       = Output(Bool())
+    val count       = Output(UInt(7.W))
+    val overflow    = Output(Bool())
+    val error       = Output(Bool())
 
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-class xilinx6_mig_command_access_signals() extends Bundle{
+class xilinx6_mig_command_access_signals extends Bundle{
 
-    val addr = UInt(30.W)
-    val instr = UInt(3.W)
-    val bl = UInt(6.W)
+    val addr    = Input(UInt(30.W))
+    val bl      = Input(UInt(6.W))
+    val empty   = Output(Bool())
+    val en      = Input(Bool())
+    val error   = Output(Bool())
+    val full    = Output(Bool())
+    val instr   = Input(UInt(3.W))
 
 }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-class xilinx6_mig_command_data_port_hart_signals() extends Bundle{
+class xilinx6_mig_write_only_port extends Bundle{
 
-    val access_signals = Input(new xilinx6_mig_command_access_signals())
+    val cmd = new xilinx6_mig_command_access_signals()
+    val wr  = new xilinx6_mig_write_access_signals()
 
-    val en = Input(Bool())
-    val full = Output(Bool())
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+class RVL extends Bundle{
+
+    val ready = Output(Bool())
+    val valid = Input(Bool())
+
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - Bundle - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+class write_beat extends Bundle{
+
+    val data = UInt(32.W)
+    val mask = UInt(4.W)
 
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * Module * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-class write_translation_write_buffer(addressWidth:Int, sizeWidth: Int, dataWidth: Int) extends Module{
+class write_translation_write_buffer extends Module{
     //stores the write issue from hart, then forwards it to memory or io
     val io = IO(new Bundle{
-        val writeAddressChannel = new write_translation_address_channel(addressWidth, sizeWidth)
-        val writeDataChannel    = new write_translation_data_channel(dataWidth)
-        val writeInstructionForward = Output(new write_translation_write_instruction(addressWidth, sizeWidth, dataWidth))
+        val writeForwardChannel = Output(new write_translation_write_forward_channel())
 
-        val translatingAddress = Output(UInt(32.W))
+        val forwardModuleStatus    = Vec(2, Flipped(new RVL()))
 
-        val mainControlHandShake = Flipped(new write_translation_intra_handshake())
+        //write_address channel signals
+        val write_address_valid = Input(UInt(1.W))
+        val write_address_ready = Output(UInt(1.W))
+        val write_address_size = Input(UInt(2.W))
+        val write_address = Input(UInt(32.W))
+        
+        //write_data channel signals
+        val write_data_valid = Input(UInt(1.W))
+        val write_data_ready = Output(UInt(1.W))
+        val store_data = Input(UInt(32.W))
+        
     })
 
-    val writeIssueBuffer = Reg(new write_translation_write_instruction(addressWidth, sizeWidth, dataWidth))
+    def setProperForwardValid(forwardModuleStatus: chisel3.Vec[RVL], address: chisel3.UInt, forwarding: chisel3.Bool): chisel3.Bool = {
+
+        val forwarded = WireInit(false.B)
+
+        forwardModuleStatus(0).valid := false.B 
+        forwardModuleStatus(1).valid := false.B 
+
+        val isIO = address(31, 30) === "b00".U
+        val isMem = address(31, 30) === "b11".U
+
+        when(forwarding){
+            forwardModuleStatus(0).valid := Mux(isMem, true.B, false.B)//mem access
+            forwardModuleStatus(1).valid := Mux(isIO, false.B, true.B)//io access
+
+            forwarded := (forwardModuleStatus(0).ready && isMem) || (forwardModuleStatus(1).ready && isIO)
+        }
+
+        forwarded
+
+    }
+
+    val writeForwardBuffer = Reg(new write_translation_write_forward_channel())
 
     //states of the buffer
-    val waitingData :: waitingInstruction :: bufferFull :: Nil = Enum(3)
+    val waitingData :: waitingAddress :: forwarding :: Nil = Enum(3)
     val bufferState = RegInit(waitingData)
 
-    io.writeAddressChannel.ready := bufferState === waitingInstruction
-    io.writeDataChannel.ready := bufferState === waitingData
+    io.write_address_ready  := bufferState === waitingAddress
+    io.write_data_ready     := bufferState === waitingData
 
-    io.mainControlHandShake.valid := bufferState === bufferFull
+    io.writeForwardChannel <> writeForwardBuffer
+
+    val forwarded = setProperForwardValid(io.forwardModuleStatus, writeForwardBuffer.address, bufferState === forwarding)
 
     switch(bufferState){
         is(waitingData){
-            writeIssueBuffer.hart_data_out := io.writeDataChannel.hart_data_out
+            writeForwardBuffer.data := io.store_data
 
-            when(io.writeDataChannel.valid){
-                bufferState := waitingInstruction
+            when(io.write_data_valid.asBool){
+                bufferState := waitingAddress
             }
         }
-        is(waitingInstruction){
-            writeIssueBuffer.address := io.writeAddressChannel.address
-            writeIssueBuffer.size := io.writeAddressChannel.size
+        is(waitingAddress){
+            writeForwardBuffer.address := io.write_address
+            writeForwardBuffer.size := io.write_address_size
 
-            when(io.writeAddressChannel.valid){
-                bufferState := bufferFull
+            when(io.write_address_valid.asBool){
+                bufferState := forwarding
             }
         }
-        is(bufferFull){
+        is(forwarding){
             //wait for issue to be translated
-            when(io.mainControlHandShake.ready){
+            when(forwarded){
                 bufferState := waitingData
             }
         }
     }
 
-
-    io.translatingAddress := writeIssueBuffer.address
-
-    io.writeInstructionForward := writeIssueBuffer
-
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * Module * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-class write_translation_mem_access(addressWidth: Int, sizeWidth: Int, dataWidth: Int) extends Module{
+class write_translation_mem_access extends Module{
     //performs mem write access
     val io = IO(new Bundle{
-        val writeInstructionIn = Input(new write_translation_write_instruction(addressWidth, sizeWidth, dataWidth))
+        val forwardedWrite = Input(new write_translation_write_forward_channel())
         
-        val mainControlHandShake = new write_translation_intra_handshake()
+        val moduleStatus = new RVL()
 
-        val memWriteInterfaceData = Flipped(new xilinx6_mig_write_data_port_with_handshake(dataWidth))
-
-        val memWriteInterfaceCmd = Flipped(new xilinx6_mig_command_data_port_hart_signals())
+        val writePort = Flipped(new xilinx6_mig_write_only_port())
     })
 
-    def isRequiringTwoBursts(writeInput: write_translation_write_instruction): chisel3.Bool = {
+    def getBeats(forwardedWrite: write_translation_write_forward_channel): chisel3.Vec[write_beat]= {
 
-        val ret = WireInit(false.B)
-        switch(writeInput.size(1, 0)){
-            is("b01".U){
-                ret := writeInput.address(1, 0) === "b11".U
-            }
-            is("b10".U){
-                ret := writeInput.address(1, 0) =/= "b00".U
-            }
-        }
-        ret
+        val beats = Wire(Vec(2, new write_beat()))
+        
+        val maskMap = Map(0 -> 1, 1 -> 3, 2 -> 15)
+        
+        val masks = VecInit.tabulate(3)(i => maskMap(i).U(4.W))
 
-    }
+        val mask = masks(forwardedWrite.size)
 
-    def decodeDataIssue[T <: Data](writeInput: write_translation_write_instruction): chisel3.Vec[xilinx6_mig_write_data_access_signals] = {
+        val alignedData = VecInit.tabulate(4)(i => Cat(Fill(8*(4 - i), "b0".U), forwardedWrite.data, Fill(8*i + 1, "b0".U)))
 
-        val ret = Wire(Vec(2, new xilinx6_mig_write_data_access_signals(dataWidth)))
+        val alignedMask = VecInit.tabulate(4)(i => Cat(Fill((4 - i), "b1".U), mask, Fill(i + 1, "b1".U)))
 
-        ret(0).data := writeInput.hart_data_out
-        ret(1).data := 0.U
+        val shift = forwardedWrite.address(1, 0)
 
-        ret(0).mask := "b0001".U
-        ret(1).mask := "b0000".U
+        beats(0).data := alignedData(shift)(32, 1)
+        beats(1).data := alignedData(shift)(64, 33)
 
-        switch(writeInput.size){
-            is("b01".U){
-                ret(0).mask := "b0011".U
-                ret(1).mask := "b0000".U
-            }
-            is("b10".U){
-                ret(0).mask := "b1111".U
-                ret(1).mask := "b0000".U
-            }
-        }
+        beats(0).mask := alignedMask(shift)(4, 1)
+        beats(1).mask := alignedMask(shift)(8, 5)
 
-        switch(writeInput.address(1, 0)){
-            is("b01".U){
-                ret(0).data := Cat(writeInput.hart_data_out(23, 0), "h00".U)
-                ret(0).data := Cat("h000000".U, writeInput.hart_data_out(31, 24))
-
-                ret(0).mask := "b0010".U
-                ret(1).mask := "b0000".U
-
-                switch(writeInput.size){
-                    is("b01".U){
-                        ret(0).mask := "b0110".U
-                        ret(1).mask := "b0000".U
-                    }
-                    is("b10".U){
-                        ret(0).mask := "b1110".U
-                        ret(1).mask := "b0001".U
-                    }
-                }
-
-            }
-            is("b10".U){
-                ret(0).data := Cat(writeInput.hart_data_out(15, 0), "h0000".U)
-                ret(0).data := Cat("h0000".U, writeInput.hart_data_out(31, 16))
-
-                ret(0).mask := "b0100".U
-                ret(1).mask := "b0000".U
-
-                switch(writeInput.size){
-                    is("b01".U){
-                        ret(0).mask := "b1100".U
-                        ret(1).mask := "b0000".U
-                    }
-                    is("b10".U){
-                        ret(0).mask := "b1100".U
-                        ret(1).mask := "b0011".U
-                    }
-                }
-
-            }
-            is("b11".U){
-                ret(0).data := Cat(writeInput.hart_data_out(7, 0), "h000000".U)
-                ret(0).data := Cat("h00".U, writeInput.hart_data_out(31, 8))
-
-                ret(0).mask := "b1000".U
-                ret(1).mask := "b0000".U
-
-                switch(writeInput.size){
-                    is("b01".U){
-                        ret(0).mask := "b1000".U
-                        ret(1).mask := "b0001".U
-                    }
-                    is("b10".U){
-                        ret(0).mask := "b1000".U
-                        ret(1).mask := "b0111".U
-                    }
-                }
-
-            }
-        }
-        ret
+        beats
 
     }
 
-    def decodeCmdIssue[T <: Data](writeInput: write_translation_write_instruction): xilinx6_mig_command_access_signals = {
+    def getBurstLength(forwardedWrite: write_translation_write_forward_channel): chisel3.UInt = {
 
-        val ret = Wire(new xilinx6_mig_command_access_signals())
-        ret.addr := Cat(writeInput.address(29, 2), "b00".U)
-        ret.bl := Mux(isRequiringTwoBursts(writeInput), "b000001".U, "b000000".U)
-        ret.instr := "b000".U
-        ret
+        val need2Beats = WireInit(false.B)
+
+        val shift = forwardedWrite.address(1, 0)
+
+        switch(forwardedWrite.size){
+            is("b01".U) { need2Beats := shift === "b11".U}
+            is("b10".U) { need2Beats := shift =/= "b00".U}
+        }
+
+        need2Beats.asUInt
 
     }
 
-    val dataPortAccessSignalsBuffer = Reg(Vec(2, new xilinx6_mig_write_data_access_signals(dataWidth)))
-    val commandPortAccessSignalBuffer = Reg(new xilinx6_mig_command_access_signals())
+    val forwardedWriteBuffer = Reg(new write_translation_write_forward_channel())
 
-    //states of the module
-    val idle :: issuingDataBurst1 :: issuingDataBurst2 :: issuingCommand :: Nil = Enum(4)
-    val stateReg = RegInit(idle)
+    val ready :: translate :: writeBufferPush :: cmdBufferPush :: Nil = Enum(4)
+    val stateReg = RegInit(ready)
 
-    io.mainControlHandShake.ready := stateReg === idle
-    io.memWriteInterfaceData.en := stateReg === issuingDataBurst1 || stateReg === issuingDataBurst2
-    io.memWriteInterfaceCmd.en := stateReg === issuingCommand
+    io.moduleStatus.ready := stateReg === ready
 
-    io.memWriteInterfaceData.access_signals := dataPortAccessSignalsBuffer(0)
-    io.memWriteInterfaceCmd.access_signals := commandPortAccessSignalBuffer
+    val presentedBeat = Reg(new write_beat())
 
-    val accessMisaligned = RegInit(false.B)
+    val beats = getBeats(forwardedWriteBuffer)
+    val need2Beats = Reg(Bool())
+    
+    val bursts = getBurstLength(forwardedWriteBuffer)
+
+    io.writePort.cmd.instr  := "b000".U 
+    io.writePort.cmd.addr   := Cat(forwardedWriteBuffer.address(29, 2), "b00".U) //natural alignment
+    io.writePort.cmd.bl     := bursts
+
+    io.writePort.wr.data := presentedBeat.data
+    io.writePort.wr.mask := presentedBeat.mask
+
+    io.writePort.cmd.en := stateReg === cmdBufferPush
+    io.writePort.wr.en  := stateReg === writeBufferPush
 
     switch(stateReg){
-        is(idle){
-            dataPortAccessSignalsBuffer := decodeDataIssue(io.writeInstructionIn)
-            commandPortAccessSignalBuffer := decodeCmdIssue(io.writeInstructionIn)
-            
-            when(io.mainControlHandShake.valid){
-                //only supported for 32bit ports
-                stateReg := issuingDataBurst1               
+        is(ready){
+            forwardedWriteBuffer := io.forwardedWrite
+            when(io.moduleStatus.valid){
+                stateReg := translate
             }
         }
-        is(issuingDataBurst1){
-            
-            when(~io.memWriteInterfaceData.full){
-                dataPortAccessSignalsBuffer(0) := dataPortAccessSignalsBuffer(1)
-                when(commandPortAccessSignalBuffer.bl === "b000001".U){
-                    stateReg := issuingDataBurst2
+        is(translate){
+            need2Beats := bursts === 1.U
+            presentedBeat := beats(0)
+            stateReg := writeBufferPush
+        }
+        is(writeBufferPush){
+            when(!io.writePort.wr.full){
+                presentedBeat := beats(1)
+                when(!need2Beats){
+                    stateReg := cmdBufferPush
                 }.otherwise{
-                    stateReg := issuingCommand
+                    need2Beats := false.B
                 }
             }
         }
-        is(issuingDataBurst2){
-
-            when(~io.memWriteInterfaceData.full){
-                stateReg := issuingCommand
-            }
-
-        }
-        is(issuingCommand){
-            when(~io.memWriteInterfaceCmd.full){
-                stateReg := idle
+        is(cmdBufferPush){
+            when(!io.writePort.cmd.full){
+                stateReg := ready
             }
         }
     }
-}
 
+}
+/* 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * Module * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 class write_translation_write_assign(addressWidth: Int) extends Module{
@@ -391,7 +329,7 @@ class write_translation_uart_Tx(addressWidth: Int, sizeWidth: Int, dataWidth: In
         val instructionInput = Input(new write_translation_write_instruction(addressWidth, sizeWidth, dataWidth))
         val mainControlHandShake = new write_translation_intra_handshake()
 
-        val txd = Output(UInt(1.W))
+        val txChannel = new UartIO()
     })
     //supported only for 32-bit data input port
     def decodeByteCount(sizeSignal: chisel3.UInt): chisel3.UInt = {
@@ -413,14 +351,14 @@ class write_translation_uart_Tx(addressWidth: Int, sizeWidth: Int, dataWidth: In
     val dataBuffer = Reg(UInt(dataWidth.W))
     val byteCount = RegInit(0.U(4.W))
 
-    val tx = Module(new Tx(frequency, baudRate))
+    //val tx = Module(new Tx(frequency, baudRate))
 
-    tx.io.channel.bits := dataBuffer(7, 0)
-    tx.io.channel.valid := byteCount =/= 0.U
+    io.txChannel.bits := dataBuffer(7, 0)
+    io.txChannel.valid := byteCount =/= 0.U
 
     io.mainControlHandShake.ready := byteCount === 0.U
 
-    when(tx.io.channel.ready && byteCount =/= 0.U) {
+    when(io.txChannel.ready && byteCount =/= 0.U) {
         byteCount := byteCount - 1.U
         dataBuffer := Cat(dataBuffer(7, 0), dataBuffer(31, 8))
     }.elsewhen(byteCount === 0.U && io.mainControlHandShake.valid){
@@ -437,11 +375,11 @@ class write_translation(addressWidth: Int, sizeWidth: Int, dataWidth: Int, frequ
         val writeDataChannel    = new write_translation_data_channel(dataWidth)
 
 
-        val memWriteInterfaceData = Flipped(new xilinx6_mig_write_data_port_with_handshake(dataWidth))
+        val memWriteInterfaceData = Flipped(new xilinx6_mig_write_data_port_with_handshake(32))
 
         val memWriteInterfaceCmd = Flipped(new xilinx6_mig_command_data_port_hart_signals())
 
-        val txd = Output(UInt(1.W))
+        val txChannel = new UartIO()
     })
 
     val uartTx = Module(new write_translation_uart_Tx(addressWidth, sizeWidth, dataWidth, frequency, baudRate))
@@ -466,12 +404,14 @@ class write_translation(addressWidth: Int, sizeWidth: Int, dataWidth: Int, frequ
 
     writeAssign.io.ioHandshake <> uartTx.io.mainControlHandShake
 
-}
-/* object write_translation_mem_access extends App{
+    uartTx.io.txChannel <> io.txChannel
+
+} */
+object write_translation_mem_access extends App{
 
     val addressWidth: Int = 32
     val sizeWidth: Int = 2
     val dataWidth: Int = 32
 
-    (new chisel3.stage.ChiselStage).emitVerilog(new write_translation_mem_access(addressWidth, sizeWidth, dataWidth))
-} */
+    (new chisel3.stage.ChiselStage).emitVerilog(new write_translation_mem_access())
+}
