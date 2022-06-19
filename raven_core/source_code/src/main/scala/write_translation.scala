@@ -236,7 +236,7 @@ class write_translation_mem_access extends Module{
     val bursts = getBurstLength(forwardedWriteBuffer)
 
     io.writePort.cmd.instr  := "b000".U 
-    io.writePort.cmd.addr   := Cat(forwardedWriteBuffer.address(29, 2), "b00".U) //natural alignment
+    io.writePort.cmd.addr   := Cat(forwardedWriteBuffer.address(29, 2), 0.U(2.W)) //natural alignment
     io.writePort.cmd.bl     := bursts
 
     io.writePort.wr.data := presentedBeat.data
