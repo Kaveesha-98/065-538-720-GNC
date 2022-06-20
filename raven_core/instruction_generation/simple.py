@@ -11,20 +11,20 @@ newProgram.next_instruction(['li', 3, ord('\n')*2**24 + ord('s')*2**16 + ord('s'
 #newProgram.next_instruction(['li', 2,  ord('s')], True, 'start')
 #newProgram.next_instruction(['li', 3,  ord('e')], False, '')
 newProgram.next_instruction(['li', 4, 4], False, '')
-newProgram.next_instruction(['sb', 2, 0, 0], True, 'l1')
+newProgram.next_instruction(['sb', 2, 0, -1], True, 'l1')
 newProgram.next_instruction(['srai', 2, 2, 8], False, '')
 newProgram.next_instruction(['addi', 4, 4, -1], False, '')
 newProgram.next_instruction(['bne', 0, 4, 'l1'], False, '')
 newProgram.next_instruction(['li', 4, 4], False, '')
-newProgram.next_instruction(['sb', 3, 0, 0], True, 'l2')
+newProgram.next_instruction(['sb', 3, 0, -1], True, 'l2')
 newProgram.next_instruction(['srai', 3, 3, 8], False, '')
 newProgram.next_instruction(['addi', 4, 4, -1], False, '')
 newProgram.next_instruction(['bne', 0, 4, 'l2'], False, '')
 newProgram.next_instruction(['beq', 0, 0, 'start'], False, '')
 
-print(newProgram.print_assembly())
 
 newProgram.resolve_branches()
+print(newProgram.print_assembly())
 
 machineCode = newProgram.assemble()
 
