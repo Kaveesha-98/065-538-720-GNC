@@ -330,7 +330,45 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
     io.instructionMemPort.rd.en     := false.B
 
-    val coreConnected: Boolean = true
+    val coreConnected: Boolean = false
+
+    val ravenCore = Module(new raven_core_hart())
+    val writeTranslate = Module(new write_translation())
+
+    ravenCore.io.write_address_ready := writeTranslate.io.write_address_ready
+    writeTranslate.io.write_address := ravenCore.io.write_address
+    writeTranslate.io.write_address_size := ravenCore.io.write_address_size
+    writeTranslate.io.write_address_valid := ravenCore.io.write_address_valid
+
+    ravenCore.io.write_data_ready := writeTranslate.io.write_data_ready
+    writeTranslate.io.write_data_valid := ravenCore.io.write_data_valid
+    writeTranslate.io.store_data := ravenCore.io.store_data
+
+    writeTranslate.io.writePort.wr.count := 0.U
+    writeTranslate.io.writePort.wr.empty := false.B
+    writeTranslate.io.writePort.wr.error := false.B
+    writeTranslate.io.writePort.wr.full  := true.B
+    writeTranslate.io.writePort.wr.underrun := true.B
+
+    writeTranslate.io.writePort.cmd.empty := false.B
+    writeTranslate.io.writePort.cmd.error := false.B
+    writeTranslate.io.writePort.cmd.full  := true.B
+
+    io.instructionMemPort.cmd.addr  := ravenCore.io.instructionAddressIssueChannel.ARADDR
+    io.instructionMemPort.cmd.bl    := 0.U
+    io.instructionMemPort.cmd.instr := "b001".U
+    ravenCore.io.instructionAddressIssueChannel.ARREADY := io.startRead && (~io.instructionMemPort.cmd.full)
+    io.instructionMemPort.cmd.en    := io.startRead && ravenCore.io.instructionAddressIssueChannel.ARVALID
+
+    io.instructionMemPort.rd.en := ravenCore.io.instructionFetchChannel.RREADY
+    ravenCore.io.instructionFetchChannel.RVALID := ~io.instructionMemPort.rd.empty
+    ravenCore.io.instructionFetchChannel.RDATA := io.instructionMemPort.rd.data
+
+    ravenCore.io.load_data := 0.U
+    ravenCore.io.load_data_valid := 0.U
+    ravenCore.io.load_address_ready := 0.U
+
+    writeTranslate.io.txChannel.ready := false.B
 
     when(io.writingToMemory){
         // commenses write when a instruction has been recieved and assembled on uart
@@ -339,7 +377,25 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
 
     }otherwise{
 
-        if(!coreConnected){
+        /* if(!fpgaTesting){
+            fullMemRead(recievedAddress, io.instructionMemPort, io.startRead, io.chiselTxd)
+            io.txd := 0.U
+        } else {
+            val uartTx = Module(new Tx(uartFrequency, uartBaudRate))
+            io.txd := uartTx.io.txd
+            fullMemRead(recievedAddress, io.instructionMemPort, io.startRead, uartTx.io.channel)
+        } */
+
+        if(!fpgaTesting){
+            io.chiselTxd <> writeTranslate.io.txChannel
+            io.txd := 0.U
+        } else {
+            val uartTx = Module(new Tx(uartFrequency, uartBaudRate))
+            io.txd := uartTx.io.txd
+            uartTx.io.channel <> writeTranslate.io.txChannel
+        }
+
+        /* if(!coreConnected){
             if(!fpgaTesting){
                 fullMemRead(recievedAddress, io.instructionMemPort, io.startRead, io.chiselTxd)
                 io.txd := 0.U
@@ -349,41 +405,7 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
                 fullMemRead(recievedAddress, io.instructionMemPort, io.startRead, uartTx.io.channel)
             }
         }else{
-            val ravenCore = Module(new raven_core_hart())
-            val writeTranslate = Module(new write_translation())
-
-            ravenCore.io.write_address_ready := writeTranslate.io.write_address_ready
-            writeTranslate.io.write_address := ravenCore.io.write_address
-            writeTranslate.io.write_address_size := ravenCore.io.write_address_size
-            writeTranslate.io.write_address_valid := ravenCore.io.write_address_valid
-
-            ravenCore.io.write_data_ready := writeTranslate.io.write_data_ready
-            writeTranslate.io.write_data_valid := ravenCore.io.write_data_valid
-            writeTranslate.io.store_data := ravenCore.io.store_data
-
-            writeTranslate.io.writePort.wr.count := 0.U
-            writeTranslate.io.writePort.wr.empty := false.B
-            writeTranslate.io.writePort.wr.error := false.B
-            writeTranslate.io.writePort.wr.full  := true.B
-            writeTranslate.io.writePort.wr.underrun := true.B
-
-            writeTranslate.io.writePort.cmd.empty := false.B
-            writeTranslate.io.writePort.cmd.error := false.B
-            writeTranslate.io.writePort.cmd.full  := true.B
-
-            io.instructionMemPort.cmd.addr  := ravenCore.io.instructionAddressIssueChannel.ARADDR
-            io.instructionMemPort.cmd.bl    := 0.U
-            io.instructionMemPort.cmd.instr := "b001".U
-            ravenCore.io.instructionAddressIssueChannel.ARREADY := io.startRead && (~io.instructionMemPort.cmd.full)
-            io.instructionMemPort.cmd.en    := ravenCore.io.instructionAddressIssueChannel.ARVALID
-
-            io.instructionMemPort.rd.en := ravenCore.io.instructionFetchChannel.RREADY
-            ravenCore.io.instructionFetchChannel.RVALID := ~io.instructionMemPort.rd.empty
-            ravenCore.io.instructionFetchChannel.RDATA := io.instructionMemPort.rd.data
-
-            ravenCore.io.load_data := 0.U
-            ravenCore.io.load_data_valid := 0.U
-            ravenCore.io.load_address_ready := 0.U
+            
 
             if(!fpgaTesting){
                 io.chiselTxd <> writeTranslate.io.txChannel
@@ -393,7 +415,7 @@ class testBench_with_memory(uartFrequency: Int, uartBaudRate: Int, fpgaTesting: 
                 io.txd := uartTx.io.txd
                 uartTx.io.channel <> writeTranslate.io.txChannel
             }
-        }
+        } */
     }
 
     val stateReg = Reg(UInt(32.W))
