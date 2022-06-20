@@ -317,9 +317,9 @@ class write_translation_uart_Tx extends Module{
             stateReg := transmitting
         }
         is(transmitting){
-            when(byteCount === 0.U){
+            when(byteCount === 0.U && io.txChannel.ready){
                 stateReg := ready
-            }.otherwise{
+            }.elsewhen(io.txChannel.ready){
                 byteCount := byteCount - 1.U
                 forwardedWriteBuffer.data := Cat(0.U(8.W), forwardedWriteBuffer.data(31, 8))
             }
